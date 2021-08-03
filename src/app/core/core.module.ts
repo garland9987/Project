@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { NavigationModule } from './module/navigation/navigation.module';
+import { NotFoundModule } from './module/not-found/not-found.module';
 
 @NgModule({
-	declarations: [],
 	imports: [
 		CommonModule,
-		NavigationModule
+		NavigationModule,
+		NotFoundModule
 	],
 	exports: [
 		NavigationModule
