@@ -1,0 +1,19 @@
+@import '_utilities';
+
+// the input sequence of $directions: top, left, right, bottom
+@mixin position($position, $directions...) {
+	position: $position;
+
+	@if length($directions) > 4 { @error 'too many arguments for $directions'; }
+
+	@if length($directions) >= 1 { top: nth($directions, 1); }
+	@if length($directions) >= 2 { left: nth($directions, 2); }
+	@if length($directions) >= 3 { right: nth($directions, 3); }
+	@if length($directions) == 4 { bottom: nth($directions, 4); }
+}
+
+@mixin view-inner-height($view-height, $vertical-padding) {
+	display: block;
+	height: subtract($view-height, ($vertical-padding * 2));
+	overflow: scroll;
+}

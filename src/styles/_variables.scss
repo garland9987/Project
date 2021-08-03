@@ -1,0 +1,22 @@
+@import '_utilities';
+
+$banner-height: 4rem;
+$banner-indent: 1rem;
+
+$view-height: subtract(100vh, $banner-height);
+$view-h-indent: 1rem;	// horizontal
+$view-v-indent: 1rem;	// vertical
+
+// custom form variables
+$normal-color-1: #ced4da;
+$normal-color-2: #80bdff;
+$normal-color-3: #c3deff;
+$normal-color-4: #007bfe;
+
+$valid-color-1: #28a745;
+$valid-color-2: #cae9d1;
+$valid-color-3: #34ce57;
+
+$invalid-color-1: #dc3645;
+$invalid-color-2: #f7cdd1;
+$invalid-color-3: #e45f6c;

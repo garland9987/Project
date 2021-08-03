@@ -7,9 +7,12 @@ import { Navigation } from '@core/model/navigation.model';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	public items: Navigation[] = [];
+	public brand: string = 'Falcon';
+	public items: Navigation[];
 
 	ngOnInit() {
-		this.items.push(new Navigation('Home', '/home'));
+		this.items = [
+			new Navigation('Home', '/home')
+		];
 	}
 }

@@ -1,13 +1,15 @@
-<div class="container-fluid">
+<app-navigation [brand]="brand" [items]="items"></app-navigation>
+
+<div class="container-fluid view-container">
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-sm-3 view-navigation">
 			<div class="d-grid gap-2">
 				<button class="btn btn-primary" *ngFor="let item of items" [routerLink]="[item.url]">
 					{{ item.label }}
 				</button>
 			</div>
 		</div>
-		<div class="col-sm-9">
+		<div class="col-sm-9 view-content">
 			<router-outlet></router-outlet>
 		</div>
 	</div>

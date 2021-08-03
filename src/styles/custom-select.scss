@@ -1,0 +1,66 @@
+@use 'sass:map';
+@import '_variables';
+
+// select status (normal, valid and invalid)
+
+$custom-select: (
+	'.falcon-custom-select': (
+		'border-color-1': $normal-color-1,
+		'border-color-2': $normal-color-2,
+		'shadow-color': $normal-color-3,
+		'background-image': null
+	),
+	'.falcon-custom-select.falcon-control-valid': (
+		'border-color-1': $valid-color-1,
+		'border-color-2': $valid-color-1,
+		'shadow-color': $valid-color-2,
+		'background-image': url('/assets/icons/input-text-valid.svg')
+	),
+	'.falcon-custom-select.falcon-control-invalid': (
+		'border-color-1': $invalid-color-1,
+		'border-color-2': $invalid-color-1,
+		'shadow-color': $invalid-color-2,
+		'background-image': url('/assets/icons/input-text-invalid.svg')
+	)
+);
+
+@each $selector, $properties in $custom-select {
+
+	$border-color-1: map.get($properties, 'border-color-1');
+	$border-color-2: map.get($properties, 'border-color-2');
+	$shadow-color: map.get($properties, 'shadow-color');
+	$background-image: map.get($properties, 'background-image');
+
+	select#{$selector} {
+		display: block;
+
+		width: 100%;
+		height: 2.5rem;
+
+		padding: .3rem 2rem .3rem .8rem;
+		@if $background-image { padding: .3rem 3rem .3rem .8rem; }
+
+		border: 1px solid $border-color-1;
+		border-radius: .25rem;
+
+		color: #495057;
+		outline: none;
+		appearance: none;
+
+		background-image: url('/assets/icons/select-caret.svg');
+		background-repeat: no-repeat;
+		background-size: .6rem .6rem;
+		background-position: right .7rem top 50%;
+		@if $background-image {
+			background-image: url('/assets/icons/select-caret.svg'), $background-image;
+			background-repeat: no-repeat, no-repeat;
+			background-size: .6rem .6rem, 1.2rem 1.2rem;
+			background-position: right .6rem top 50%, right 1.8rem top 50%;
+		}
+	}
+
+	select:focus#{$selector} {
+		border: 1px solid $border-color-2;
+		box-shadow: 0 0 0 3px $shadow-color;
+	}
+}

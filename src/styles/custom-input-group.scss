@@ -1,0 +1,84 @@
+@use 'sass:map';
+@import '_variables';
+
+// input group status (normal, valid and invalid) (type includes 'text', 'email' and 'password')
+
+$custom-input-group: (
+	'.falcon-input-group': (
+		'border-color-1': $normal-color-1,
+		'border-color-2': $normal-color-2,
+		'shadow-color': $normal-color-3,
+		'background-image': null
+	),
+	'.falcon-input-group.falcon-control-valid': (
+		'border-color-1': $valid-color-1,
+		'border-color-2': $valid-color-1,
+		'shadow-color': $valid-color-2,
+		'background-image': url('/assets/icons/input-text-valid.svg')
+	),
+	'.falcon-input-group.falcon-control-invalid': (
+		'border-color-1': $invalid-color-1,
+		'border-color-2': $invalid-color-1,
+		'shadow-color': $invalid-color-2,
+		'background-image': url('/assets/icons/input-text-invalid.svg')
+	)
+);
+
+$custom-input-type: 'text', 'email', 'password';
+
+@each $selector, $properties in $custom-input-group {
+
+	$border-color-1: map.get($properties, 'border-color-1');
+	$border-color-2: map.get($properties, 'border-color-2');
+	$shadow-color: map.get($properties, 'shadow-color');
+	$background-image: map.get($properties, 'background-image');
+
+	@each $type in $custom-input-type {
+		#{$selector} {
+			display: grid;
+			grid-template-columns: auto 1fr auto;
+
+			border: 1px solid $border-color-1;
+			border-radius: .25rem;
+
+			&:focus-within {
+				border: 1px solid $border-color-2;
+				box-shadow: 0 0 0 3px $shadow-color;
+			}
+
+			.falcon-input-group-prepend {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				border: none;
+				border-radius: .25rem 0 0 .25rem;
+				background-color: #e9ecef;
+			}
+
+			.falcon-input-group-append {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				border: none;
+				border-radius: 0 .25rem .25rem 0;
+				background-color: #e9ecef;
+			}
+
+			input[type=#{$type}] {
+				border: none;
+				box-shadow: none;
+
+				@if $background-image {
+					padding-right: 2rem;
+
+					background-image: $background-image;
+					background-repeat: no-repeat;
+					background-size: 1.2rem 1.2rem;
+					background-position: right .4rem top 50%;
+				}
+			}
+		}
+	}
+}

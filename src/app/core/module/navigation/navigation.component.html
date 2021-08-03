@@ -1,0 +1,15 @@
+<div class="nav">
+	<div class="nav-sidebar-trigger" (click)="showModal()"></div>
+	<div class="nav-brand">{{ brand }}</div>
+</div>
+
+<div #modal class="nav-sidebar-modal hide-sidebar-modal" (click)="hideModal()">
+	<div #modalContent class="nav-sidebar-content">
+		<div class="nav-sidebar-header"></div>
+		<div class="nav-sidebar-body">
+			<div class="nav-sidebar-item" *ngFor="let item of items" [routerLink]="[item.url]">
+				{{ item.label }}
+			</div>
+		</div>
+	</div>
+</div>

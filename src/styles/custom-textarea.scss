@@ -1,0 +1,39 @@
+@use 'sass:map';
+@import '_variables';
+
+// textarea validation status
+
+$custom-textarea: (
+	'.falcon-control-valid': (
+		'border-color': $valid-color-1,
+		'shadow-color': $valid-color-2,
+		'background-image': url('/assets/icons/input-text-valid.svg')
+	),
+	'.falcon-control-invalid': (
+		'border-color': $invalid-color-1,
+		'shadow-color': $invalid-color-2,
+		'background-image': url('/assets/icons/input-text-invalid.svg')
+	)
+);
+
+@each $selector, $properties in $custom-textarea {
+
+	$border-color: map.get($properties, 'border-color');
+	$shadow-color: map.get($properties, 'shadow-color');
+	$background-image: map.get($properties, 'background-image');
+
+	textarea#{$selector} {
+		padding-right: 2rem;
+		border: 1px solid $border-color;
+
+		background-image: $background-image;
+		background-repeat: no-repeat;
+		background-size: 1.2rem 1.2rem;
+		background-position: right .4rem top 10%;
+	}
+
+	textarea:focus#{$selector} {
+		border: 1px solid $border-color;
+		box-shadow: 0 0 0 3px $shadow-color;
+	}
+}

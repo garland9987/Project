@@ -1,0 +1,103 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.nav {
+	@include position(fixed, 0, 0);
+	z-index: 10000;
+
+	display: flex;
+	align-items: center;
+	column-gap: .5rem;
+
+	width: 100%;
+	height: $banner-height;
+	padding: 0 $banner-indent;
+
+	color: #fff;
+	background-color: #007bfe;
+
+	.nav-sidebar-trigger {
+		width: 2rem;
+		height: 2rem;
+
+		cursor: pointer;
+		background-image: url('/assets/icons/sidebar-trigger.svg');
+		background-repeat: no-repeat;
+		background-size: contain;
+
+		@media (min-width: 576px) {
+			display: none;
+		}
+	}
+
+	.nav-brand {
+		display: none;
+
+		@media (min-width: 576px) {
+			display: block;
+			font-size: 2rem;
+		}
+	}
+}
+
+@keyframes show-sidebar-content {
+	0% { transform: translateX(-100%); }
+	100% { transform: translateX(0%); }
+}
+
+@keyframes hide-sidebar-content {
+	0% { transform: translateX(0%); }
+	100% { transform: translateX(-100%); }
+}
+
+.nav-sidebar-modal {
+	@include position(fixed, 0, 0, 0, 0);
+	z-index: 10000;
+
+	background-color: rgba(255, 255, 255, 0);
+
+	&.show-sidebar-modal { display: block; }
+	&.hide-sidebar-modal { display: none; }
+
+	.nav-sidebar-content {
+		@include position(absolute, 0, 0);
+		z-index: 10000;
+
+		width: 15rem;
+		height: 100vh;
+		padding: 0 3px;
+		border-radius: 3px;
+
+		color: #fff;
+		background-color: #5e6062;
+		box-shadow: inset 3px 3px #4b4d4e,
+					inset -3px -3px #707375;
+
+		&.show-sidebar-content { animation: show-sidebar-content .5s backwards; }
+		&.hide-sidebar-content { animation: hide-sidebar-content .5s forwards; }
+
+		.nav-sidebar-header {
+			height: $banner-height;
+			border-bottom: 1px solid #fff;
+		}
+
+		.nav-sidebar-body {
+			height: $view-height;
+			overflow: scroll;
+
+			.nav-sidebar-item {
+				padding: .5rem 1rem;
+				padding-right: 1.5rem;
+
+				cursor: pointer;
+				outline: none;
+
+				background-image: url('/assets/icons/sidebar-item.svg');
+				background-repeat: no-repeat;
+				background-size: 1.1rem 1.1rem;
+				background-position: right 0 top 50%;
+			}
+		}
+	}
+}

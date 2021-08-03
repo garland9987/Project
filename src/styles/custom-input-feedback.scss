@@ -1,0 +1,19 @@
+@import '_variables';
+
+.falcon-feedback-valid,
+.falcon-feedback-invalid {
+	display: none;
+	margin-top: .25rem;
+	font-size: .8rem;
+}
+
+.falcon-feedback-valid { color: $valid-color-1; }
+.falcon-feedback-invalid { color: $invalid-color-1; }
+
+.falcon-control-valid ~ .falcon-feedback-valid,
+.falcon-control-valid > .falcon-feedback-valid,
+.falcon-control-invalid ~ .falcon-feedback-invalid,
+.falcon-control-invalid > .falcon-feedback-invalid {
+	display: block;
+}
+

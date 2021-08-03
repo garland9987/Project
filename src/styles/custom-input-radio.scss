@@ -1,0 +1,78 @@
+@use 'sass:map';
+@import '_variables';
+
+// input radio status (normal, valid and invalid)
+
+$type: 'radio';
+
+$custom-radio: (
+	'.falcon-custom-radio': (
+		'label-color': null,
+		'border-color-1': $normal-color-1,
+		'border-color-2': $normal-color-2,
+		'shadow-color': $normal-color-3,
+		'border-color-3': $normal-color-4
+	),
+	'.falcon-custom-radio.falcon-control-valid': (
+		'label-color': $valid-color-1,
+		'border-color-1': $valid-color-1,
+		'border-color-2': $valid-color-1,
+		'shadow-color': $valid-color-2,
+		'border-color-3': $valid-color-3
+	),
+	'.falcon-custom-radio.falcon-control-invalid': (
+		'label-color': $invalid-color-1,
+		'border-color-1': $invalid-color-1,
+		'border-color-2': $invalid-color-1,
+		'shadow-color': $invalid-color-2,
+		'border-color-3': $invalid-color-3
+	)
+);
+
+@each $selector, $properties in $custom-radio {
+
+	$label-color: map.get($properties, 'label-color');
+	$border-color-1: map.get($properties, 'border-color-1');
+	$border-color-2: map.get($properties, 'border-color-2');
+	$shadow-color: map.get($properties, 'shadow-color');
+	$border-color-3: map.get($properties, 'border-color-3');
+
+	#{$selector} {
+		position: relative;
+		display: inline-block;
+
+		input[type=#{$type}], label { all: unset; }
+
+		input[type=#{$type}] {
+			position: absolute;
+			z-index: -1;
+			opacity: 0;
+		}
+
+		input[type=#{$type}] + label {
+			display: inline-flex;
+			align-items: center;
+
+			@if $label-color { color: $label-color; }
+		}
+
+		input[type=#{$type}] + label::before {
+			content: '';
+
+			width: 1rem;
+			height: 1rem;
+			border: 1px solid $border-color-1;
+			border-radius: 50%;
+			margin-right: .5rem;
+		}
+
+		input[type=#{$type}]:focus + label::before {
+			border: 1px solid $border-color-2;
+			box-shadow: 0 0 0 3px $shadow-color;
+		}
+
+		input[type=#{$type}]:checked + label::before {
+			border: .35rem solid $border-color-3;
+		}
+	}
+}

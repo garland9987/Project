@@ -1,0 +1,43 @@
+@use 'sass:map';
+@import '_variables';
+
+// input validation status (type includes 'text', 'email' and 'password')
+
+$custom-input: (
+	'.falcon-control-valid': (
+		'border-color': $valid-color-1,
+		'shadow-color': $valid-color-2,
+		'background-image': url('/assets/icons/input-text-valid.svg')
+	),
+	'.falcon-control-invalid': (
+		'border-color': $invalid-color-1,
+		'shadow-color': $invalid-color-2,
+		'background-image': url('/assets/icons/input-text-invalid.svg')
+	)
+);
+
+$custom-input-type: 'text', 'email', 'password';
+
+@each $selector, $properties in $custom-input {
+
+	$border-color: map.get($properties, 'border-color');
+	$shadow-color: map.get($properties, 'shadow-color');
+	$background-image: map.get($properties, 'background-image');
+
+	@each $type in $custom-input-type {
+		input[type=#{$type}]#{$selector} {
+			padding-right: 2rem;
+			border: 1px solid $border-color;
+
+			background-image: $background-image;
+			background-repeat: no-repeat;
+			background-size: 1.2rem 1.2rem;
+			background-position: right .4rem top 50%;
+		}
+
+		input[type=#{$type}]:focus#{$selector} {
+			border: 1px solid $border-color;
+			box-shadow: 0 0 0 3px $shadow-color;
+		}
+	}
+}

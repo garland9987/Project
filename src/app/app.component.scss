@@ -1,0 +1,22 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.view-container {
+	height: $view-height;
+	padding: $view-v-indent $view-h-indent;
+	margin-top: $banner-height;
+	overflow: hidden;
+
+	.view-navigation {
+		display: none;
+
+		@media (min-width: 576px) {
+			@include view-inner-height($view-height, $view-v-indent);
+		}
+	}
+
+	.view-content {
+		@include view-inner-height($view-height, $view-v-indent);
+	}
+}
