@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { Navigation } from '@core/model/navigation.model';
+import { Navigation } from '@shared/model/navigation';
 
 @Component({
 	selector: 'app-navigation',

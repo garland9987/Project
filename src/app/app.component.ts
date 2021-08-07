@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Navigation } from '@core/model/navigation.model';
+import { Navigation } from '@shared/model/navigation';
 
 @Component({
 	selector: 'app-root',
