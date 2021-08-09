@@ -1,0 +1,10 @@
+<div class="file-upload">
+	<div class="file-upload-operation">
+		<input type="file" id="file" [accept]="fileType" (change)="upload($event)" (blur)="blur()">
+		<label for="file">Upload File</label>
+	</div>
+	<div class="file-upload-result" *ngIf="fileName">
+		<span class="file-name">{{ fileName }}</span>
+		<span class="close" (click)="remove()"></span>
+	</div>
+</div>

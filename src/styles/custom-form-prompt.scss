@@ -1,0 +1,18 @@
+@import '_variables';
+
+.form-valid-prompt,
+.form-invalid-prompt {
+	display: none;
+	margin-top: .25rem;
+	font-size: .8rem;
+}
+
+.form-valid-prompt { color: $color-form-valid-font; }
+.form-invalid-prompt { color: $color-form-invalid-font; }
+
+.form-valid-status > .form-valid-prompt,
+.form-valid-status ~ .form-valid-prompt,
+.form-invalid-status > .form-invalid-prompt,
+.form-invalid-status ~ .form-invalid-prompt {
+	display: block;
+}

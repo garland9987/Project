@@ -2,32 +2,32 @@
 @import '_variables';
 
 // input validation status (type includes 'text', 'email' and 'password')
-
-$custom-input: (
-	'.falcon-control-valid': (
-		'border-color': $valid-color-1,
-		'shadow-color': $valid-color-2,
+$input-type: 'text', 'email', 'password';
+$input: (
+	'.form-valid-status': (
+		'color-border-normal': $color-form-valid-border-normal,
+		'color-border-focus': $color-form-valid-border-focus,
+		'color-boxshadow': $color-form-valid-boxshadow,
 		'background-image': url('/assets/icons/input-text-valid.svg')
 	),
-	'.falcon-control-invalid': (
-		'border-color': $invalid-color-1,
-		'shadow-color': $invalid-color-2,
+	'.form-invalid-status': (
+		'color-border-normal': $color-form-invalid-border-normal,
+		'color-border-focus': $color-form-invalid-border-focus,
+		'color-boxshadow': $color-form-invalid-boxshadow,
 		'background-image': url('/assets/icons/input-text-invalid.svg')
 	)
 );
 
-$custom-input-type: 'text', 'email', 'password';
-
-@each $selector, $properties in $custom-input {
-
-	$border-color: map.get($properties, 'border-color');
-	$shadow-color: map.get($properties, 'shadow-color');
+@each $selector, $properties in $input {
+	$color-border-normal: map.get($properties, 'color-border-normal');
+	$color-border-focus: map.get($properties, 'color-border-focus');
+	$color-boxshadow: map.get($properties, 'color-boxshadow');
 	$background-image: map.get($properties, 'background-image');
 
-	@each $type in $custom-input-type {
+	@each $type in $input-type {
 		input[type=#{$type}]#{$selector} {
 			padding-right: 2rem;
-			border: 1px solid $border-color;
+			border: 1px solid $color-border-normal;
 
 			background-image: $background-image;
 			background-repeat: no-repeat;
@@ -36,8 +36,8 @@ $custom-input-type: 'text', 'email', 'password';
 		}
 
 		input[type=#{$type}]:focus#{$selector} {
-			border: 1px solid $border-color;
-			box-shadow: 0 0 0 3px $shadow-color;
+			border: 1px solid $color-border-focus;
+			box-shadow: 0 0 0 3px $color-boxshadow;
 		}
 	}
 }

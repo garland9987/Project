@@ -2,69 +2,59 @@
 @import '_variables';
 
 // input group status (normal, valid and invalid) (type includes 'text', 'email' and 'password')
-
-$custom-input-group: (
-	'.falcon-input-group': (
-		'border-color-1': $normal-color-1,
-		'border-color-2': $normal-color-2,
-		'shadow-color': $normal-color-3,
+$input-type: 'text', 'email', 'password';
+$input-group: (
+	'.input-group': (
+		'color-border-normal': $color-form-border-normal,
+		'color-border-focus': $color-form-border-focus,
+		'color-boxshadow': $color-form-boxshadow,
 		'background-image': null
 	),
-	'.falcon-input-group.falcon-control-valid': (
-		'border-color-1': $valid-color-1,
-		'border-color-2': $valid-color-1,
-		'shadow-color': $valid-color-2,
+	'.input-group.form-valid-status': (
+		'color-border-normal': $color-form-valid-border-normal,
+		'color-border-focus': $color-form-valid-border-focus,
+		'color-boxshadow': $color-form-valid-boxshadow,
 		'background-image': url('/assets/icons/input-text-valid.svg')
 	),
-	'.falcon-input-group.falcon-control-invalid': (
-		'border-color-1': $invalid-color-1,
-		'border-color-2': $invalid-color-1,
-		'shadow-color': $invalid-color-2,
+	'.input-group.form-invalid-status': (
+		'color-border-normal': $color-form-invalid-border-normal,
+		'color-border-focus': $color-form-invalid-border-focus,
+		'color-boxshadow': $color-form-invalid-boxshadow,
 		'background-image': url('/assets/icons/input-text-invalid.svg')
 	)
 );
 
-$custom-input-type: 'text', 'email', 'password';
-
-@each $selector, $properties in $custom-input-group {
-
-	$border-color-1: map.get($properties, 'border-color-1');
-	$border-color-2: map.get($properties, 'border-color-2');
-	$shadow-color: map.get($properties, 'shadow-color');
+@each $selector, $properties in $input-group {
+	$color-border-normal: map.get($properties, 'color-border-normal');
+	$color-border-focus: map.get($properties, 'color-border-focus');
+	$color-boxshadow: map.get($properties, 'color-boxshadow');
 	$background-image: map.get($properties, 'background-image');
 
-	@each $type in $custom-input-type {
+	@each $type in $input-type {
 		#{$selector} {
-			display: grid;
-			grid-template-columns: auto 1fr auto;
+			display: flex;
 
-			border: 1px solid $border-color-1;
+			border: 1px solid $color-border-normal;
 			border-radius: .25rem;
 
 			&:focus-within {
-				border: 1px solid $border-color-2;
-				box-shadow: 0 0 0 3px $shadow-color;
+				border: 1px solid $color-border-focus;
+				box-shadow: 0 0 0 3px $color-boxshadow;
 			}
 
-			.falcon-input-group-prepend {
+			.input-group-prepend,
+			.input-group-append {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 
+				padding: 0 .5rem;
 				border: none;
-				border-radius: .25rem 0 0 .25rem;
 				background-color: #e9ecef;
 			}
 
-			.falcon-input-group-append {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				border: none;
-				border-radius: 0 .25rem .25rem 0;
-				background-color: #e9ecef;
-			}
+			.input-group-prepend { border-radius: .25rem 0 0 .25rem; }
+			.input-group-append { border-radius: 0 .25rem .25rem 0; }
 
 			input[type=#{$type}] {
 				border: none;

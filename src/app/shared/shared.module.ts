@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { FileUploadComponent } from './component/file-upload/file-upload.component';
+
 @NgModule({
-	declarations: [],
+	declarations: [
+		FileUploadComponent
+	],
 	imports: [
 		CommonModule,
 		RouterModule,
@@ -15,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		CommonModule,
 		RouterModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		FileUploadComponent
 	]
 })
 export class SharedModule { }

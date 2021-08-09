@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.items = [
-			new Navigation('Home', '/home')
+			new Navigation('Home', '/home'),
+			new Navigation('Reactive Form', '/reactive-form')
 		];
 	}
 }

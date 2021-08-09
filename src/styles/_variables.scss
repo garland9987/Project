@@ -8,15 +8,19 @@ $view-h-indent: 1rem;	// horizontal
 $view-v-indent: 1rem;	// vertical
 
 // custom form variables
-$normal-color-1: #ced4da;
-$normal-color-2: #80bdff;
-$normal-color-3: #c3deff;
-$normal-color-4: #007bfe;
+$color-form-border-normal: #ced4da;
+$color-form-border-focus: #80bdff;
+$color-form-border-checked: #007bfe;
+$color-form-boxshadow: #c3deff;
 
-$valid-color-1: #28a745;
-$valid-color-2: #cae9d1;
-$valid-color-3: #34ce57;
+$color-form-valid-font: #28a745;
+$color-form-valid-border-normal: #28a745;
+$color-form-valid-border-focus: #28a745;
+$color-form-valid-border-checked: #34ce57;
+$color-form-valid-boxshadow: #cae9d1;
 
-$invalid-color-1: #dc3645;
-$invalid-color-2: #f7cdd1;
-$invalid-color-3: #e45f6c;
+$color-form-invalid-font: #dc3645;
+$color-form-invalid-border-normal: #dc3645;
+$color-form-invalid-border-focus: #dc3645;
+$color-form-invalid-border-checked: #e45f6c;
+$color-form-invalid-boxshadow: #f7cdd1;

@@ -1,0 +1,99 @@
+<h1>{{ title }}</h1>
+<hr>
+
+<form class="form mb-3" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+	<div class="form-name" formGroupName="name">
+		<!-- first name -->
+		<div class="form-first-name mb-3">
+			<label for="firstName" class="form-label">First Name</label>
+			<input type="text" id="firstName" class="form-control" formControlName="firstName" [ngClass]="validation(firstName)">
+			<span class="form-invalid-prompt" *ngIf="firstName.errors?.required">First name is required</span>
+			<span class="form-invalid-prompt" *ngIf="firstName.errors?.pattern">Please enter characters only</span>
+		</div>
+
+		<!-- last name -->
+		<div class="form-last-name mb-3">
+			<label for="lastName" class="form-label">Last Name</label>
+			<input type="text" id="lastName" class="form-control" formControlName="lastName" [ngClass]="validation(lastName)">
+			<span class="form-invalid-prompt" *ngIf="lastName.errors?.required">Last name is required</span>
+			<span class="form-invalid-prompt" *ngIf="lastName.errors?.pattern">Please enter characters only</span>
+		</div>
+	</div>
+
+	<!-- phone -->
+	<div class="form-phone mb-3">
+		<label for="phone" class="form-label">Phone Number</label>
+		<input type="text" id="phone" class="form-control" formControlName="phone" [ngClass]="validation(phone)">
+		<span class="form-invalid-prompt" *ngIf="phone.errors?.required">Phone number is required</span>
+		<span class="form-invalid-prompt" *ngIf="phone.errors?.pattern">Please enter digits only</span>
+		<span class="form-invalid-prompt" *ngIf="phone.errors?.startsWith">Phone number should start with {{ phone.errors.startsWith.value }}</span>
+	</div>
+
+	<!-- email -->
+	<div class="form-email mb-3">
+		<label for="email" class="form-label">Email</label>
+		<input type="email" id="email" class="form-control" formControlName="email" [ngClass]="validation(email)">
+		<span class="form-invalid-prompt" *ngIf="email.errors?.required">Email is required</span>
+		<span class="form-invalid-prompt" *ngIf="email.errors?.email">Invalid email format</span>
+	</div>
+
+	<!-- salary -->
+	<div class="form-salary mb-3">
+		<label for="salary" class="form-label">Salary</label>
+		<div class="input-group" [ngClass]="validation(salary)">
+			<div class="input-group-prepend">$</div>
+			<input type="text" id="salary" class="form-control" formControlName="salary">
+		</div>
+		<span class="form-invalid-prompt" *ngIf="salary.errors?.required">salary is required</span>
+		<span class="form-invalid-prompt" *ngIf="salary.errors?.pattern">Please enter an integer or decimal</span>
+	</div>
+
+	<!-- gender -->
+	<div class="form-gender mb-3">
+		<div class="input-radio me-3" [ngClass]="validation(gender)">
+			<input type="radio" id="male" name="gender" value="male" formControlName="gender">
+			<label for="male">Male</label>
+		</div>
+		<div class="input-radio" [ngClass]="validation(gender)">
+			<input type="radio" id="female" name="gender" value="female" formControlName="gender">
+			<label for="female">Female</label>
+		</div>
+		<span class="form-invalid-prompt" *ngIf="gender.errors?.required">Gender is required</span>
+	</div>
+
+	<!-- nationality -->
+	<div class="form-nationality mb-3">
+		<label for="nationality" class="form-label">Nationality</label>
+		<select id="nationality" class="custom-select" formControlName="nationality" [ngClass]="validation(nationality)">
+			<option *ngFor="let country of countries" [ngValue]="country">{{ country }}</option>
+		</select>
+		<span class="form-invalid-prompt" *ngIf="nationality.errors?.required">Nationality is required</span>
+	</div>
+
+	<div class="form-description mb-3">
+		<label for="description" class="form-label">Description</label>
+		<textarea id="description" rows="3" class="form-control" formControlName="description" [ngClass]="validation(description)"></textarea>
+	</div>
+
+	<!-- isAgreed -->
+	<div class="form-agreed mb-3">
+		<div class="input-checkbox" [ngClass]="validation(isAgreed)">
+			<input type="checkbox" id="isAgreed" formControlName="isAgreed">
+			<label for="isAgreed">I agree to the Terms and Conditions</label>
+		</div>
+		<span class="form-invalid-prompt" *ngIf="isAgreed.errors?.isNotChecked">
+			Before you can proceed you must read and accept the Terms & Conditions.
+		</span>
+	</div>
+
+	<!-- file upload -->
+	<div class="form-file-upload mb-3">
+		<app-file-upload fileType="image/*" formControlName="file" [ngClass]="validation(file)"></app-file-upload>
+		<span class="form-invalid-prompt" *ngIf="file.errors?.required">File is required</span>
+	</div>
+
+	<!-- submit -->
+	<div class="form-submit">
+		<button class="btn btn-success" [disabled]="formGroup.invalid">Submit</button>
+	</div>
+</form>

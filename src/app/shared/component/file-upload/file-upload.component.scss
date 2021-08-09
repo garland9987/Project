@@ -1,0 +1,122 @@
+@use 'sass:map';
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.file-upload {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+
+	width: 100%;
+	padding: 1rem;
+	border: 1px solid $color-form-border-normal;
+	border-radius: .25rem;
+
+	&:focus-within {
+		border: 1px solid $color-form-border-focus;
+		box-shadow: 0 0 0 3px $color-form-boxshadow;
+	}
+
+	.file-upload-operation {
+		position: relative;
+
+		input[type="file"] {
+			position: absolute;
+			z-index: -1;
+			opacity: 0;
+			max-width: 0;
+			max-height: 0;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			row-gap: .5rem;
+
+			width: 100%;
+			padding: 1rem;
+			border: 1px dashed #66ccff;
+			border-radius: .25rem;
+
+			cursor: pointer;
+
+			&::before {
+				content: '';
+
+				display: block;
+				width: 3.5rem;
+				height: 3.5rem;
+
+				background-image: url('/assets/icons/file.svg');
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
+	}
+
+	.file-upload-result {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		width: 100%;
+		padding: 1rem;
+		border: 1px solid #d3d9de;
+		border-radius: .25rem;
+		background-color: #f1f2f3;
+
+		.file-name {
+			display: block;
+			width: 100%;
+
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.close {
+			display: block;
+
+			width: 24px;
+			height: 24px;
+
+			background-image: url('/assets/icons/close.svg');
+			background-repeat: no-repeat;
+			background-size: contain;
+
+			cursor: pointer;
+		}
+	}
+}
+
+$file-upload-status: (
+	'.form-valid-status': (
+		'color-border-normal': $color-form-valid-border-normal,
+		'color-border-focus': $color-form-valid-border-focus,
+		'color-boxshadow': $color-form-valid-boxshadow
+	),
+	'.form-invalid-status': (
+		'color-border-normal': $color-form-invalid-border-normal,
+		'color-border-focus': $color-form-invalid-border-focus,
+		'color-boxshadow': $color-form-invalid-boxshadow
+	)
+);
+
+@each $selector, $properties in $file-upload-status {
+	$color-border-normal: map.get($properties, 'color-border-normal');
+	$color-border-focus: map.get($properties, 'color-border-focus');
+	$color-boxshadow: map.get($properties, 'color-boxshadow');
+
+	:host#{$selector} {
+		.file-upload {
+			border: 1px solid $color-border-normal;
+
+			&:focus-within {
+				border: 1px solid $color-border-focus;
+				box-shadow: 0 0 0 3px $color-boxshadow;
+			}
+		}
+	}
+}
