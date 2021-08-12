@@ -15,5 +15,5 @@
 @mixin view-inner-height($view-height, $vertical-padding) {
 	display: block;
 	height: subtract($view-height, ($vertical-padding * 2));
-	overflow: scroll;
+	overflow-y: auto;
 }

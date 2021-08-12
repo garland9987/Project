@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Renderer2, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Navigation } from '@shared/model/navigation';
 
 @Component({
@@ -6,7 +6,9 @@ import { Navigation } from '@shared/model/navigation';
 	templateUrl: './navigation.component.html',
 	styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit, AfterContentInit,AfterViewInit {
+	public userName: string = 'Mark123@gmail.com';
+
 	@Input() brand: string;
 	@Input() items: Navigation[];
 
@@ -32,4 +34,9 @@ export class NavigationComponent {
 			this.renderer.addClass(this.modal.nativeElement, 'hide-sidebar-modal');
 		}, 500);
 	}
+
+	// test of lifecycle hooks
+	ngOnInit() { console.log('NavigationComponent -- ngOnInit'); }
+	ngAfterContentInit() { console.log('NavigationComponent -- ngAfterContentInit'); }
+	ngAfterViewInit() { console.log('NavigationComponent -- ngAfterViewInit'); }
 }

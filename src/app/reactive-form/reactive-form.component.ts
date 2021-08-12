@@ -16,13 +16,13 @@ export class ReactiveFormComponent implements OnInit {
 
 	constructor(private formBuilder: FormBuilder) {}
 
-	ngOnInit(): void {
+	ngOnInit() {
 		this.formGroup = this.formBuilder.group({
 			name: this.formBuilder.group({
 				firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
 				lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]]
 			}),
-			phone: ['', [Validators.required, Validators.pattern('^[0-9 ]+$'), CustomValidators.startsWith('04')]],
+			phone: ['', [Validators.required, Validators.pattern('^[0-9]+$'), CustomValidators.startsWith('04')]],
 			email: ['', [Validators.required, Validators.email]],
 			salary: ['', [Validators.required, Validators.pattern('^([0-9]+)(\.[0-9]+)*$')]],
 			gender: ['', [Validators.required]],

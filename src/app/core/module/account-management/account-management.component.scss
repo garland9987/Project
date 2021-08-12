@@ -1,0 +1,20 @@
+.account {
+	display: inline-block;
+
+	max-width: 2rem;
+	overflow-x: hidden;
+
+	color: transparent;
+
+	background-image: url('/assets/icons/login.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: top 50% left 50%;
+
+	@media (min-width: 576px) {
+		max-width: none;
+		overflow-x: visible;
+		color: inherit;
+		background-image: none;
+	}
+}

@@ -38,12 +38,12 @@ $input-radio: (
 		position: relative;
 		display: inline-block;
 
-		input[type=#{$type}], label { all: unset; }
-
 		input[type=#{$type}] {
 			position: absolute;
 			z-index: -1;
 			opacity: 0;
+			width: 0;
+			height: 0;
 		}
 
 		input[type=#{$type}] + label {

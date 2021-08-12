@@ -1,6 +1,12 @@
 <div class="nav">
 	<div class="nav-sidebar-trigger" (click)="showModal()"></div>
 	<div class="nav-brand">{{ brand }}</div>
+	<div class="nav-account">
+		<div *ngIf="!userName">Login</div>
+		<div *ngIf="userName">
+			<app-account-management [userName]="userName"></app-account-management>
+		</div>
+	</div>
 </div>
 
 <div #modal class="nav-sidebar-modal hide-sidebar-modal" (click)="hideModal()">

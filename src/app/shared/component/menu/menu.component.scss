@@ -1,0 +1,19 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.menu-backdrop {
+	@include position(fixed, 0, 0, 0, 0);
+	z-index: 10000;
+
+	background-color: transparent;
+}
+
+.menu {
+	position: relative;
+	display: inline-block;
+}
+
+.menu-backdrop ~ .menu {
+	z-index: 11000;
+}

@@ -27,13 +27,13 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 				private componentFactoryResolver: ComponentFactoryResolver,
 				private changeDetectorRef: ChangeDetectorRef) {}
 
-	ngOnInit(): void {
+	ngOnInit() {
 		if(!this.modalConfig.showBackdrop) {
 			this.renderer.addClass(this.modal.nativeElement, 'background-transparent');
 		}
 	}
 
-	ngAfterViewInit(): void {
+	ngAfterViewInit() {
 		if(this.modalType === 'custom') {
 			this.viewContainerRef.clear();
 
@@ -45,7 +45,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
+	ngOnDestroy() {
 		if(this.childComponentRef) {
 			this.childComponentRef.destroy();
 		}

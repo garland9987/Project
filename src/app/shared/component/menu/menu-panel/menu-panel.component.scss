@@ -1,0 +1,71 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.menu-panel {
+	position: absolute;
+
+	padding: .5rem 1.2rem;
+	border: 1px solid #dfdfdf;
+	border-radius: .25rem;
+
+	background-color: #f8f9fa;
+	cursor: auto;
+
+	::ng-deep .menu-item {
+		color: #212529;
+	}
+
+	::ng-deep .menu-item-divider {
+		border-bottom: 1px solid #dfdfdf;
+		margin: .5rem 0;
+	}
+
+	::ng-deep .menu-item-left,
+	::ng-deep .menu-item-right {
+		position: relative;
+		cursor: pointer;
+	}
+
+	::ng-deep .menu-item-left::before {
+		content: '';
+
+		@include position(absolute, 0, -1rem, auto, 0);
+
+		display: block;
+		width: 1rem;
+
+		background-image: url('/assets/icons/menu-item-left.svg');
+		background-repeat: no-repeat;
+		background-size: .8rem .8rem;
+		background-position: top 50% left 0;
+	}
+
+	::ng-deep .menu-item-right::after {
+		content: '';
+
+		@include position(absolute, 0, auto, -1rem, 0);
+
+		display: block;
+		width: 1rem;
+
+		background-image: url('/assets/icons/menu-item-right.svg');
+		background-repeat: no-repeat;
+		background-size: .8rem .8rem;
+		background-position: top 50% right 0;
+	}
+}
+
+.menu-panel.menu-panel-align-left {
+	@include position(absolute, auto, 0);
+}
+
+.menu-panel.menu-panel-align-center {
+	@include position(absolute, auto, 50%);
+
+	transform: translateX(-50%);
+}
+
+.menu-panel.menu-panel-align-right {
+	@include position(absolute, auto, auto, 0, auto);
+}
