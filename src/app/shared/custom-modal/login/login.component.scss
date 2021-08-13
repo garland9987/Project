@@ -1,0 +1,28 @@
+.form {
+	padding: 1rem;
+	border: 1px solid #dfdfdf;
+	border-radius: .25rem;
+
+	background-color: #fff;
+
+	.form-name,
+	.form-password {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+
+		@media (min-width: 576px) {
+			grid-template-columns: 25% 75%;
+			align-items: center;
+
+			.form-invalid-prompt.placeholder {
+				grid-column: 2;
+			}
+		}
+	}
+
+	.form-buttons {
+		display: flex;
+		justify-content: flex-end;
+		column-gap: .5rem;
+	}
+}

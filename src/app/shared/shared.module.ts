@@ -9,6 +9,8 @@ import { MenuButtonComponent } from './component/menu/menu-button/menu-button.co
 import { MenuPanelComponent } from './component/menu/menu-panel/menu-panel.component';
 import { MenuTriggerDirective } from './component/menu/menu-trigger.directive';
 import { MenuItemDirective } from './component/menu/menu-item.directive';
+import { LoginComponent } from './custom-modal/login/login.component';
+import { RegisterComponent } from './custom-modal/register/register.component';
 
 @NgModule({
 	declarations: [
@@ -17,7 +19,9 @@ import { MenuItemDirective } from './component/menu/menu-item.directive';
 		MenuButtonComponent,
 		MenuPanelComponent,
 		MenuTriggerDirective,
-		MenuItemDirective
+		MenuItemDirective,
+		LoginComponent,
+		RegisterComponent
 	],
 	imports: [
 		CommonModule,
@@ -35,7 +39,9 @@ import { MenuItemDirective } from './component/menu/menu-item.directive';
 		MenuButtonComponent,
 		MenuPanelComponent,
 		MenuTriggerDirective,
-		MenuItemDirective
+		MenuItemDirective,
+		LoginComponent,
+		RegisterComponent
 	]
 })
 export class SharedModule { }

@@ -12,7 +12,7 @@ for(let i = 1; i <= productThreshold; i++) {
 		description: faker.commerce.productDescription(),
 		price: faker.commerce.price(),
 		imageUrl: faker.random.image(),
-		quantity: faker.random.number()
+		quantity: faker.datatype.number()
  	});
 }
 

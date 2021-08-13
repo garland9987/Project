@@ -11,14 +11,16 @@ export class MenuTriggerDirective {
 	public viewContainerRef: ViewContainerRef;
 	public menuAlign: MenuAlign;
 
-	@Input('appMenuTrigger') menuPanel: MenuPanelComponent;
+	@Input('appMenuTrigger') menuPanel: MenuPanelComponent | null;
 
 	constructor(private renderer: Renderer2,
 				@Optional() @Host() private host: MenuButtonComponent) {}
 
 	@HostListener('click')
 	click() {
-		this.host ? this.menuButtonTrigger() : this.menuPanelTrigger();
+		this.menuPanel ?
+			(this.host ? this.menuButtonTrigger() : this.menuPanelTrigger()) :
+			this.viewContainerRef.clear();
 	}
 
 	menuButtonTrigger(): void {

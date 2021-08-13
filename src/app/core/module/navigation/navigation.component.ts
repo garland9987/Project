@@ -1,13 +1,17 @@
-import { Component, Input, ViewChild, ElementRef, Renderer2, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Renderer2, OnInit } from '@angular/core';
+
 import { Navigation } from '@shared/model/navigation';
+import { ModalRef, ModalService } from '@core/module/modal';
+import { LoginComponent } from '@shared/custom-modal/login/login.component';
+import { LoginService } from '@core/service/login/login.service';
 
 @Component({
 	selector: 'app-navigation',
 	templateUrl: './navigation.component.html',
 	styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit, AfterContentInit,AfterViewInit {
-	public userName: string = 'Mark123@gmail.com';
+export class NavigationComponent implements OnInit {
+	public userName: string;
 
 	@Input() brand: string;
 	@Input() items: Navigation[];
@@ -15,7 +19,18 @@ export class NavigationComponent implements OnInit, AfterContentInit,AfterViewIn
 	@ViewChild('modal') modal: ElementRef;
 	@ViewChild('modalContent') modalContent: ElementRef;
 
-	constructor(private renderer: Renderer2) {}
+	constructor(private renderer: Renderer2,
+				private modalService: ModalService,
+				private loginService: LoginService) {}
+
+	ngOnInit() {
+		this.loginService.isLogin
+			.subscribe((isLogin) => {
+				isLogin ?
+					(this.userName = this.loginService.retrieveUserName()) :
+					(this.userName = '');
+			});
+	}
 
 	showModal(): void {
 		this.renderer.removeClass(this.modal.nativeElement, 'hide-sidebar-modal');
@@ -35,8 +50,7 @@ export class NavigationComponent implements OnInit, AfterContentInit,AfterViewIn
 		}, 500);
 	}
 
-	// test of lifecycle hooks
-	ngOnInit() { console.log('NavigationComponent -- ngOnInit'); }
-	ngAfterContentInit() { console.log('NavigationComponent -- ngAfterContentInit'); }
-	ngAfterViewInit() { console.log('NavigationComponent -- ngAfterViewInit'); }
+	login(): void {
+		this.modalService.open(LoginComponent);
+	}
 }

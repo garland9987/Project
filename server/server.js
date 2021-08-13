@@ -1,5 +1,5 @@
 const path = require('path');
-const db = path.json(__dirname, 'database.json');
+const db = path.join(__dirname, 'database.json');
 const jwt = require('jsonwebtoken');
 const key = 'myappsecret';
 const jsonServer = require('json-server');
@@ -17,7 +17,8 @@ server.use((req, res, next) => {
 			let token = req.headers['authorization'];
 
 			try {
-				let decoded = jwt.verify(token, key);	// decoded is the second part of jwt
+				// decoded is the second part of jwt
+				let decoded = jwt.verify(token, key);
 				next();
 				return;
 			}
@@ -46,16 +47,17 @@ router.render = (req, res) => {
 	let len = Object.keys(res.locals.data).length;
 
 	if(req.method === 'POST' && req.url === '/users') {
-		len != 0 ?
+		len !== 0 ?
 			res.jsonp({ username: res.locals.data.username, token: jwt.sign({ username: res.locals.data.username }, key, { expiresIn: '1d' }) }) :
 			res.status(409).jsonp({ username: '', token: null });
 
 		return;
 	}
 
-	// simulate server delay
-	setTimeout(() => {
+	setTimeout(() => {	// simulate server delay
+
 		res.jsonp(res.locals.data);
+
 	}, 1500);
 }
 
@@ -64,6 +66,7 @@ server.use(jsonServer.rewriter({
 }));
 
 server.use(router);
+
 server.listen(3500, () => {
 	console.log('JSON Server is running');
 });

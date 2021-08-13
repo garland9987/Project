@@ -2,7 +2,7 @@
 	<div class="nav-sidebar-trigger" (click)="showModal()"></div>
 	<div class="nav-brand">{{ brand }}</div>
 	<div class="nav-account">
-		<div *ngIf="!userName">Login</div>
+		<div *ngIf="!userName" (click)="login()">Login</div>
 		<div *ngIf="userName">
 			<app-account-management [userName]="userName"></app-account-management>
 		</div>

@@ -2,7 +2,7 @@
 	<app-menu-button [appMenuTrigger]="main"><span class="account">{{ userName }}</span></app-menu-button>
 	<app-menu-panel #main="appMenuPanel">
 		<div appMenuItem="left" [appMenuTrigger]="language">Language</div>
-		<div appMenuItem>Logout</div>
+		<div appMenuItem [appMenuTrigger]="null" class="pointer" (click)="logout()">Logout</div>
 	</app-menu-panel>
 	<app-menu-panel #language="appMenuPanel">
 		<div appMenuItem="right" [appMenuTrigger]="main">Language</div>
