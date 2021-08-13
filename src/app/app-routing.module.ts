@@ -5,6 +5,7 @@ import { NotFoundComponent } from '@core/module/not-found/not-found.component';
 
 const routes: Routes = [
 	{ path: 'reactive-form', loadChildren: () => import('./reactive-form/reactive-form.module').then(m => m.ReactiveFormModule) },
+	{ path: 'guard', loadChildren: () => import('./guard/guard.module').then(m => m.GuardModule) },
 	{ path: '**', component: NotFoundComponent }
 ];
 

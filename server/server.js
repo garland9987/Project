@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const path = require('path');
 const db = path.join(__dirname, 'database.json');
 const jwt = require('jsonwebtoken');
@@ -40,6 +41,21 @@ server.post('/login', (req, res) => {
 	router.db.get('users').find({ username: username, password: password }).value() ?
 		res.jsonp({ username: username, token: jwt.sign({ username: username }, key, { expiresIn: '1d' }) }) :
 		res.status(404).jsonp({ username: '', token: null });
+});
+
+server.put('/password', (req, res) => {
+	const username = req.body.username;
+	const oldPassword = req.body.oldPassword;
+	const newPassword = req.body.newPassword;
+
+	const clonedUsers = _.cloneDeep(router.db.get('users').value());
+	const index = _.findIndex(clonedUsers, { username: username, password: oldPassword });
+
+	clonedUsers[index].password = newPassword;
+
+	router.db.set('users', clonedUsers).write();
+
+	res.status(200).end();
 });
 
 // To modify responses, overwrite 'router.render' method

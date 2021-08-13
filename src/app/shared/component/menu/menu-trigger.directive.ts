@@ -11,6 +11,8 @@ export class MenuTriggerDirective {
 	public viewContainerRef: ViewContainerRef;
 	public menuAlign: MenuAlign;
 
+	// open a menu panel if passing a MenuPanelComponent
+	// close the panel if passing a null
 	@Input('appMenuTrigger') menuPanel: MenuPanelComponent | null;
 
 	constructor(private renderer: Renderer2,

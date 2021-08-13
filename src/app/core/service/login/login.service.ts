@@ -11,7 +11,7 @@ export class LoginService {
 	public isLogin: Observable<boolean> = this.isLoginSubject.asObservable();
 
 	constructor(private localStorageService: LocalStorageService) {
-		(this.retrieveUserName() && this.retrieveToken()) ?
+		this.loginStatus() ?
 			this.isLoginSubject.next(true) :
 			this.isLoginSubject.next(false);
 	}
@@ -31,12 +31,16 @@ export class LoginService {
 	}
 
 	retrieveUserName(): string {
-		// return null if the key does not exist in the localStorage
+		// return null if the key doesn't exist
 		return this.localStorageService.retrieve('username');
 	}
 
 	retrieveToken(): string {
-		// return null if the key does not exist in the localStorage
+		// return null if the key doesn't exist
 		return this.localStorageService.retrieve('token');
+	}
+
+	loginStatus(): boolean {
+		return (this.localStorageService.retrieve('username') && this.localStorageService.retrieve('token'));
 	}
 }
