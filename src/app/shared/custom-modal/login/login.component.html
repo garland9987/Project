@@ -1,20 +1,24 @@
-<form class="form" [formGroup]="formGroup" autocomplete="off" novalidate>
-	<div class="form-name mb-3">
-		<label for="name">User Name</label>
-		<input type="text" id="name" class="form-control" formControlName="name" [ngClass]="validation(name)">
-		<span class="form-invalid-prompt placeholder" *ngIf="name.errors?.required">User name is required</span>
-	</div>
-	<div class="form-password mb-3">
-		<label for="password">Password</label>
-		<input type="password" id="password" class="form-control" formControlName="password" [ngClass]="validation(password)">
-		<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.required">Password is required</span>
-		<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.pattern">Underscore, white space and hyphen are illegal</span>
-		<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.minlength">Password should contain at least {{ password.errors.minlength.requiredLength }} characters</span>
-		<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.maxlength">Password should contain at most {{ password.errors.maxlength.requiredLength }} characters</span>
-	</div>
-	<div class="form-buttons">
-		<button class="btn btn-success" [disabled]="formGroup.invalid" (click)="login()">Login</button>
-		<button class="btn btn-success" (click)="register()">Register</button>
-		<button class="btn btn-secondary" (click)="cancel()">Cancel</button>
-	</div>
-</form>
+<div class="login">
+	<h3 class="header">{{ title }}</h3>
+
+	<form class="form" [formGroup]="formGroup" autocomplete="off" novalidate>
+		<div class="form-name mb-3">
+			<label for="name">User Name</label>
+			<input type="text" id="name" class="form-control" formControlName="name" [ngClass]="validation(name)">
+			<span class="form-invalid-prompt placeholder" *ngIf="name.errors?.required">User name is required</span>
+		</div>
+		<div class="form-password mb-3">
+			<label for="password">Password</label>
+			<input type="password" id="password" class="form-control" formControlName="password" [ngClass]="validation(password)">
+			<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.required">Password is required</span>
+			<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.pattern">Underscore, white space and hyphen are illegal</span>
+			<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.minlength">Password should contain at least {{ password.errors.minlength.requiredLength }} characters</span>
+			<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.maxlength">Password should contain at most {{ password.errors.maxlength.requiredLength }} characters</span>
+		</div>
+		<div class="form-buttons">
+			<button class="btn btn-success" (click)="login()">Login</button>
+			<button class="btn btn-success" (click)="register()">Register</button>
+			<button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+		</div>
+	</form>
+</div>

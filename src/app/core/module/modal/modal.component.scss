@@ -7,9 +7,7 @@
 	100% { transform: translateY(0%); }
 }
 
-.modal.background-transparent {
-	background-color: transparent;
-}
+:host * { all: unset; }
 
 .modal {
 	@include position(fixed, 0, 0);
@@ -36,49 +34,7 @@
 			margin: 2rem auto;
 		}
 
-		.modal-content-standard {
-			flex: 1;	// flex-grow: 1; flex-shrink: 1; flex-basis: 0;
-
-			border-radius: .25rem;
-			background-color: #fff;
-
-			animation: show-modal-content .5s backwards;
-
-			.header {
-				display: flex;
-				justify-content: space-between;
-
-				padding: 1rem;
-				border-bottom: 1px solid #dee2e6;
-
-				.close {
-					width: 24px;
-					height: 24px;
-
-					background-image: url('/assets/icons/close.svg');
-					background-repeat: no-repeat;
-					background-size: contain;
-
-					cursor: pointer;
-				}
-			}
-
-			.body {
-				padding: 1rem;
-				border-bottom: 1px solid #dee2e6;
-
-				p { white-space: pre-wrap; }
-			}
-
-			.footer {
-				display: flex;
-				justify-content: flex-end;
-
-				padding: 1rem;
-			}
-		}
-
-		.modal-content-custom {
+		.modal-content {
 			flex: 1;	// flex-grow: 1; flex-shrink: 1; flex-basis: 0%;
 
 			animation: show-modal-content .5s backwards;

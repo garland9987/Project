@@ -1,2 +1,24 @@
 <h1>{{ title }}</h1>
 <hr>
+
+<form class="form mb-3" [formGroup]="formGroup" autocomplete="off" novalidate>
+	<div class="form-old-password mb-3">
+		<label for="oldPassword">Old Password</label>
+		<input type="password" id="oldPassword" class="form-control" formControlName="oldPassword" [ngClass]="validation(oldPassword)">
+		<span class="form-invalid-prompt" *ngIf="oldPassword.errors?.required">Password is required</span>
+		<span class="form-invalid-prompt" *ngIf="oldPassword.errors?.pattern">Underscore, white space and hyphen are illegal</span>
+		<span class="form-invalid-prompt" *ngIf="oldPassword.errors?.minlength">Password should contain at least {{ oldPassword.errors.minlength.requiredLength }} characters</span>
+		<span class="form-invalid-prompt" *ngIf="oldPassword.errors?.maxlength">Password should contain at most {{ oldPassword.errors.maxlength.requiredLength }} characters</span>
+	</div>
+	<div class="form-new-password mb-3">
+		<label for="newPassword">New Password</label>
+		<input type="password" id="newPassword" class="form-control" formControlName="newPassword" [ngClass]="validation(newPassword)">
+		<span class="form-invalid-prompt" *ngIf="newPassword.errors?.required">Password is required</span>
+		<span class="form-invalid-prompt" *ngIf="newPassword.errors?.pattern">Underscore, white space and hyphen are illegal</span>
+		<span class="form-invalid-prompt" *ngIf="newPassword.errors?.minlength">Password should contain at least {{ newPassword.errors.minlength.requiredLength }} characters</span>
+		<span class="form-invalid-prompt" *ngIf="newPassword.errors?.maxlength">Password should contain at most {{ newPassword.errors.maxlength.requiredLength }} characters</span>
+	</div>
+	<div class="form-button">
+		<button class="btn btn-success float-end" (click)="submit()">Submit</button>
+	</div>
+</form>

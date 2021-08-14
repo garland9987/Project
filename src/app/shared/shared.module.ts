@@ -11,6 +11,9 @@ import { MenuTriggerDirective } from './component/menu/menu-trigger.directive';
 import { MenuItemDirective } from './component/menu/menu-item.directive';
 import { LoginComponent } from './custom-modal/login/login.component';
 import { RegisterComponent } from './custom-modal/register/register.component';
+import { AuthorizedComponent } from './custom-modal/authorized/authorized.component';
+import { UnsavedComponent } from './custom-modal/unsaved/unsaved.component';
+import { BaseComponent } from './component/base/base.component';
 
 @NgModule({
 	declarations: [
@@ -21,7 +24,10 @@ import { RegisterComponent } from './custom-modal/register/register.component';
 		MenuTriggerDirective,
 		MenuItemDirective,
 		LoginComponent,
-		RegisterComponent
+		RegisterComponent,
+		AuthorizedComponent,
+		UnsavedComponent,
+		BaseComponent
 	],
 	imports: [
 		CommonModule,
@@ -30,18 +36,18 @@ import { RegisterComponent } from './custom-modal/register/register.component';
 		ReactiveFormsModule
 	],
 	exports: [
+		// module
 		CommonModule,
 		RouterModule,
 		FormsModule,
 		ReactiveFormsModule,
+		// component & directive
 		FileUploadComponent,
 		MenuComponent,
 		MenuButtonComponent,
 		MenuPanelComponent,
 		MenuTriggerDirective,
-		MenuItemDirective,
-		LoginComponent,
-		RegisterComponent
+		MenuItemDirective
 	]
 })
 export class SharedModule { }

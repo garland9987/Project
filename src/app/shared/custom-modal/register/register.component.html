@@ -16,7 +16,7 @@
 			<span class="form-invalid-prompt placeholder" *ngIf="password.errors?.maxlength">Password should contain at most {{ password.errors.maxlength.requiredLength }} characters</span>
 		</div>
 		<div class="form-buttons">
-			<button class="btn btn-success" [disabled]="formGroup.invalid" (click)="confirm()">Confirm</button>
+			<button class="btn btn-success" (click)="confirm()">Confirm</button>
 			<button class="btn btn-secondary" (click)="cancel()">Cancel</button>
 		</div>
 	</form>

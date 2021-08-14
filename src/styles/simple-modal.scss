@@ -1,0 +1,23 @@
+.simple-modal {
+	padding: 1rem;
+	border: 1px solid #dfdfdf;
+	border-radius: .25rem;
+
+	background-color: #fff;
+
+	.simple-modal-header {
+		padding-bottom: .5rem;
+		border-bottom: 1px solid #dfdfdf;
+		margin-bottom: 1rem;
+	}
+
+	.simple-modal-content {
+		margin-bottom: 1rem;
+	}
+
+	.simple-modal-button {
+		display: flex;
+		justify-content: flex-end;
+		column-gap: .5rem;
+	}
+}

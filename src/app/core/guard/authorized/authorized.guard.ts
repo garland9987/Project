@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
-import { ModalContext, ModalService } from '@core/module/modal';
+import { ModalService } from '@core/module/modal';
 import { LoginService } from '@core/service/login/login.service';
+import { AuthorizedComponent } from '@shared/custom-modal/authorized/authorized.component';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class AuthoriedGuard implements CanActivate {
+export class AuthorizedGuard implements CanActivate {
 
 	constructor(private modalService: ModalService,
 				private loginService: LoginService) {}
@@ -17,13 +18,12 @@ export class AuthoriedGuard implements CanActivate {
 
 		if(this.loginService.loginStatus()) return true;
 
-		const resultSubject: Subject<boolean> = new Subject<boolean>();
-		const result: Observable<boolean> = resultSubject.asObservable();
-
 		const title: string = 'Unauthorized';
 		const content: string = 'Please login before going to this page.';
+		const subject: Subject<boolean> = new Subject<boolean>();
 
+		const modalRef = this.modalService.open(AuthorizedComponent, { title, content, subject });
 
-		return result;
+		return subject;
 	}
 }

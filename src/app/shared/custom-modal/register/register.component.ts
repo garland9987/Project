@@ -1,29 +1,32 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Modal, ModalRef } from '@core/module/modal';
+import { Modal, ModalRef, ModalContext, SimpleModalService } from '@core/module/modal';
 import { AccountService } from '@core/restful/account/account.service';
 import { LoginService } from '@core/service/login/login.service';
+
+import { BaseComponent } from '@shared/component/base/base.component';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy, Modal {
+export class RegisterComponent extends BaseComponent implements OnInit, Modal {
 	public title: string = 'Creat a new account';
 	public modalRef: ModalRef;
+	public modalContext: ModalContext;
 	public formGroup: FormGroup;
-	public isSubmitted: boolean = false;
-
-	public terminator: Subject<boolean> = new Subject<boolean>();
 
 	constructor(private formBuilder: FormBuilder,
+				private simpleModalService: SimpleModalService,
 				private accountService: AccountService,
-				private loginService: LoginService) {}
+				private loginService: LoginService) {
+		super();
+	}
 
 	ngOnInit() {
 		this.formGroup = this.formBuilder.group({
@@ -32,20 +35,8 @@ export class RegisterComponent implements OnInit, OnDestroy, Modal {
 		});
 	}
 
-	ngOnDestroy() {
-		this.terminator.next(true);
-		this.terminator.complete();
-	}
-
 	get name() { return this.formGroup.get('name') as FormControl; }
 	get password() { return this.formGroup.get('password') as FormControl; }
-
-	validation(control: FormControl): {[property: string]: boolean} {
-		return {
-			'form-valid-status': control.valid && (control.dirty || control.touched || this.isSubmitted),
-			'form-invalid-status': control.invalid && (control.dirty || control.touched || this.isSubmitted)
-		};
-	}
 
 	confirm(): void {
 		this.isSubmitted = true;
@@ -56,10 +47,12 @@ export class RegisterComponent implements OnInit, OnDestroy, Modal {
 				.subscribe((httpResponse: HttpResponse<any>) => {
 					const account = httpResponse.body;
 
-					if(account.token) {
+					if(account.username && account.token) {
 						this.loginService.store(account.username, account.token);
 						this.modalRef.close();
 					}
+				}, (error) => {
+					this.simpleModalService.open('Error', 'Failed to create a new account', 2000);
 				});
 		}
 	}

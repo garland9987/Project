@@ -51,10 +51,10 @@ server.put('/password', (req, res) => {
 	const clonedUsers = _.cloneDeep(router.db.get('users').value());
 	const index = _.findIndex(clonedUsers, { username: username, password: oldPassword });
 
+	if(index === -1) res.status(409).end()
+
 	clonedUsers[index].password = newPassword;
-
 	router.db.set('users', clonedUsers).write();
-
 	res.status(200).end();
 });
 

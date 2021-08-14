@@ -27,6 +27,14 @@ export class AccountService {
 		return this.sendRequest<any>(verb, url, options);
 	}
 
+	changePassword(username: string, oldPassword: string, newPassword: string): Observable<HttpResponse<any>> {
+		const verb = 'PUT'
+		const url = `${ baseUrl }/password`;
+		const options = { body: { username, oldPassword, newPassword } };
+
+		return this.sendRequest<any>(verb, url, options);
+	}
+
 	sendRequest<T>(verb: string, url: string, options: {[index: string]: any} = {}): Observable<HttpResponse<T>> {
 		return this.httpClient.request<T>(verb, url, { ...options, observe: 'response' });
 	}
