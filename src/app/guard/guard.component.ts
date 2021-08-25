@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpResponse } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -47,12 +46,12 @@ export class GuardComponent extends BaseComponent implements OnInit, Exit{
 
 			this.accountService.changePassword(userName, oldPassword, newPassword)
 				.pipe(takeUntil(this.terminator))
-				.subscribe((httpResponse: HttpResponse<any>) => {
+				.subscribe(() => {
 					this.isSubmitted = false;
 					this.formGroup.reset();
 					this.simpleModalService.open('Success', 'Password has been changed successfully.', 1500);
 				}, (error) => {
-					this.simpleModalService.open('Error', 'Failed to change password', 1500);
+					this.simpleModalService.open('Error', 'Failed to change password', 2000);
 				});
 		}
 	}

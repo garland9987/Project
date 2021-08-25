@@ -2,14 +2,13 @@ import { Directive, Input, ViewContainerRef, HostListener, Optional, Host, Rende
 
 import { MenuPanelComponent } from './menu-panel/menu-panel.component';
 import { MenuButtonComponent } from './menu-button/menu-button.component';
-import { MenuAlign } from './menu.component';
 
 @Directive({
 	selector: '[appMenuTrigger]'
 })
 export class MenuTriggerDirective {
 	public viewContainerRef: ViewContainerRef;
-	public menuAlign: MenuAlign;
+	public menuAlign: string;
 
 	// open a menu panel if passing a MenuPanelComponent
 	// close the panel if passing a null

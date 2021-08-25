@@ -49,7 +49,7 @@ $input-radio: (
 		input[type=#{$type}] + label {
 			display: flex;
 			align-items: center;
-			column-gap: .25rem;
+			column-gap: .25em;
 
 			@if $color-label { color: $color-label; }
 		}
@@ -57,8 +57,8 @@ $input-radio: (
 		input[type=#{$type}] + label::before {
 			content: '';
 			display: block;
-			width: 1rem;
-			height: 1rem;
+			width: 1em;
+			height: 1em;
 			border: 1px solid $color-border-normal;
 			border-radius: 50%;
 		}
@@ -69,7 +69,7 @@ $input-radio: (
 		}
 
 		input[type=#{$type}]:checked + label::before {
-			border: .35rem solid $color-border-checked;
+			border: .35em solid $color-border-checked;
 		}
 	}
 }

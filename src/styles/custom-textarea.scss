@@ -24,13 +24,13 @@ $textarea: (
 	$background-image: map.get($properties, 'background-image');
 
 	textarea#{$selector} {
-		padding-right: 2rem;
+		padding-right: 2em;
 		border: 1px solid $color-border-normal;
 
 		background-image: $background-image;
 		background-repeat: no-repeat;
-		background-size: 1.2rem 1.2rem;
-		background-position: right .4rem top 10%;
+		background-size: 1.2em 1.2em;
+		background-position: right .4em top 10%;
 	}
 
 	textarea:focus#{$selector} {

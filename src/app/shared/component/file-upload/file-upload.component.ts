@@ -46,8 +46,9 @@ export class FileUploadComponent implements ControlValueAccessor {
 	}
 
 	// pass the initial value from the parent form (by ngModal or formControlName)
-	// this component doesn't need any initial value, so the function body is empty
-	writeValue(file: any) {}
+	writeValue(file: any) {
+		this.fileName = file;
+	}
 
 	// pass the new value back to the parent form (received by ngModal or formControlName)
 	// save the callback function in a property 'onChange'

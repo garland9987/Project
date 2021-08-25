@@ -58,11 +58,16 @@ server.put('/password', (req, res) => {
 	res.status(200).end();
 });
 
+server.get('/products/count', (req, res) => {
+	const products = router.db.get('products').value();
+
+	products ? res.jsonp(products.length) : res.status(409).end();
+});
+
 // To modify responses, overwrite 'router.render' method
 router.render = (req, res) => {
-	let len = Object.keys(res.locals.data).length;
-
 	if(req.method === 'POST' && req.url === '/users') {
+		let len = Object.keys(res.locals.data).length;
 		len !== 0 ?
 			res.jsonp({ username: res.locals.data.username, token: jwt.sign({ username: res.locals.data.username }, key, { expiresIn: '1d' }) }) :
 			res.status(409).jsonp({ username: '', token: null });
@@ -70,11 +75,15 @@ router.render = (req, res) => {
 		return;
 	}
 
-	setTimeout(() => {	// simulate server delay
+	if(req.method === 'GET' && req.url.includes('_page')) {
+		setTimeout(() => {										// simulate server delay
+			res.jsonp(res.locals.data);
+		}, 1500);
 
-		res.jsonp(res.locals.data);
+		return;
+	}
 
-	}, 1500);
+	res.jsonp(res.locals.data);
 }
 
 server.use(jsonServer.rewriter({

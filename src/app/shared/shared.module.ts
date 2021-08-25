@@ -14,6 +14,10 @@ import { RegisterComponent } from './custom-modal/register/register.component';
 import { AuthorizedComponent } from './custom-modal/authorized/authorized.component';
 import { UnsavedComponent } from './custom-modal/unsaved/unsaved.component';
 import { BaseComponent } from './component/base/base.component';
+import { PaginationComponent } from './component/pagination/pagination.component';
+import { LoadingComponent } from './custom-modal/loading/loading.component';
+import { ProcessComponent } from './custom-modal/process/process.component';
+import { SortByPipe } from './pipe/sort-by/sort-by.pipe';
 
 @NgModule({
 	declarations: [
@@ -27,7 +31,11 @@ import { BaseComponent } from './component/base/base.component';
 		RegisterComponent,
 		AuthorizedComponent,
 		UnsavedComponent,
-		BaseComponent
+		BaseComponent,
+		PaginationComponent,
+		LoadingComponent,
+		ProcessComponent,
+		SortByPipe
 	],
 	imports: [
 		CommonModule,
@@ -47,7 +55,10 @@ import { BaseComponent } from './component/base/base.component';
 		MenuButtonComponent,
 		MenuPanelComponent,
 		MenuTriggerDirective,
-		MenuItemDirective
+		MenuItemDirective,
+		PaginationComponent,
+		// pipe
+		SortByPipe
 	]
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -4,8 +4,6 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { MenuPanelComponent } from './menu-panel/menu-panel.component';
 import { MenuTriggerDirective } from './menu-trigger.directive';
 
-export type MenuAlign = 'left' | 'center' | 'right';
-
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
@@ -14,7 +12,7 @@ export type MenuAlign = 'left' | 'center' | 'right';
 export class MenuComponent implements AfterContentInit {
 	public container: ViewContainerRef;
 
-	@Input() menuAlign: MenuAlign = 'left';
+	@Input() menuAlign: string = 'left';
 
 	@ContentChild(MenuButtonComponent) menuButton: MenuButtonComponent;
 	@ContentChildren(MenuTriggerDirective, { descendants: true }) menuTriggers: QueryList<MenuTriggerDirective>;

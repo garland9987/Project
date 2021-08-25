@@ -26,13 +26,13 @@ $input: (
 
 	@each $type in $input-type {
 		input[type=#{$type}]#{$selector} {
-			padding-right: 2rem;
+			padding-right: 2em;
 			border: 1px solid $color-border-normal;
 
 			background-image: $background-image;
 			background-repeat: no-repeat;
-			background-size: 1.2rem 1.2rem;
-			background-position: right .4rem top 50%;
+			background-size: 1.2em 1.2em;
+			background-position: right .4em top 50%;
 		}
 
 		input[type=#{$type}]:focus#{$selector} {

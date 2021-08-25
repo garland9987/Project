@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpResponse } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -46,9 +45,7 @@ export class LoginComponent extends BaseComponent implements OnInit, Modal{
 		if(this.formGroup.valid) {
 			this.accountService.login(this.name.value, this.password.value)
 				.pipe(takeUntil(this.terminator))
-				.subscribe((httpResponse: HttpResponse<any>) => {
-					const account = httpResponse.body;
-
+				.subscribe((account) => {
 					if(account.username && account.token) {
 						this.loginService.store(account.username, account.token);
 						this.modalRef.close();

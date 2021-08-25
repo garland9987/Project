@@ -1,0 +1,108 @@
+.button-group {
+	display: flex;
+	column-gap: .5rem;
+}
+
+.action-bar {
+	display: flex;
+	justify-content: flex-end;
+	column-gap: 1rem;
+
+	font-size: .8rem;
+
+	.sort-options {
+		display: inline-flex;
+		align-items: center;
+		column-gap: .5em;
+
+		width: 12em;
+
+		label { white-space: nowrap; }
+	}
+}
+
+.product-list {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-areas: 'product-image'
+						 'product-name'
+						 'product-price'
+						 'product-quantity'
+						 'product-description'
+						 'product-button';
+	row-gap: .5rem;
+
+	padding: .5rem;
+	border: 1px solid #e5e5e5;
+	border-radius: .25rem;
+
+	.product-image {
+		grid-area: product-image;
+	}
+
+	.product-name {
+		grid-area: product-name;
+	}
+
+	.product-price{
+		grid-area: product-price;
+	}
+
+	.product-quantity {
+		grid-area: product-quantity;
+	}
+
+	.product-name,
+	.product-price,
+	.product-quantity {
+		display: flex;
+		column-gap: .5rem;
+
+		padding-bottom: .5rem;
+		border-bottom: 1px solid #e5e5e5;
+	}
+
+	.product-description {
+		grid-area: product-description;
+	}
+
+	.product-button {
+		grid-area: product-button;
+
+		display: flex;
+		justify-content: flex-end;
+		column-gap: .5rem;
+	}
+
+	@media (min-width: 768px) {
+		grid-template-columns: 200px minmax(0, 1fr);
+		grid-template-areas: 'product-image			product-name'
+							 'product-image			product-price'
+							 'product-image			product-quantity'
+							 'product-description	product-description'
+							 'product-button		product-button';
+
+		.product-name,
+		.product-price,
+		.product-quantity {
+			padding-left: .5rem;
+		}
+	}
+
+	@media (min-width: 992px) {
+		grid-template-columns: 200px minmax(0, 1fr) 150px;
+		grid-template-areas: 'product-image			product-name		product-button'
+							 'product-image			product-price		product-button'
+							 'product-image			product-quantity	product-button'
+							 'product-description	product-description	product-button';
+
+		.product-button {
+			flex-direction: column;
+			justify-content: flex-start;
+			row-gap: .5rem;
+
+			padding-left: .5rem;
+			border-left: 1px solid #e5e5e5;
+		}
+	}
+}

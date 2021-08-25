@@ -33,13 +33,13 @@ $select: (
 		display: block;
 
 		width: 100%;
-		height: 2,5rem;
+		height: 2.4em;
 
-		padding: .3rem 2rem .3rem .8rem;
-		@if $background-image { padding: .3rem 3rem .3rem .8rem; }
+		padding: .3em 2em .3em .8em;
+		@if $background-image { padding: .3em 3em .3em .8em; }
 
 		border: 1px solid $color-border-normal;
-		border-radius: .25rem;
+		border-radius: .25em;
 
 		color: #495057;
 		outline: none;
@@ -47,13 +47,13 @@ $select: (
 
 		background-image: url('/assets/icons/select-caret.svg');
 		background-repeat: no-repeat;
-		background-size: .6rem .6rem;
-		background-position: right .7rem top 50%;
+		background-size: .6em .6em;
+		background-position: right .7em top 50%;
 		@if $background-image {
 			background-image: url('/assets/icons/select-caret.svg'), $background-image;
 			background-repeat: no-repeat, no-repeat;
-			background-size: .6rem .6rem, 1.2rem 1.2rem;
-			background-position: right .6rem top 50%, right 1.8rem top 50%;
+			background-size: .6em .6em, 1.2em 1.2em;
+			background-position: right .6em top 50%, right 1.8em top 50%;
 		}
 	}
 

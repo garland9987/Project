@@ -70,6 +70,7 @@
 		<span class="form-invalid-prompt" *ngIf="nationality.errors?.required">Nationality is required</span>
 	</div>
 
+	<!-- description -->
 	<div class="form-description mb-3">
 		<label for="description" class="form-label">Description</label>
 		<textarea id="description" rows="3" class="form-control" formControlName="description" [ngClass]="validation(description)"></textarea>

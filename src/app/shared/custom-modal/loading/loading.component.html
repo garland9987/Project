@@ -1,0 +1,7 @@
+<div class="loading">
+	<div class="loading-content">
+		<span class="spinner-border"></span>
+		<span class="loading-text" *ngIf="!modalContext.content">loading...</span>
+		<span class="loading-text" *ngIf="modalContext.content">{{ modalContext.content }}</span>
+	</div>
+</div>

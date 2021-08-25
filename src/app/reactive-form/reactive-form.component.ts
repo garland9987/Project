@@ -27,7 +27,7 @@ export class ReactiveFormComponent extends BaseComponent implements OnInit {
 			}),
 			phone: ['', [Validators.required, Validators.pattern('^[0-9]+$'), CustomValidators.startsWith('04')]],
 			email: ['', [Validators.required, Validators.email]],
-			salary: ['', [Validators.required, Validators.pattern('^([0-9]+)(\.[0-9]+)*$')]],
+			salary: ['', [Validators.required, Validators.pattern('^(0|([1-9][0-9]*))(\.[0-9]+)*$')]],
 			gender: ['', [Validators.required]],
 			nationality: ['', [Validators.required]],
 			description: [''],

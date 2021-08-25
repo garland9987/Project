@@ -1,5 +1,7 @@
 @use 'sass:map';
 @import '_variables';
+@import '_mixins';
+@import '_utilities';
 
 // input group status (normal, valid and invalid) (type includes 'text', 'email' and 'password')
 $input-type: 'text', 'email', 'password';
@@ -35,7 +37,7 @@ $input-group: (
 			display: flex;
 
 			border: 1px solid $color-border-normal;
-			border-radius: .25rem;
+			border-radius: .25em;
 
 			&:focus-within {
 				border: 1px solid $color-border-focus;
@@ -44,29 +46,27 @@ $input-group: (
 
 			.input-group-prepend,
 			.input-group-append {
-				display: flex;
-				justify-content: center;
-				align-items: center;
+				@include flexbox-center;
 
-				padding: 0 .5rem;
+				padding: 0 .5em;
 				border: none;
 				background-color: #e9ecef;
 			}
 
-			.input-group-prepend { border-radius: .25rem 0 0 .25rem; }
-			.input-group-append { border-radius: 0 .25rem .25rem 0; }
+			.input-group-prepend { border-radius: .25em 0 0 .25em; }
+			.input-group-append { border-radius: 0 .25em .25em 0; }
 
 			input[type=#{$type}] {
 				border: none;
 				box-shadow: none;
 
 				@if $background-image {
-					padding-right: 2rem;
+					padding-right: 2em;
 
 					background-image: $background-image;
 					background-repeat: no-repeat;
-					background-size: 1.2rem 1.2rem;
-					background-position: right .4rem top 50%;
+					background-size: 1.2em 1.2em;
+					background-position: right .4em top 50%;
 				}
 			}
 		}

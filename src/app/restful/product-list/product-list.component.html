@@ -1,0 +1,50 @@
+<div class="button-group mb-3">
+	<button class="btn btn-primary" (click)="refresh()">Refresh</button>
+	<button class="btn btn-success" (click)="create()">Create</button>
+</div>
+
+<div *ngIf="products.length">
+	<app-pagination
+		[total]="total"
+		[limit]="limit"
+		[selectedPage]="selectedPage"
+		[displayedCount]="displayedCount"
+		[position]="position"
+		(selectedPageChange)="pagination($event)">
+	</app-pagination>
+
+	<div class="action-bar mb-3">
+		<div class="sort-options">
+			<label for="sortOptions">Sorted by </label>
+			<select id="sortOptions" class="custom-select" [(ngModel)]="sortOption">
+				<option *ngFor="let option of sortOptions" [ngValue]="option">{{ option }}</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="product-list mb-3" *ngFor="let product of products | sortBy:sortOption">
+		<div class="product-image">
+			<img [src]="product.imageUrl" alt="" class="img-thumbnail">
+		</div>
+		<div class="product-name">
+			<div>Name:</div>
+			<div>{{ product.name }}</div>
+		</div>
+		<div class="product-price">
+			<div>Price:</div>
+			<div>{{ product.price | currency:"USD":"symbol" }}</div>
+		</div>
+		<div class="product-quantity">
+			<div>Quantity:</div>
+			<div>{{ product.quantity }}</div>
+		</div>
+		<div class="product-description">
+			<div>Description:</div>
+			<div>{{ product.description }}</div>
+		</div>
+		<div class="product-button">
+			<button class="btn btn-info text-white" (click)="edit(product)">edit</button>
+			<button class="btn btn-danger" (click)="delete(product)">delete</button>
+		</div>
+	</div>
+</div>

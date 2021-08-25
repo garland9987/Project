@@ -1,0 +1,54 @@
+<div class="mb-3">
+	<form class="product-form" [formGroup]="formGroup" autocomplete="off" novalidate>
+		<!-- name -->
+		<div class="product-name mb-3">
+			<label for="name" class="form-label">Name</label>
+			<input type="text" id="name" class="form-control" formControlName="name" [ngClass]="validation(name)">
+			<span class="form-invalid-prompt" *ngIf="name.errors?.required">Name is required</span>
+		</div>
+
+		<!-- price -->
+		<div class="product-price mb-3">
+			<label for="price" class="form-label">Price</label>
+			<div class="input-group" [ngClass]="validation(price)">
+				<div class="input-group-prepend">$</div>
+				<input type="text" id="price" class="form-control" formControlName="price">
+			</div>
+			<span class="form-invalid-prompt" *ngIf="price.errors?.required">Price is required</span>
+			<span class="form-invalid-prompt" *ngIf="price.errors?.pattern">Please enter an integer or decimal</span>
+		</div>
+
+		<!-- quantity -->
+		<div class="product-quantity mb-3">
+			<label for="quantity" class="form-label">Quantity</label>
+			<input type="text" id="quantity" class="form-control" formControlName="quantity" [ngClass]="validation(quantity)">
+			<span class="form-invalid-prompt" *ngIf="quantity.errors?.required">Quantity is required</span>
+			<span class="form-invalid-prompt" *ngIf="quantity.errors?.pattern">Please enter an integer</span>
+		</div>
+
+		<!-- description -->
+		<div class="product-description mb-3">
+			<label for="description" class="form-label">Description</label>
+			<textarea type="text" id="description" class="form-control" rows="3" formControlName="description" [ngClass]="validation(description)"></textarea>
+			<span class="form-invalid-prompt" *ngIf="description.errors?.required">Description is required</span>
+		</div>
+
+		<!-- image -->
+		<div class="product-image mb-3">
+			<app-file-upload fileType="iamge/*" formControlName="image" [ngClass]="validation(image)"></app-file-upload>
+			<span class="form-invalid-prompt" *ngIf="image.errors?.required">Image is required</span>
+		</div>
+
+		<!-- image preview -->
+		<div class="product-image-preview mb-3" [ngSwitch]="image.value">
+			<label *ngSwitchCase="''" class="img-preview-placeholder"></label>
+			<img *ngSwitchDefault [src]="image.value" class="img-thumbnail">
+		</div>
+
+		<!-- buttons -->
+		<div class="product-buttons mb-3">
+			<button class="btn btn-success" (click)="create()">Create</button>
+			<button class="btn btn-secondary" (click)="back()">Back</button>
+		</div>
+	</form>
+</div>

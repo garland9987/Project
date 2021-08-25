@@ -1,8 +1,10 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
 .content {
-	display: flex;
+	@include flexbox-center;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 
 	width: 100%;
 	height: 100%;

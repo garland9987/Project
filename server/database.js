@@ -10,7 +10,7 @@ for(let i = 1; i <= productThreshold; i++) {
 		id: i,
 		name: faker.commerce.productName(),
 		description: faker.commerce.productDescription(),
-		price: faker.commerce.price(),
+		price: Number(faker.commerce.price()),
 		imageUrl: faker.random.image(),
 		quantity: faker.datatype.number()
  	});

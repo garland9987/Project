@@ -6,12 +6,12 @@
 .file-upload {
 	display: flex;
 	flex-direction: column;
-	row-gap: 1rem;
+	row-gap: 1em;
 
 	width: 100%;
-	padding: 1rem;
+	padding: 1em;
 	border: 1px solid $color-form-border-normal;
-	border-radius: .25rem;
+	border-radius: .25em;
 
 	&:focus-within {
 		border: 1px solid $color-form-border-focus;
@@ -33,12 +33,12 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			row-gap: .5rem;
+			row-gap: .5em;
 
 			width: 100%;
-			padding: 1rem;
+			padding: 1em;
 			border: 1px dashed #66ccff;
-			border-radius: .25rem;
+			border-radius: .25em;
 
 			cursor: pointer;
 
@@ -46,8 +46,8 @@
 				content: '';
 
 				display: block;
-				width: 3.5rem;
-				height: 3.5rem;
+				width: 3.5em;
+				height: 3.5em;
 
 				background-image: url('/assets/icons/file.svg');
 				background-repeat: no-repeat;
@@ -62,9 +62,9 @@
 		align-items: center;
 
 		width: 100%;
-		padding: 1rem;
+		padding: 1em;
 		border: 1px solid #d3d9de;
-		border-radius: .25rem;
+		border-radius: .25em;
 		background-color: #f1f2f3;
 
 		.file-name {

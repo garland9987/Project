@@ -17,3 +17,9 @@
 	height: subtract($view-height, ($vertical-padding * 2));
 	overflow-y: auto;
 }
+
+@mixin flexbox-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

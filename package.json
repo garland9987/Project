@@ -23,6 +23,7 @@
     "@angular/router": "~12.1.0",
     "bootstrap": "^5.0.2",
     "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "ngx-webstorage": "^8.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
