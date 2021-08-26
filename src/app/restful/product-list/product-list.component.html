@@ -13,7 +13,7 @@
 		(selectedPageChange)="pagination($event)">
 	</app-pagination>
 
-	<div class="product-list mb-3" *ngFor="let product of products">
+	<div class="product-list mb-3" *ngFor="let product of products" [attr.data-stamp]="product.id">
 		<div class="product-image">
 			<img [src]="product.imageUrl" alt="" class="img-thumbnail">
 		</div>

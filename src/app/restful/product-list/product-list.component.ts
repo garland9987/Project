@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { of, throwError } from 'rxjs';
@@ -10,7 +10,6 @@ import { ProductService } from '@core/restful/product/product.service';
 import { ModalRef, ModalService, SimpleModalService, ConfirmModalService } from '@core/module/modal';
 import { LoadingComponent } from '@shared/custom-modal/loading/loading.component';
 import { RouteTracerService } from '@core/service/route-tracer/route-tracer.service';
-import { ScrollService } from '@core/service/scroll/scroll.service';
 import { MapService } from '@core/service/map/map.service';
 
 @Component({
@@ -33,20 +32,17 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	public loadingModalRefs: ModalRef[] = [];
 	public loadingTimer: any;
 
-	// mark if there is a new product
-	public hasNewProduct: boolean = false;
-
 	public products: Product[] = [];
 
 	constructor(private router: Router,
 				private activatedRoute: ActivatedRoute,
 				private location: Location,
+				private elementRef: ElementRef,
 				private productService: ProductService,
 				private modalService: ModalService,
 				private simpleModalService: SimpleModalService,
 				private confirmModalService: ConfirmModalService,
 				private routeTracerService: RouteTracerService,
-				private scrollService: ScrollService,
 				private mapService: MapService) {
 		super();
 	}
@@ -70,7 +66,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				this.total = count;
 
 				if(this.isToRedirect()) {
-					this.hasNewProduct = true;
 					this.selectedPage = Math.ceil(this.total / this.limit);
 					this.location.go(`/restful/products/${ this.selectedPage }`);	// only change the URL in browser, not really redirect to the corresponding page.
 				}
@@ -90,12 +85,11 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				switchMap(() => { return source; }))
 			.subscribe((products) => {
 				this.products = products;
-
-				this.hasNewProduct ?
-					this.scrollToBottom() :
-					this.scrollToPosition();
+				this.scrollIntoView();
 			});
 	}
+
+	get element(): HTMLElement { return this.elementRef.nativeElement; }
 
 	pagination(page: number): void {
 		this.selectedPage = page;
@@ -109,7 +103,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	}
 
 	edit(product: Product): void {
-		this.markPositionWhenToEdit(product.id);
 		this.router.navigate(['/restful/product/edit', product.id]);
 	}
 
@@ -166,29 +159,14 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		this.loadingModalRefs = [];
 	}
 
-	markPositionWhenToEdit(id: number): void {
-		const currentUrl = this.router.url;
-		const targetUrl = `/restful/product/edit/${ id }`;
-		const scrollPosition = this.scrollService.getScrollPosition();
+	scrollIntoView(): void {
+		const id = this.mapService.get('productId');
 
-		this.mapService.set(currentUrl, { url: targetUrl, scrollPosition });
-	}
-
-	scrollToPosition(): void {
-		const object = this.mapService.get(this.router.url);
-
-		if(object && (object.url == this.routeTracerService.previousUrl)) {
+		if(id !== undefined) {
 			setTimeout(() => {
-				this.scrollService.scrollToPosition(object.scrollPosition);
-				this.mapService.delete(this.router.url);
+				this.element.querySelector(`[data-stamp='${ id }']`).scrollIntoView(true);
+				this.mapService.delete('productId');
 			}, 0);
 		}
-	}
-
-	scrollToBottom(): void {
-		setTimeout(() => {
-			this.scrollService.scrollToBottom();
-			this.hasNewProduct = false;
-		}, 0);
 	}
 }
