@@ -121,6 +121,10 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		this.router.navigate(['/restful/product/create']);
 	}
 
+	sort(): void {
+
+	}
+
 	delete(product: Product): void {
 		const confirmModalRef = this.confirmModalService.open('Delete a product', 'Please confirm to delete the product.');
 
