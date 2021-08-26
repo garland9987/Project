@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { FileUploadComponent } from './component/file-upload/file-upload.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { MenuButtonComponent } from './component/menu/menu-button/menu-button.component';
@@ -41,7 +43,8 @@ import { SortByPipe } from './pipe/sort-by/sort-by.pipe';
 		CommonModule,
 		RouterModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		TranslateModule
 	],
 	exports: [
 		// module
@@ -49,6 +52,7 @@ import { SortByPipe } from './pipe/sort-by/sort-by.pipe';
 		RouterModule,
 		FormsModule,
 		ReactiveFormsModule,
+		TranslateModule,
 		// component & directive
 		FileUploadComponent,
 		MenuComponent,

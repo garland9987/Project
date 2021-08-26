@@ -7,6 +7,7 @@ const routes: Routes = [
 	{ path: 'reactive-form', loadChildren: () => import('./reactive-form/reactive-form.module').then(m => m.ReactiveFormModule) },
 	{ path: 'guard', loadChildren: () => import('./guard/guard.module').then(m => m.GuardModule) },
 	{ path: 'restful', loadChildren: () => import('./restful/restful.module').then(m => m.RestfulModule) },
+	{ path: 'translation', loadChildren: () => import('./translation/translation.module').then(m => m.TranslationModule) },
 	{ path: '**', component: NotFoundComponent }
 ];
 

@@ -1,5 +1,11 @@
 {
-  "users": [],
+  "users": [
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 1
+    }
+  ],
   "products": [
     {
       "id": 1,

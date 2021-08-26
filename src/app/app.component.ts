@@ -21,7 +21,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 			new Navigation('Home', '/home'),
 			new Navigation('Reactive Form', '/reactive-form'),
 			new Navigation('Guard', '/guard'),
-			new Navigation('Restful', '/restful')
+			new Navigation('Restful', '/restful'),
+			new Navigation('Translation', '/translation')
 		];
 	}
 
