@@ -36,10 +36,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	// mark if there is a new product
 	public hasNewProduct: boolean = false;
 
-	// sort
-	public sortOptions: string[] = ['default', 'price', 'quantity'];
-	public sortOption: string = 'default';
-
 	public products: Product[] = [];
 
 	constructor(private router: Router,
@@ -121,10 +117,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		this.router.navigate(['/restful/product/create']);
 	}
 
-	sort(): void {
-
-	}
-
 	delete(product: Product): void {
 		const confirmModalRef = this.confirmModalService.open('Delete a product', 'Please confirm to delete the product.');
 
@@ -178,16 +170,14 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		const currentUrl = this.router.url;
 		const targetUrl = `/restful/product/edit/${ id }`;
 		const scrollPosition = this.scrollService.getScrollPosition();
-		const sortOption = this.sortOption;
 
-		this.mapService.set(currentUrl, { url: targetUrl, scrollPosition, sortOption });
+		this.mapService.set(currentUrl, { url: targetUrl, scrollPosition });
 	}
 
 	scrollToPosition(): void {
 		const object = this.mapService.get(this.router.url);
 
 		if(object && (object.url == this.routeTracerService.previousUrl)) {
-			this.sortOption = object.sortOption;
 			setTimeout(() => {
 				this.scrollService.scrollToPosition(object.scrollPosition);
 				this.mapService.delete(this.router.url);

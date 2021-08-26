@@ -1,5 +1,9 @@
 {
 	"One": "一",
 	"Two": "二",
-	"Three": "三"
+	"Three": "三",
+	"translation": {
+		"sentence1": "这是一张桌子。",
+		"sentence2": "这是一本书。"
+	}
 }

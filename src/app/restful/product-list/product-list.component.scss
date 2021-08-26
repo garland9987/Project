@@ -3,24 +3,6 @@
 	column-gap: .5rem;
 }
 
-.action-bar {
-	display: flex;
-	justify-content: flex-end;
-	column-gap: 1rem;
-
-	font-size: .8rem;
-
-	.sort-options {
-		display: inline-flex;
-		align-items: center;
-		column-gap: .5em;
-
-		width: 12em;
-
-		label { white-space: nowrap; }
-	}
-}
-
 .product-list {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);
