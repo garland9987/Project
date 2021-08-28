@@ -13,10 +13,10 @@ export class ProductService {
 
 	constructor(private restfulService: RestfulService) {}
 
-	getProducts(page: number, limit: number): Observable<Product[]> {
+	getProducts(page: number, limit: number, sort: string): Observable<Product[]> {
 		const verb = 'GET';
 		const url = productUrl;
-		const options = { params: new HttpParams({ fromString: `page=${ page }&limit=${ limit }` }) };
+		const options = { params: new HttpParams({ fromString: `page=${ page }&limit=${ limit }&sort=${ sort }` }) };
 
 		return this.restfulService.sendRequest<Product[]>(verb, url, options);
 	}

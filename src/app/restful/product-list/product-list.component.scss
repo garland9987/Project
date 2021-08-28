@@ -3,6 +3,16 @@
 	column-gap: .5rem;
 }
 
+.pointer {
+	cursor: pointer;
+}
+
+.active {
+	background-color: #e9ecef;
+	box-shadow: 1.2em 0 #e9ecef,
+				-1.2em 0 #e9ecef;
+}
+
 .product-list {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);

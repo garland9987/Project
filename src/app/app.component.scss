@@ -6,7 +6,7 @@
 	height: $view-height;
 	padding: $view-v-indent $view-h-indent;
 	margin-top: $banner-height;
-	overflow-y: hidden;
+	overflow: hidden;
 
 	.view-navigation {
 		display: none;

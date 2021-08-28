@@ -19,7 +19,6 @@ import { BaseComponent } from './component/base/base.component';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { LoadingComponent } from './custom-modal/loading/loading.component';
 import { ProcessComponent } from './custom-modal/process/process.component';
-import { SortByPipe } from './pipe/sort-by/sort-by.pipe';
 
 @NgModule({
 	declarations: [
@@ -36,8 +35,7 @@ import { SortByPipe } from './pipe/sort-by/sort-by.pipe';
 		BaseComponent,
 		PaginationComponent,
 		LoadingComponent,
-		ProcessComponent,
-		SortByPipe
+		ProcessComponent
 	],
 	imports: [
 		CommonModule,
@@ -61,8 +59,6 @@ import { SortByPipe } from './pipe/sort-by/sort-by.pipe';
 		MenuTriggerDirective,
 		MenuItemDirective,
 		PaginationComponent,
-		// pipe
-		SortByPipe
 	]
 })
 export class SharedModule {}
