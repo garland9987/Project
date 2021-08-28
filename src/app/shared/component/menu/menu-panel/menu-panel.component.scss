@@ -13,12 +13,16 @@
 	cursor: auto;
 
 	::ng-deep .menu-item {
+		margin-bottom: .25em;
 		color: #212529;
+	}
+
+	::ng-deep .menu-item:last-child {
+		margin-bottom: 0;
 	}
 
 	::ng-deep .menu-item-divider {
 		border-bottom: 1px solid #dfdfdf;
-		margin: .5em 0;
 	}
 
 	::ng-deep .menu-item-left,

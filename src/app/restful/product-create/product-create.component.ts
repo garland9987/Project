@@ -9,6 +9,7 @@ import { BaseComponent } from '@shared/component/base/base.component';
 import { Product } from '@shared/model/product';
 import { ProductService } from '@core/restful/product/product.service';
 import { SimpleModalService } from '@core/module/modal';
+import { MapService } from '@core/service/map/map.service';
 
 @Component({
 	selector: 'app-product-create',
@@ -24,7 +25,8 @@ export class ProductCreateComponent extends BaseComponent implements OnInit {
 				private location: Location,
 				private formBuilder: FormBuilder,
 				private productService: ProductService,
-				private simpleModalService: SimpleModalService) {
+				private simpleModalService: SimpleModalService,
+				private mapService: MapService) {
 		super();
 	}
 
@@ -61,6 +63,7 @@ export class ProductCreateComponent extends BaseComponent implements OnInit {
 						return throwError(error);
 					}))
 				.subscribe((product: Product) => {
+					this.mapService.set('productId', product.id);
 					this.simpleModalService.open('Success', 'Create a new product successfully.', 2000);
 
 					setTimeout(() => {

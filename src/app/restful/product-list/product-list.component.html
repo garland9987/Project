@@ -1,7 +1,18 @@
 <div class="button-group mb-3">
 	<button class="btn btn-primary" (click)="refresh()">Refresh</button>
 	<button class="btn btn-success" (click)="create()">Create</button>
-	<button class="btn btn-info text-white" (click)="sort()">Sort</button>
+	<app-menu menuAlign="left">
+		<app-menu-button [appMenuTrigger]="main">
+			<button class="btn btn-info text-white">Sorted By</button>
+		</app-menu-button>
+		<app-menu-panel #main="appMenuPanel">
+			<div appMenuItem [appMenuTrigger]="null" *ngFor="let sortOption of sortOptions"
+				[class.active]="selectedSortOption === sortOption"
+				class="pointer" (click)="sort(sortOption)">
+				{{ sortOption | sort }}
+			</div>
+		</app-menu-panel>
+	</app-menu>
 </div>
 
 <div *ngIf="products.length">
@@ -11,19 +22,10 @@
 		[selectedPage]="selectedPage"
 		[displayedCount]="displayedCount"
 		[position]="position"
-		(selectedPageChange)="pagination($event)">
+		(selectedPageChange)="paginate($event)">
 	</app-pagination>
 
-	<div class="action-bar mb-3">
-		<div class="sort-options">
-			<label for="sortOptions">Sorted by </label>
-			<select id="sortOptions" class="custom-select" [(ngModel)]="sortOption">
-				<option *ngFor="let option of sortOptions" [ngValue]="option">{{ option }}</option>
-			</select>
-		</div>
-	</div>
-
-	<div class="product-list mb-3" *ngFor="let product of products | sortBy:sortOption">
+	<div class="product-list mb-3" *ngFor="let product of products" [attr.data-stamp]="product.id">
 		<div class="product-image">
 			<img [src]="product.imageUrl" alt="" class="img-thumbnail">
 		</div>

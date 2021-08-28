@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { of, throwError } from 'rxjs';
-import { takeUntil, map, tap, filter, mergeAll, switchMap, catchError, finalize } from 'rxjs/operators';
+import { of, throwError, Subject } from 'rxjs';
+import { takeUntil, tap, filter, mergeAll, switchMap, catchError, finalize } from 'rxjs/operators';
+
+import * as _ from 'lodash-es';
 
 import { Product } from '@shared/model/product';
 import { BaseComponent } from '@shared/component/base/base.component';
@@ -10,7 +12,6 @@ import { ProductService } from '@core/restful/product/product.service';
 import { ModalRef, ModalService, SimpleModalService, ConfirmModalService } from '@core/module/modal';
 import { LoadingComponent } from '@shared/custom-modal/loading/loading.component';
 import { RouteTracerService } from '@core/service/route-tracer/route-tracer.service';
-import { ScrollService } from '@core/service/scroll/scroll.service';
 import { MapService } from '@core/service/map/map.service';
 
 @Component({
@@ -33,24 +34,25 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	public loadingModalRefs: ModalRef[] = [];
 	public loadingTimer: any;
 
-	// mark if there is a new product
-	public hasNewProduct: boolean = false;
-
 	// sort
-	public sortOptions: string[] = ['default', 'price', 'quantity'];
-	public sortOption: string = 'default';
+	public DEFAULT_SORT_OPTION: string = 'id';
+	public sortOptions: string[] = ['id', 'price', 'quantity'];
+	public selectedSortOption: string;
+
+	// optional route params
+	public optionalRouteParams: {[key: string]: any} = {};
 
 	public products: Product[] = [];
 
 	constructor(private router: Router,
 				private activatedRoute: ActivatedRoute,
 				private location: Location,
+				private elementRef: ElementRef,
 				private productService: ProductService,
 				private modalService: ModalService,
 				private simpleModalService: SimpleModalService,
 				private confirmModalService: ConfirmModalService,
 				private routeTracerService: RouteTracerService,
-				private scrollService: ScrollService,
 				private mapService: MapService) {
 		super();
 	}
@@ -58,8 +60,12 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	ngOnInit() {
 		// it is not activated by the same url for the second time
 		const params = this.activatedRoute.paramMap.pipe(
-			map((params) => { return Number(params.get('page')); }),
-			tap((page) => { this.selectedPage = page; }));
+			tap((params) => {
+				this.selectedPage = Number(params.get('page'));
+				this.selectedSortOption = params.has('sortedBy') ? params.get('sortedBy') : this.DEFAULT_SORT_OPTION;
+
+				this.configOptionalRouteParams('sortedBy', (this.selectedSortOption !== this.DEFAULT_SORT_OPTION) ? this.selectedSortOption : undefined);
+			}));
 
 		// it will be activated by any url, regardless of whether it is used for the second time.
 		// require route setting: onSameUrlNavigation: 'reload'
@@ -74,12 +80,11 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				this.total = count;
 
 				if(this.isToRedirect()) {
-					this.hasNewProduct = true;
 					this.selectedPage = Math.ceil(this.total / this.limit);
 					this.location.go(`/restful/products/${ this.selectedPage }`);	// only change the URL in browser, not really redirect to the corresponding page.
 				}
 			}),
-			switchMap(() => { return this.productService.getProducts(this.selectedPage, this.limit); }),
+			switchMap(() => { return this.productService.getProducts(this.selectedPage, this.limit, this.selectedSortOption); }),
 			catchError((error) => {
 				this.simpleModalService.open('Error', 'Failed to load the product list.', 2000);
 
@@ -94,26 +99,21 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				switchMap(() => { return source; }))
 			.subscribe((products) => {
 				this.products = products;
-
-				this.hasNewProduct ?
-					this.scrollToBottom() :
-					this.scrollToPosition();
+				this.scrollIntoView();
 			});
 	}
 
-	pagination(page: number): void {
-		this.selectedPage = page;
-		this.router.navigate(['/restful/products', this.selectedPage]);
+	get element(): HTMLElement { return this.elementRef.nativeElement; }
+
+	paginate(page: number): void {
+		this.navigateTo(page);
 	}
 
 	refresh(): void {
-		this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-			this.router.navigate(['/restful/products', this.selectedPage]);
-		});
+		this.navigateTo(this.selectedPage);
 	}
 
 	edit(product: Product): void {
-		this.markPositionWhenToEdit(product.id);
 		this.router.navigate(['/restful/product/edit', product.id]);
 	}
 
@@ -121,8 +121,9 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		this.router.navigate(['/restful/product/create']);
 	}
 
-	sort(): void {
-
+	sort(sortOption: string): void {
+		this.configOptionalRouteParams('sortedBy', (sortOption !== this.DEFAULT_SORT_OPTION) ? sortOption : undefined);
+		this.navigateTo(this.selectedPage);
 	}
 
 	delete(product: Product): void {
@@ -140,13 +141,23 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				}))
 			.subscribe(() => {
 				if(this.products.length > 1) {
-					this.router.navigate(['restful/products', this.selectedPage]);
+					this.navigateTo(this.selectedPage);
 				}
 				else if(this.products.length == 1) {
 					this.products = [];
-					this.router.navigate(['/restful/products', (this.selectedPage > 1 ? --this.selectedPage : this.selectedPage)]);
+					this.navigateTo(this.selectedPage > 1 ? --this.selectedPage : this.selectedPage);
 				}
 			});
+	}
+
+	navigateTo(page: number): void {
+		this.router.navigate(['restful/products', page, this.optionalRouteParams]);
+	}
+
+	configOptionalRouteParams(key: string, value?: any): void {
+		value !== undefined ?
+			this.optionalRouteParams[key] = value :
+			this.optionalRouteParams = _.omit(this.optionalRouteParams, [key]);
 	}
 
 	isToRedirect(): boolean {
@@ -174,31 +185,14 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		this.loadingModalRefs = [];
 	}
 
-	markPositionWhenToEdit(id: number): void {
-		const currentUrl = this.router.url;
-		const targetUrl = `/restful/product/edit/${ id }`;
-		const scrollPosition = this.scrollService.getScrollPosition();
-		const sortOption = this.sortOption;
+	scrollIntoView(): void {
+		const id = this.mapService.get('productId');
 
-		this.mapService.set(currentUrl, { url: targetUrl, scrollPosition, sortOption });
-	}
-
-	scrollToPosition(): void {
-		const object = this.mapService.get(this.router.url);
-
-		if(object && (object.url == this.routeTracerService.previousUrl)) {
-			this.sortOption = object.sortOption;
+		if(id !== undefined) {
 			setTimeout(() => {
-				this.scrollService.scrollToPosition(object.scrollPosition);
-				this.mapService.delete(this.router.url);
+				this.element.querySelector(`[data-stamp='${ id }']`)?.scrollIntoView(true);
+				this.mapService.delete('productId');
 			}, 0);
 		}
-	}
-
-	scrollToBottom(): void {
-		setTimeout(() => {
-			this.scrollService.scrollToBottom();
-			this.hasNewProduct = false;
-		}, 0);
 	}
 }

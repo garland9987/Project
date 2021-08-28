@@ -10,6 +10,7 @@ import { Product } from '@shared/model/product';
 import { ProductService } from '@core/restful/product/product.service';
 import { SimpleModalService, ConfirmModalService } from '@core/module/modal';
 import { RouteTracerService } from '@core/service/route-tracer/route-tracer.service';
+import { MapService } from '@core/service/map/map.service';
 
 @Component({
 	selector: 'app-product-edit',
@@ -29,7 +30,8 @@ export class ProductEditComponent extends BaseComponent implements OnInit{
 				private productService: ProductService,
 				private simpleModalService: SimpleModalService,
 				private confirmModalService: ConfirmModalService,
-				private routeTracerService: RouteTracerService) {
+				private routeTracerService: RouteTracerService,
+				private mapService: MapService) {
 		super();
 	}
 
@@ -48,6 +50,7 @@ export class ProductEditComponent extends BaseComponent implements OnInit{
 			.subscribe((product: Product) => {
 				this.product = product;
 				this.initForm(product);
+				this.mapService.set('productId', this.product.id);
 			});
 	}
 

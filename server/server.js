@@ -87,6 +87,7 @@ router.render = (req, res) => {
 }
 
 server.use(jsonServer.rewriter({
+	'/products?page=:page&limit=:limit&sort=:sort': '/products?_page=:page&_limit=:limit&_sort=:sort',
 	'/products?page=:page&limit=:limit': '/products?_page=:page&_limit=:limit'
 }));
 
