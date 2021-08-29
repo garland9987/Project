@@ -10,7 +10,7 @@ export class SortPipe implements PipeTransform {
 			case 'id': return 'Default';
 			case 'price': return 'Price';
 			case 'quantity': return 'Quantity';
-			default: return '';
+			default: return value;
 		}
 	}
 }

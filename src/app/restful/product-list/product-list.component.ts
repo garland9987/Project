@@ -42,6 +42,9 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	// optional route params
 	public optionalRouteParams: {[key: string]: any} = {};
 
+	// translation
+
+
 	public products: Product[] = [];
 
 	constructor(private router: Router,

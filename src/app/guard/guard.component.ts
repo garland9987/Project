@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
 
 import { AccountService } from '@core/restful/account/account.service';
 import { LoginService } from '@core/service/login/login.service';
@@ -45,13 +45,19 @@ export class GuardComponent extends BaseComponent implements OnInit, Exit{
 			const newPassword = this.newPassword.value;
 
 			this.accountService.changePassword(userName, oldPassword, newPassword)
-				.pipe(takeUntil(this.terminator))
+				.pipe(
+					takeUntil(this.terminator),
+					catchError((error) => {
+						this.simpleModalService.open('Error', 'Failed to change password', 2000);
+
+						return throwError(error);
+					})
+				)
 				.subscribe(() => {
-					this.isSubmitted = false;
-					this.formGroup.reset();
 					this.simpleModalService.open('Success', 'Password has been changed successfully.', 1500);
-				}, (error) => {
-					this.simpleModalService.open('Error', 'Failed to change password', 2000);
+
+					this.formGroup.reset();
+					this.isSubmitted = false;
 				});
 		}
 	}

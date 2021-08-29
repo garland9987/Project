@@ -19,6 +19,7 @@ import { BaseComponent } from './component/base/base.component';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { LoadingComponent } from './custom-modal/loading/loading.component';
 import { ProcessComponent } from './custom-modal/process/process.component';
+import { NamespacePipe } from './pipe/namespace/namespace.pipe';
 
 @NgModule({
 	declarations: [
@@ -35,7 +36,8 @@ import { ProcessComponent } from './custom-modal/process/process.component';
 		BaseComponent,
 		PaginationComponent,
 		LoadingComponent,
-		ProcessComponent
+		ProcessComponent,
+		NamespacePipe
 	],
 	imports: [
 		CommonModule,
@@ -59,6 +61,8 @@ import { ProcessComponent } from './custom-modal/process/process.component';
 		MenuTriggerDirective,
 		MenuItemDirective,
 		PaginationComponent,
+		// pipe
+		NamespacePipe
 	]
 })
 export class SharedModule {}
