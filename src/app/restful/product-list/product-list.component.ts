@@ -42,9 +42,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 	// optional route params
 	public optionalRouteParams: {[key: string]: any} = {};
 
-	// translation
-
-
 	public products: Product[] = [];
 
 	constructor(private router: Router,
@@ -59,6 +56,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				private mapService: MapService) {
 		super();
 	}
+
+	get element(): HTMLElement { return this.elementRef.nativeElement; }
 
 	ngOnInit() {
 		// it is not activated by the same url for the second time
@@ -105,8 +104,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				this.scrollIntoView();
 			});
 	}
-
-	get element(): HTMLElement { return this.elementRef.nativeElement; }
 
 	paginate(page: number): void {
 		this.navigateTo(page);

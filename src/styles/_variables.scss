@@ -7,6 +7,10 @@ $view-height: subtract(100vh, $banner-height);
 $view-h-indent: 1rem;	// horizontal
 $view-v-indent: 1rem;	// vertical
 
+$z-index-level-1: 10000;
+$z-index-level-2: 11000;
+$z-index-level-3: 12000;
+
 // custom form variables
 $color-form-border-normal: #ced4da;
 $color-form-border-focus: #80bdff;

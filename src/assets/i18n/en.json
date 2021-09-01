@@ -2,6 +2,8 @@
 	"translation": {
 		"table": "This is a table.",
 		"book": "This is a book.",
-		"cat": "This is a cat."
+		"cat": "This is a cat.",
+		"tree": "This is a tree.",
+		"bicycle": "This is a bicycle"
 	}
 }

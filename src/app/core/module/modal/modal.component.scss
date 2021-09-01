@@ -11,7 +11,7 @@
 
 .modal {
 	@include position(fixed, 0, 0);
-	z-index: 10000;
+	z-index: $z-index-level-1;
 
 	display: block;
 	width: 100%;

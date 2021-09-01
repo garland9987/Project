@@ -4,7 +4,7 @@
 
 .menu-backdrop {
 	@include position(fixed, 0, 0, 0, 0);
-	z-index: 10000;
+	z-index: $z-index-level-1;
 
 	background-color: transparent;
 }
@@ -15,5 +15,5 @@
 }
 
 .menu-backdrop ~ .menu {
-	z-index: 11000;
+	z-index: $z-index-level-2;
 }

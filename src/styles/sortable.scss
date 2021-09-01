@@ -1,0 +1,15 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.sortable-shadow {
+	border: none;
+	box-shadow: 5px 5px 10px #999999;
+
+	opacity: .8;
+	cursor: move;
+}
+
+.sortable-dragging,
+.sortable-item,
+.sortable-container {}

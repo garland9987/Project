@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class TranslationComponent {
 	public title: string = 'Translation';
-	public items: string[] = ['table', 'book', 'cat'];
+	public items: string[] = ['table', 'book', 'cat', 'tree', 'bicycle'];
 }

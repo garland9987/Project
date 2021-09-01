@@ -16,10 +16,14 @@ import { RegisterComponent } from './custom-modal/register/register.component';
 import { AuthorizedComponent } from './custom-modal/authorized/authorized.component';
 import { UnsavedComponent } from './custom-modal/unsaved/unsaved.component';
 import { BaseComponent } from './component/base/base.component';
+import { BaseDirective } from './directive/base/base.directive';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { LoadingComponent } from './custom-modal/loading/loading.component';
 import { ProcessComponent } from './custom-modal/process/process.component';
 import { NamespacePipe } from './pipe/namespace/namespace.pipe';
+import { DraggableDirective } from './directive/draggable/draggable.directive';
+import { SortableItemDirective } from './directive/sortable/sortable-item.directive';
+import { SortableContainerDirective } from './directive/sortable/sortable-container.directive';
 
 @NgModule({
 	declarations: [
@@ -34,10 +38,14 @@ import { NamespacePipe } from './pipe/namespace/namespace.pipe';
 		AuthorizedComponent,
 		UnsavedComponent,
 		BaseComponent,
+		BaseDirective,
 		PaginationComponent,
 		LoadingComponent,
 		ProcessComponent,
-		NamespacePipe
+		NamespacePipe,
+		DraggableDirective,
+		SortableItemDirective,
+		SortableContainerDirective
 	],
 	imports: [
 		CommonModule,
@@ -61,6 +69,9 @@ import { NamespacePipe } from './pipe/namespace/namespace.pipe';
 		MenuTriggerDirective,
 		MenuItemDirective,
 		PaginationComponent,
+		DraggableDirective,
+		SortableItemDirective,
+		SortableContainerDirective,
 		// pipe
 		NamespacePipe
 	]
