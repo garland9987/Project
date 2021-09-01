@@ -15,6 +15,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 	public item: any;
 
 	public isDragging: boolean = false;
+	public originalCoordinate: [number, number];
 
 	constructor(private elementRef: ElementRef,
 				private renderer: Renderer2,
@@ -45,7 +46,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 				return mousemove.pipe(
 					tap((event: MouseEvent) => { this.dispatchSortableDraggingEvent(this.element, event); }),
 					takeUntil(mouseup.pipe(tap(() => {
-						this.endDragging(this.document.body, clone);
+						this.endDragging(this.document.body, this.element, clone);
 						this.dispatchSortableEndEvent(this.element, this.index, this.item);
 					})))
 				);
@@ -63,7 +64,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 				return touchmove.pipe(
 					tap((event: TouchEvent) => { this.dispatchSortableDraggingEvent(this.element, event); }),
 					takeUntil(touchend.pipe(tap(() => {
-						this.endDragging(this.document.body, clone);
+						this.endDragging(this.document.body, this.element, clone);
 						this.dispatchSortableEndEvent(this.element, this.index, this.item);
 					})))
 				);
@@ -86,6 +87,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 
 	startDragging(body: HTMLElement, element: HTMLElement, clone: HTMLElement): void {
 		this.isDragging = true;
+		this.originalCoordinate = [element.getBoundingClientRect().left, element.getBoundingClientRect().top];
 
 		// dimension
 		this.renderer.setStyle(clone, 'width', `${ element.offsetWidth }px`);
@@ -93,27 +95,39 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 		// position
 		this.renderer.setStyle(clone, 'position', 'fixed');
 		this.renderer.setStyle(clone, 'z-index', '1');
-		this.renderer.setStyle(clone, 'left', `${ element.getBoundingClientRect().left }px`);
-		this.renderer.setStyle(clone, 'top', `${ element.getBoundingClientRect().top }px`);
+		this.renderer.setStyle(clone, 'left', `${ element.getBoundingClientRect().left }px`);	// translate in x-axis is based on 'left'
+		this.renderer.setStyle(clone, 'top', `${ element.getBoundingClientRect().top }px`);		// translate in y-axis is based on 'top'
 		// appearance
 		this.renderer.addClass(clone, 'sortable-shadow');
 
 		body.appendChild(clone);
 	}
 
-	endDragging(body: HTMLElement, clone: HTMLElement): void {
+	endDragging(body: HTMLElement, element: HTMLElement, clone: HTMLElement): void {
 		this.isDragging = false;
 
-		body.removeChild(clone);
+		// calculate the offset between the new position and the original position
+		// realize the animation that the shadow moves to the new position when drag action is finished
+		const endPointLeft = element.getBoundingClientRect().left - this.originalCoordinate[0];
+		const endPointTop = element.getBoundingClientRect().top - this.originalCoordinate[1];
+		const duration = 800;
 
-		this.renderer.removeStyle(clone, 'width');
-		this.renderer.removeStyle(clone, 'height');
-		this.renderer.removeStyle(clone, 'position');
-		this.renderer.removeStyle(clone, 'z-index');
-		this.renderer.removeStyle(clone, 'left');
-		this.renderer.removeStyle(clone, 'top');
-		this.renderer.removeStyle(clone, 'transform');
-		this.renderer.removeClass(clone, 'sortable-shadow');
+		this.renderer.setStyle(clone, 'transition', `transform ${ duration }ms`);
+		this.renderer.setStyle(clone, 'transform', `translate(${ endPointLeft }px, ${ endPointTop }px)`);
+
+		setTimeout(() => {
+			body.removeChild(clone);
+
+			this.renderer.removeStyle(clone, 'width');
+			this.renderer.removeStyle(clone, 'height');
+			this.renderer.removeStyle(clone, 'position');
+			this.renderer.removeStyle(clone, 'z-index');
+			this.renderer.removeStyle(clone, 'left');
+			this.renderer.removeStyle(clone, 'top');
+			this.renderer.removeStyle(clone, 'transform');
+			this.renderer.removeStyle(clone, 'transition');
+			this.renderer.removeClass(clone, 'sortable-shadow');
+		}, duration);
 	}
 
 	dispatchSortableDraggingEvent(element: HTMLElement, event: MouseEvent | TouchEvent): void {
