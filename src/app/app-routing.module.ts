@@ -8,6 +8,7 @@ const routes: Routes = [
 	{ path: 'guard', loadChildren: () => import('./guard/guard.module').then(m => m.GuardModule) },
 	{ path: 'restful', loadChildren: () => import('./restful/restful.module').then(m => m.RestfulModule) },
 	{ path: 'translation', loadChildren: () => import('./translation/translation.module').then(m => m.TranslationModule) },
+	{ path: 'sortable', loadChildren: () => import('./sortable/sortable.module').then(m => m.SortableModule) },
 	{ path: '**', component: NotFoundComponent }
 ];
 

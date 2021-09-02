@@ -12,8 +12,8 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 
 	private closest: any = null;
 
-	@Input('appSortableContainer') items: any[];
-	@Output('appSortableContainerChange') itemsChange = new EventEmitter<any[]>();
+	@Input() appSortableContainer: any[];
+	@Output() appSortableContainerChange = new EventEmitter<any[]>();
 
 	@ContentChildren(SortableItemDirective)
 	sortableItemDirectives: QueryList<SortableItemDirective>;
@@ -42,7 +42,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 	setSortableItem(): void {
 		this.sortableItemDirectives.forEach((sortableItemDirective, index) => {
 			sortableItemDirective.index = index;
-			sortableItemDirective.item = this.items[index];
+			sortableItemDirective.item = this.appSortableContainer[index];
 		});
 	}
 
@@ -54,7 +54,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 		let previousIndex = event.detail.index;
 		let insertBeforeIndex = this.closest.index;
 
-		let newItems = _.cloneDeep(this.items);
+		let newItems = _.clone(this.appSortableContainer);
 
 		if(insertBeforeIndex === undefined) {
 			newItems.splice(previousIndex, 1);
@@ -70,17 +70,19 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 		}
 
 		this.closest = null;
-		this.itemsChange.emit(newItems);
+		this.appSortableContainerChange.emit(newItems);
 	}
 
 	@HostListener('sortabledragging', ['$event'])
 	sortabledragging(event): void {
-		this.closest = this.findPosition(this.sortableItemDirectives, event.detail.clientY);
+		if(this.isCursorInLimits(this.element, [event.detail.clientX, event.detail.clientY])) {
+			this.closest = this.findPosition(this.sortableItemDirectives, event.detail.clientY);
 
-		let dragging = event.detail.element;
-		let target = this.closest.element;
+			let dragging = event.detail.element;
+			let target = this.closest.element;
 
-		target ? this.element.insertBefore(dragging, target) : this.element.appendChild(dragging);
+			target ? this.element.insertBefore(dragging, target) : this.element.appendChild(dragging);
+		}
 	}
 
 	findPosition(sortableItemDirectives: QueryList<SortableItemDirective>, clientY: number): any {
@@ -101,5 +103,20 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 		}, { sortable: null, offset: Number.POSITIVE_INFINITY });
 
 		return closest.sortable ? { element: closest.sortable.element, index: closest.sortable.index } : { element: null, index: undefined };
+	}
+
+	// items will reorder only when the cursor hovers over the element
+	isCursorInLimits(element: HTMLElement, point: [number, number]): boolean {
+		const top = element.getBoundingClientRect().top;
+		const left = element.getBoundingClientRect().left;
+		const bottom = element.getBoundingClientRect().bottom;
+		const right = element.getBoundingClientRect().right;
+
+		const clientX = point[0];
+		const clientY = point[1];
+
+		if((clientX >= left) && (clientX <= right) && (clientY >= top) && (clientY <= bottom)) return true;
+
+		return false;
 	}
 }

@@ -22,7 +22,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 			new Navigation('Reactive Form', '/reactive-form'),
 			new Navigation('Guard', '/guard'),
 			new Navigation('Restful', '/restful'),
-			new Navigation('Translation', '/translation')
+			new Navigation('Translation', '/translation'),
+			new Navigation('Sortable', '/sortable')
 		];
 	}
 

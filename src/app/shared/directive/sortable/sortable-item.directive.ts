@@ -90,6 +90,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 		this.originalCoordinate = [element.getBoundingClientRect().left, element.getBoundingClientRect().top];
 
 		// dimension
+		this.renderer.setStyle(clone, 'box-sizing', `${ getComputedStyle(element).getPropertyValue('box-sizing') }`);
 		this.renderer.setStyle(clone, 'width', `${ element.offsetWidth }px`);
 		this.renderer.setStyle(clone, 'height', `${ element.offsetHeight }px`);
 		// position
@@ -110,7 +111,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 		// realize the animation that the shadow moves to the new position when drag action is finished
 		const endPointLeft = element.getBoundingClientRect().left - this.originalCoordinate[0];
 		const endPointTop = element.getBoundingClientRect().top - this.originalCoordinate[1];
-		const duration = 800;
+		const duration = 500;
 
 		this.renderer.setStyle(clone, 'transition', `transform ${ duration }ms`);
 		this.renderer.setStyle(clone, 'transform', `translate(${ endPointLeft }px, ${ endPointTop }px)`);
@@ -118,6 +119,7 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 		setTimeout(() => {
 			body.removeChild(clone);
 
+			this.renderer.removeStyle(clone, 'box-sizing');
 			this.renderer.removeStyle(clone, 'width');
 			this.renderer.removeStyle(clone, 'height');
 			this.renderer.removeStyle(clone, 'position');
