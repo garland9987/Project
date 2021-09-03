@@ -1,3 +1,7 @@
 @function subtract($value1, $value2) {
 	@return calc(#{$value1} - #{$value2});
 }
+
+@function add($value1, $value2) {
+	@return calc(#{$value1} + #{$value2});
+}

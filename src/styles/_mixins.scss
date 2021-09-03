@@ -12,12 +12,6 @@
 	@if length($directions) == 4 { bottom: nth($directions, 4); }
 }
 
-@mixin view-inner-height($view-height, $vertical-padding) {
-	display: block;
-	height: subtract($view-height, ($vertical-padding * 2));
-	overflow-y: auto;
-}
-
 @mixin flexbox-center {
 	display: flex;
 	justify-content: center;

@@ -1,14 +1,20 @@
-import { Directive, ElementRef, Inject, AfterViewInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Inject, AfterContentInit, AfterViewInit, Renderer2, ContentChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { fromEvent, of } from 'rxjs';
 import { switchMap, takeUntil, withLatestFrom, tap, mergeAll } from 'rxjs/operators';
 
 import { BaseDirective } from '@shared/directive/base/base.directive';
+import { DraggableHandleDirective } from './draggable-handle.directive';
 
 @Directive({
 	selector: '[appDraggable]'
 })
-export class DraggableDirective extends BaseDirective implements AfterViewInit {
+export class DraggableDirective extends BaseDirective implements AfterContentInit, AfterViewInit {
+
+	public handle: HTMLElement;
+
+	@ContentChild(DraggableHandleDirective)
+	draggableHandleDirective: DraggableHandleDirective;
 
 	constructor(private elementRef: ElementRef,
 				private renderer: Renderer2,
@@ -18,12 +24,20 @@ export class DraggableDirective extends BaseDirective implements AfterViewInit {
 
 	get element(): HTMLElement { return this.elementRef.nativeElement; }
 
+	ngAfterContentInit() {
+		if(this.draggableHandleDirective !== undefined) {
+			this.handle = this.draggableHandleDirective.element;
+		}
+
+		this.renderer.setStyle(this.handle ? this.handle : this.element, 'cursor', 'move');
+	}
+
 	ngAfterViewInit() {
-		const mousedown = fromEvent<MouseEvent>(this.element, 'mousedown');
+		const mousedown = fromEvent<MouseEvent>(this.handle ? this.handle : this.element, 'mousedown');
 		const mousemove = fromEvent<MouseEvent>(this.document, 'mousemove');
 		const mouseup = fromEvent<MouseEvent>(this.document, 'mouseup');
 
-		const touchstart = fromEvent<TouchEvent>(this.element, 'touchstart');
+		const touchstart = fromEvent<TouchEvent>(this.handle ? this.handle : this.element, 'touchstart');
 		const touchmove = fromEvent<TouchEvent>(this.document, 'touchmove');
 		const touchend = fromEvent<TouchEvent>(this.document, 'touchend');
 

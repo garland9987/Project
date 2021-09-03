@@ -81,7 +81,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 			let dragging = event.detail.element;
 			let target = this.closest.element;
 
-			target ? this.element.insertBefore(dragging, target) : this.element.appendChild(dragging);
+			target ? this.renderer.insertBefore(this.element, dragging, target) : this.renderer.appendChild(this.element, dragging);
 		}
 	}
 

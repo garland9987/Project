@@ -5,11 +5,22 @@
 <hr>
 
 <div class="card">
-	<div class="card-body">
-		<ul class="list-group w-50" [(appSortableContainer)]="items">
+	<div class="card-body two-columns">
+		<ul class="list-group" [(appSortableContainer)]="items">
 			<li class="list-group-item" *ngFor="let item of items" appSortableItem>
 				({{ item.code }}) {{ item.name }}
 			</li>
 		</ul>
+		<div class="card" appDraggable>
+			<div class="card-body">
+				<h3 class="card-title">Card title</h3>
+				<p class="card-text">
+					A card is a flexible and extensible content container.
+                    It includes options for headers and footers, a wide variety of content,
+                    contextual background colors, and powerful display options.
+				</p>
+			</div>
+			<span class="draggable-handle" appDraggableHandle></span>
+		</div>
 	</div>
 </div>

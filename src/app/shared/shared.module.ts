@@ -22,6 +22,7 @@ import { LoadingComponent } from './custom-modal/loading/loading.component';
 import { ProcessComponent } from './custom-modal/process/process.component';
 import { NamespacePipe } from './pipe/namespace/namespace.pipe';
 import { DraggableDirective } from './directive/draggable/draggable.directive';
+import { DraggableHandleDirective } from './directive/draggable/draggable-handle.directive';
 import { SortableItemDirective } from './directive/sortable/sortable-item.directive';
 import { SortableContainerDirective } from './directive/sortable/sortable-container.directive';
 
@@ -44,6 +45,7 @@ import { SortableContainerDirective } from './directive/sortable/sortable-contai
 		ProcessComponent,
 		NamespacePipe,
 		DraggableDirective,
+		DraggableHandleDirective,
 		SortableItemDirective,
 		SortableContainerDirective
 	],
@@ -70,6 +72,7 @@ import { SortableContainerDirective } from './directive/sortable/sortable-contai
 		MenuItemDirective,
 		PaginationComponent,
 		DraggableDirective,
+		DraggableHandleDirective,
 		SortableItemDirective,
 		SortableContainerDirective,
 		// pipe

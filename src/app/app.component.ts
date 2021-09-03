@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 			new Navigation('Guard', '/guard'),
 			new Navigation('Restful', '/restful'),
 			new Navigation('Translation', '/translation'),
-			new Navigation('Sortable', '/sortable')
+			new Navigation('Sortable & Draggable', '/sortable')
 		];
 	}
 

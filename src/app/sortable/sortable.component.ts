@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 	styleUrls: ['./sortable.component.scss']
 })
 export class SortableComponent {
-	public title: string = 'Sortable List';
+	public title: string = 'Sortable & Draggable';
 
 	public items: any[] = [
 		{ id: 1, code: 'robot-1', name: 'Andrew' },

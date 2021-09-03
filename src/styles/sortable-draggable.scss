@@ -1,0 +1,27 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.sortable-shadow {
+	border: none;
+	box-shadow: 5px 5px 10px #999999;
+
+	opacity: .8;
+	cursor: move;
+}
+
+.sortable-dragging,
+.sortable-item,
+.sortable-container {}
+
+.draggable-handle {
+	@include position(absolute, .5em, auto, .5em, auto);
+
+	display: block;
+	width: 1.4em;
+	height: 1.4em;
+
+	background-image: url('/assets/icons/draggable.svg');
+	background-repeat: no-repeat;
+	background-size: 1.4em 1.4em;
+}
