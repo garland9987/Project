@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class ScrollService {
-	private container: HTMLElement;
-	private scrollPosition = null;
+	public container: HTMLElement;
 
 	setContainer(container: HTMLElement): void {
 		this.container = container;
@@ -20,6 +19,10 @@ export class ScrollService {
 	scrollToPosition(position: [number, number]): void {
 		this.container.scrollTop = position[0];
 		this.container.scrollLeft = position[1];
+	}
+
+	scrollToTop(): void {
+		this.container.scrollTop = 0;
 	}
 
 	scrollToBottom(): void {

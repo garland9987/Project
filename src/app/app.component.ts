@@ -1,4 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 import { Navigation } from '@shared/model/navigation';
 import { ScrollService } from '@core/service/scroll/scroll.service';
@@ -8,13 +10,13 @@ import { ScrollService } from '@core/service/scroll/scroll.service';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 	public brand: string = 'Falcon';
 	public items: Navigation[];
 
-	@ViewChild('viewContent') viewContent: ElementRef;
-
-	constructor(private scrollService: ScrollService) {}
+	constructor(private router: Router,
+				private scrollService: ScrollService,
+				@Inject(DOCUMENT) private document: Document) {}
 
 	ngOnInit() {
 		this.items = [
@@ -25,13 +27,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 			new Navigation('Translation', '/translation'),
 			new Navigation('Sortable & Draggable', '/sortable')
 		];
+
+		this.scrollService.setContainer(this.document.documentElement);
 	}
 
-	ngAfterViewInit(): void {
-		this.scrollService.setContainer(this.viewContent.nativeElement);
-	}
-
-	onActivate(): void {
-		this.viewContent.nativeElement.scrollTop = 0;
+	onDeactivate(): void {
+		this.scrollService.scrollToTop();
 	}
 }
