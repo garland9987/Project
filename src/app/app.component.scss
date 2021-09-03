@@ -11,6 +11,8 @@
 		display: none;
 
 		@media (min-width: 576px) {
+			@include position(sticky, add($banner-height, $view-v-indent));
+
 			display: block;
 			height: subtract($view-height, ($view-v-indent * 2));
 			overflow: auto;
@@ -19,7 +21,6 @@
 
 	.view-content {
 		display: block;
-		height: subtract($view-height, ($view-v-indent * 2));
-		overflow: auto;
+		margin-bottom: 1rem;
 	}
 }

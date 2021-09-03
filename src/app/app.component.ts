@@ -1,20 +1,18 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { Navigation } from '@shared/model/navigation';
-import { ScrollService } from '@core/service/scroll/scroll.service';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 	public brand: string = 'Falcon';
 	public items: Navigation[];
 
-	@ViewChild('viewContent') viewContent: ElementRef;
-
-	constructor(private scrollService: ScrollService) {}
+	constructor(@Inject(DOCUMENT) private document: Document) {}
 
 	ngOnInit() {
 		this.items = [
@@ -27,11 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 		];
 	}
 
-	ngAfterViewInit(): void {
-		this.scrollService.setContainer(this.viewContent.nativeElement);
-	}
-
-	onActivate(): void {
-		this.viewContent.nativeElement.scrollTop = 0;
+	onDeactivate(): void {
+  		this.document.body.scrollTop = 0;
 	}
 }
