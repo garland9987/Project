@@ -32,13 +32,17 @@ export class SortableItemDirective extends BaseDirective implements OnInit, Afte
 	ngAfterViewInit() {
 		const clone = this.element.cloneNode(true) as HTMLElement;
 
-		const mousedown = fromEvent<MouseEvent>(this.element, 'mousedown');
-		const mousemove = fromEvent<MouseEvent>(this.document, 'mousemove');
-		const mouseup = fromEvent<MouseEvent>(this.document, 'mouseup');
+		// prevent the page from scrolling when an element is being dragged
+		const preventMouseDefault = (event: MouseEvent) => { event.preventDefault(); };
+		const preventTouchDefault = (event: TouchEvent) => { event.preventDefault(); };
 
-		const touchstart = fromEvent<TouchEvent>(this.element, 'touchstart');
-		const touchmove = fromEvent<TouchEvent>(this.document, 'touchmove');
-		const touchend = fromEvent<TouchEvent>(this.document, 'touchend');
+		const mousedown = fromEvent<MouseEvent>(this.element, 'mousedown').pipe(tap(preventMouseDefault));
+		const mousemove = fromEvent<MouseEvent>(this.document, 'mousemove').pipe(tap(preventMouseDefault));
+		const mouseup = fromEvent<MouseEvent>(this.document, 'mouseup').pipe(tap(preventMouseDefault));
+
+		const touchstart = fromEvent<TouchEvent>(this.element, 'touchstart').pipe(tap(preventTouchDefault));
+		const touchmove = fromEvent<TouchEvent>(this.document, 'touchmove').pipe(tap(preventTouchDefault));
+		const touchend = fromEvent<TouchEvent>(this.document, 'touchend').pipe(tap(preventTouchDefault));
 
 		const mouseDraggable = mousedown.pipe(
 			tap(() => { this.startDragging(this.document.body, this.element, clone); }),

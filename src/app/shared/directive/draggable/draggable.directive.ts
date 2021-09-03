@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, AfterContentInit, AfterViewInit, Renderer2, ContentChild } from '@angular/core';
+import { Directive, ElementRef, Inject, OnInit, AfterContentInit, AfterViewInit, Renderer2, ContentChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { fromEvent, of } from 'rxjs';
 import { switchMap, takeUntil, withLatestFrom, tap, mergeAll } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { DraggableHandleDirective } from './draggable-handle.directive';
 @Directive({
 	selector: '[appDraggable]'
 })
-export class DraggableDirective extends BaseDirective implements AfterContentInit, AfterViewInit {
+export class DraggableDirective extends BaseDirective implements OnInit, AfterContentInit, AfterViewInit {
 
 	public handle: HTMLElement;
 
@@ -24,6 +24,10 @@ export class DraggableDirective extends BaseDirective implements AfterContentIni
 
 	get element(): HTMLElement { return this.elementRef.nativeElement; }
 
+	ngOnInit() {
+		this.renderer.addClass(this.element, 'draggable-item');
+	}
+
 	ngAfterContentInit() {
 		if(this.draggableHandleDirective !== undefined) {
 			this.handle = this.draggableHandleDirective.element;
@@ -33,22 +37,28 @@ export class DraggableDirective extends BaseDirective implements AfterContentIni
 	}
 
 	ngAfterViewInit() {
-		const mousedown = fromEvent<MouseEvent>(this.handle ? this.handle : this.element, 'mousedown');
-		const mousemove = fromEvent<MouseEvent>(this.document, 'mousemove');
-		const mouseup = fromEvent<MouseEvent>(this.document, 'mouseup');
+		// prevent the page from scrolling when an element is being dragged
+		const preventMouseDefault = (event: MouseEvent) => { event.preventDefault(); };
+		const preventTouchDefault = (event: TouchEvent) => { event.preventDefault(); };
 
-		const touchstart = fromEvent<TouchEvent>(this.handle ? this.handle : this.element, 'touchstart');
-		const touchmove = fromEvent<TouchEvent>(this.document, 'touchmove');
-		const touchend = fromEvent<TouchEvent>(this.document, 'touchend');
+		const mousedown = fromEvent<MouseEvent>(this.handle ? this.handle : this.element, 'mousedown').pipe(tap(preventMouseDefault));
+		const mousemove = fromEvent<MouseEvent>(this.document, 'mousemove').pipe(tap(preventMouseDefault));
+		const mouseup = fromEvent<MouseEvent>(this.document, 'mouseup').pipe(tap(preventMouseDefault));
+
+		const touchstart = fromEvent<TouchEvent>(this.handle ? this.handle : this.element, 'touchstart').pipe(tap(preventTouchDefault));
+		const touchmove = fromEvent<TouchEvent>(this.document, 'touchmove').pipe(tap(preventTouchDefault));
+		const touchend = fromEvent<TouchEvent>(this.document, 'touchend').pipe(tap(preventTouchDefault));
 
 		let currentX: number = 0;
 		let currentY: number = 0;
 
 		const mouseDraggable = mousedown.pipe(
+			tap(() => { this.renderer.addClass(this.element, 'dragging'); }),
 			switchMap(() => {
 				return mousemove.pipe(
 					takeUntil(mouseup.pipe(tap(() => {
 						[currentX, currentY] = this.calcTranslate();
+						this.renderer.removeClass(this.element, 'dragging');
 					})))
 				);
 			}),
@@ -62,10 +72,12 @@ export class DraggableDirective extends BaseDirective implements AfterContentIni
 			}));
 
 		const touchDraggable = touchstart.pipe(
+			tap(() => { this.renderer.addClass(this.element, 'dragging'); }),
 			switchMap(() => {
 				return touchmove.pipe(
 					takeUntil(touchend.pipe(tap(() => {
 						[currentX, currentY] = this.calcTranslate();
+						this.renderer.removeClass(this.element, 'dragging');
 					})))
 				);
 			}),

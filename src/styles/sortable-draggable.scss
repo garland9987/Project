@@ -10,18 +10,25 @@
 	cursor: move;
 }
 
-.sortable-dragging,
 .sortable-item,
 .sortable-container {}
+
+.draggable-item {
+	transition: box-shadow 600ms;
+}
+
+.draggable-item.dragging {
+	box-shadow: 0 0 10px #999999;
+}
 
 .draggable-handle {
 	@include position(absolute, .5em, auto, .5em, auto);
 
 	display: block;
-	width: 1.4em;
-	height: 1.4em;
+	width: 1.5em;
+	height: 1.5em;
 
 	background-image: url('/assets/icons/draggable.svg');
 	background-repeat: no-repeat;
-	background-size: 1.4em 1.4em;
+	background-size: 1.5em 1.5em;
 }
