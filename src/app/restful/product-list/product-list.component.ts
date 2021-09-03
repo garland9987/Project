@@ -13,6 +13,7 @@ import { ModalRef, ModalService, SimpleModalService, ConfirmModalService } from 
 import { LoadingComponent } from '@shared/custom-modal/loading/loading.component';
 import { RouteTracerService } from '@core/service/route-tracer/route-tracer.service';
 import { MapService } from '@core/service/map/map.service';
+import { ScrollService } from '@core/service/scroll/scroll.service';
 
 @Component({
 	selector: 'app-product-list',
@@ -53,7 +54,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				private simpleModalService: SimpleModalService,
 				private confirmModalService: ConfirmModalService,
 				private routeTracerService: RouteTracerService,
-				private mapService: MapService) {
+				private mapService: MapService,
+				private scrollService: ScrollService) {
 		super();
 	}
 
@@ -187,11 +189,21 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 
 	scrollIntoView(): void {
 		const id = this.mapService.get('productId');
+		this.mapService.delete('productId');
 
 		if(id !== undefined) {
 			setTimeout(() => {
-				this.element.querySelector(`[data-stamp='${ id }']`)?.scrollIntoView(true);
-				this.mapService.delete('productId');
+				const target = this.element.querySelector(`[data-stamp='${ id }']`);
+
+				if(target) {
+					const top = target.getBoundingClientRect().top;
+					const left = target.getBoundingClientRect().left;
+
+					const fontSize = getComputedStyle(document.documentElement).getPropertyValue('font-size');
+					const offset = 5 * parseFloat(fontSize);
+
+					this.scrollService.scrollToPosition([(top - offset), left]);
+				}
 			}, 0);
 		}
 	}

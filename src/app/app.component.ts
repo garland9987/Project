@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 import { Navigation } from '@shared/model/navigation';
+import { ScrollService } from '@core/service/scroll/scroll.service';
 
 @Component({
 	selector: 'app-root',
@@ -12,7 +14,9 @@ export class AppComponent implements OnInit {
 	public brand: string = 'Falcon';
 	public items: Navigation[];
 
-	constructor(@Inject(DOCUMENT) private document: Document) {}
+	constructor(private router: Router,
+				private scrollService: ScrollService,
+				@Inject(DOCUMENT) private document: Document) {}
 
 	ngOnInit() {
 		this.items = [
@@ -23,9 +27,11 @@ export class AppComponent implements OnInit {
 			new Navigation('Translation', '/translation'),
 			new Navigation('Sortable & Draggable', '/sortable')
 		];
+
+		this.scrollService.setContainer(this.document.documentElement);
 	}
 
 	onDeactivate(): void {
-  		this.document.body.scrollTop = 0;
+		this.scrollService.scrollToTop();
 	}
 }
