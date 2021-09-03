@@ -198,9 +198,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 				if(target) {
 					const top = target.getBoundingClientRect().top;
 					const left = target.getBoundingClientRect().left;
-
-					const fontSize = getComputedStyle(document.documentElement).getPropertyValue('font-size');
-					const offset = 5 * parseFloat(fontSize);
+					const offset = this.element.parentElement.getBoundingClientRect().top;
 
 					this.scrollService.scrollToPosition([(top - offset), left]);
 				}
