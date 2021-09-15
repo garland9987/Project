@@ -1,0 +1,12 @@
+.form-date,
+.form-time,
+.form-datetime {
+	display: inline-grid;
+	grid-template-columns: repeat(2, max-content);
+	align-items: center;
+	column-gap: .3em;
+
+	.form-invalid-prompt.placeholder {
+		grid-column: 2;
+	}
+}
