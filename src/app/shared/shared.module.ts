@@ -25,6 +25,10 @@ import { DraggableDirective } from './directive/draggable/draggable.directive';
 import { DraggableHandleDirective } from './directive/draggable/draggable-handle.directive';
 import { SortableItemDirective } from './directive/sortable/sortable-item.directive';
 import { SortableContainerDirective } from './directive/sortable/sortable-container.directive';
+import { DateComponent } from './component/date/date.component';
+import { DateSectionComponent } from './component/date/date-section/date-section.component';
+import { MonthSectionComponent } from './component/date/month-section/month-section.component';
+import { YearSectionComponent } from './component/date/year-section/year-section.component';
 
 @NgModule({
 	declarations: [
@@ -47,7 +51,11 @@ import { SortableContainerDirective } from './directive/sortable/sortable-contai
 		DraggableDirective,
 		DraggableHandleDirective,
 		SortableItemDirective,
-		SortableContainerDirective
+		SortableContainerDirective,
+		DateComponent,
+		DateSectionComponent,
+		MonthSectionComponent,
+		YearSectionComponent
 	],
 	imports: [
 		CommonModule,
@@ -75,6 +83,7 @@ import { SortableContainerDirective } from './directive/sortable/sortable-contai
 		DraggableHandleDirective,
 		SortableItemDirective,
 		SortableContainerDirective,
+		DateComponent,
 		// pipe
 		NamespacePipe
 	]

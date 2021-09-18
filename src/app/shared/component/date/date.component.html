@@ -1,0 +1,8 @@
+<div class="date">
+	<app-date-section [date]="date" (dateChange)="editDate($event)"></app-date-section>
+	<div class="separator"></div>
+	<app-month-section [month]="month" (monthChange)="editMonth($event)"></app-month-section>
+	<div class="separator"></div>
+	<app-year-section [year]="year" (yearChange)="editYear($event)"></app-year-section>
+	<span class="calendar"></span>
+</div>

@@ -6,22 +6,33 @@
 	<div class="form-date me-3 mb-3">
 		<label for="date">Date: </label>
 		<input type="date" id="date" formControlName="date" [ngClass]="validation(date)">
-		<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Date is required.</span>
+		<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
 	</div>
 
 	<!-- time -->
 	<div class="form-time me-3 mb-3">
 		<label for="time">Time: </label>
 		<input type="time" id="time" formControlName="time" [ngClass]="validation(time)">
-		<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Time is required</span>
+		<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Please enter a valid time</span>
 	</div>
 
 	<!-- datetime-local -->
 	<div class="form-datetime me-3 mb-3">
 		<label for="datetime">Datetime: </label>
 		<input type="datetime-local" id="datetime" formControlName="datetime" [ngClass]="validation(datetime)">
-		<span class="form-invalid-prompt placeholder" *ngIf="datetime.errors?.required">Date & time are required</span>
+		<span class="form-invalid-prompt placeholder" *ngIf="datetime.errors?.required">Please enter a valid date and time</span>
 	</div>
+
+	<hr>
+
+	<!-- custom date -->
+	<div class="form-date me-3 mb-3">
+		<label>Date: </label>
+		<app-date formControlName="date" [ngClass]="validation(date)"></app-date>
+		<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+	</div>
+
+	<hr>
 
 	<!-- submit -->
 	<div class="form-submit">
