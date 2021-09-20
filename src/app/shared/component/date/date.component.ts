@@ -20,10 +20,12 @@ import { YearSectionComponent } from './year-section/year-section.component';
 export class DateComponent implements ControlValueAccessor {
 	public initialized: boolean = false;
 	public touched: boolean = false;
+	public showCalendar: boolean = false;
 
 	public date: string = '';
 	public month: string = '';
 	public year: string = '';
+	public calendar: string = '';
 
 	public onChange = (value: string) => {};
 	public onTouched = () => {};
@@ -55,7 +57,8 @@ export class DateComponent implements ControlValueAccessor {
 			if(!this.touched &&
 				!this.dateSectionComponent.startTyping &&
 				!this.monthSectionComponent.startTyping &&
-				!this.yearSectionComponent.startTyping) {
+				!this.yearSectionComponent.startTyping &&
+				!this.showCalendar) {
 
 				if(!this.initialized) {
 					this.initialized = true;
@@ -79,6 +82,26 @@ export class DateComponent implements ControlValueAccessor {
 				if(document.activeElement === this.dateSectionComponent.element) this.moveDateToMonth();
 				else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToYear();
 				break;
+			default:
+				this.showCalendar = false;
+		}
+	}
+
+	// mousedown is trigged before focusout
+	@HostListener('mousedown', ['$event'])
+	mousedown(event) {
+		const element = event.target;
+
+		if(element.matches('.date-section') ||
+			element.matches('.month-section') ||
+			element.matches('.year-section') ||
+			element.matches('.date-backdrop')) {
+
+			this.showCalendar = false;
+		}
+
+		if(element.matches('.calendar-button')) {
+			this.showCalendar = !this.showCalendar;
 		}
 	}
 
@@ -175,5 +198,23 @@ export class DateComponent implements ControlValueAccessor {
 	moveMonthToDate(): void {
 		this.monthSectionComponent.getBlur();
 		this.dateSectionComponent.getFocus();
+	}
+
+	setCalendar(): void {
+		if(this.showCalendar) {
+			this.calendar = `${this.year}-${this.month}-${this.date}`;
+			this.dateSectionComponent.getFocus();
+		}
+		else {
+			this.calendar = '';
+			this.dateSectionComponent.getBlur();
+		}
+	}
+
+	getCalendar(calendar: string): void {
+		[this.year, this.month, this.date] = calendar.split('-');
+
+		this.dispatchDate();
+		this.showCalendar = false;
 	}
 }

@@ -1,0 +1,89 @@
+.calendar {
+	position: absolute;
+	z-index: 1;
+
+	padding: .8em;
+	border: 1px solid #ced4da;
+	background-color: #fff;
+	box-shadow: 5px 5px 10px #999999;
+
+	font-size: .8em;
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+
+		margin-bottom: .5em;
+
+		.year-month {
+			padding-right: 1em;
+
+			background-image: url('/assets/icons/caret-down-fill.svg');
+			background-repeat: no-repeat;
+			background-size: .8em .8em;
+			background-position: right 0 top 50%;
+
+			font-size: 1.1em;
+			font-weight: bold;
+			cursor: default;
+		}
+
+		.prev-next-month {
+			display: flex;
+
+			.prev-month,
+			.next-month {
+				width: 2em;
+				height: 2em;
+
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+
+			.prev-month { background-image: url('/assets/icons/arrow-up-short.svg'); }
+			.next-month { background-image: url('/assets/icons/arrow-down-short.svg'); }
+
+			.prev-month:hover,
+			.next-month:hover {
+				background-color: #b5d5ff;
+			}
+		}
+	}
+
+	.footer {
+		display: flex;
+		justify-content: flex-end;
+
+		padding: .2em;
+		cursor: default;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(7, 2.5em);
+		grid-auto-rows: 2.5em;
+
+		.cell {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+	.date:not(.selected-date):hover {
+		background-color: #b5d5ff;
+		cursor: default;
+	}
+
+	.invalid-date {
+		color: #6c757d;
+	}
+
+	.selected-date {
+		color: #fff;
+		background-color: #0d6efd;
+
+		font-size: 1.1em;
+		cursor: default;
+	}
+}

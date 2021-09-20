@@ -29,6 +29,8 @@ import { DateComponent } from './component/date/date.component';
 import { DateSectionComponent } from './component/date/date-section/date-section.component';
 import { MonthSectionComponent } from './component/date/month-section/month-section.component';
 import { YearSectionComponent } from './component/date/year-section/year-section.component';
+import { CalendarComponent } from './component/date/calendar/calendar.component';
+import { MonthPipe } from './component/date/calendar/month.pipe';
 
 @NgModule({
 	declarations: [
@@ -55,7 +57,9 @@ import { YearSectionComponent } from './component/date/year-section/year-section
 		DateComponent,
 		DateSectionComponent,
 		MonthSectionComponent,
-		YearSectionComponent
+		YearSectionComponent,
+		CalendarComponent,
+		MonthPipe
 	],
 	imports: [
 		CommonModule,

@@ -5,7 +5,7 @@ import { Component, HostListener, Input, Output, EventEmitter, OnInit, OnChanges
 	templateUrl: './year-section.component.html',
 	styleUrls: ['./year-section.component.scss']
 })
-export class YearSectionComponent {
+export class YearSectionComponent implements OnInit, OnChanges {
 	public currentInput: string = '';
 	public startTyping: boolean = false;
 
@@ -109,14 +109,14 @@ export class YearSectionComponent {
 	@HostListener('keydown', ['$event'])
 	keydown(event) {
 		switch(event.key) {
-			case 'ArrowLeft':
-			case 'ArrowRight':
-			case 'ArrowUp':
+		case 'ArrowLeft':
+		case 'ArrowRight':
+		case 'ArrowUp':
 			// @ts-expect-error
-			case 'ArrowDown':
-				this.locateCursor(event.target);
-			default:
-				this.currentInput = event.key;
+		case 'ArrowDown':
+			this.locateCursor(event.target);
+		default:
+			this.currentInput = event.key;
 		}
 	}
 

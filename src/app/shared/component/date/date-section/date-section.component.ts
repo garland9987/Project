@@ -109,14 +109,14 @@ export class DateSectionComponent implements OnInit, OnChanges {
 	@HostListener('keydown', ['$event'])
 	keydown(event) {
 		switch(event.key) {
-			case 'ArrowLeft':
-			case 'ArrowRight':
-			case 'ArrowUp':
+		case 'ArrowLeft':
+		case 'ArrowRight':
+		case 'ArrowUp':
 			// @ts-expect-error
-			case 'ArrowDown':
-				this.locateCursor(event.target);
-			default:
-				this.currentInput = event.key;
+		case 'ArrowDown':
+			this.locateCursor(event.target);
+		default:
+			this.currentInput = event.key;
 		}
 	}
 
