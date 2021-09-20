@@ -11,6 +11,6 @@
 	</div>
 
 	<div class="calendar" *ngIf="showCalendar">
-		<app-calendar [calendar]="calendar" (calendarChange)="getCalendar($event)"></app-calendar>
+		<app-calendar [calendar]="calendar" (calendarDateChange)="getCalendarDate($event)" (calendarMonthChange)="getCalendarMonth($event)"></app-calendar>
 	</div>
 </div>

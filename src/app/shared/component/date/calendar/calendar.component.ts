@@ -16,7 +16,8 @@ interface IDate {
 })
 export class CalendarComponent implements OnInit, OnChanges {
 	@Input() calendar: string = '';
-	@Output() calendarChange = new EventEmitter<string>();
+	@Output() calendarDateChange = new EventEmitter<string>();
+	@Output() calendarMonthChange = new EventEmitter<string>();
 
 	public date: number;
 	public month: number;
@@ -120,21 +121,25 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
 
-		this.calendarChange.emit(mt.format('YYYY-MM-DD'));
+		this.calendarDateChange.emit(mt.format('YYYY-MM-DD'));
 	}
 
 	today(): void {
-		this.calendarChange.emit(moment().format('YYYY-MM-DD'));
+		this.calendarDateChange.emit(moment().format('YYYY-MM-DD'));
 	}
 
 	prevMonth(): void {
 		const mt = moment([this.year, this.month, this.date]).subtract(1, 'months');
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
+
+		this.calendarMonthChange.emit(mt.format('YYYY-MM-DD'));
 	}
 
 	nextMonth(): void {
 		const mt = moment([this.year, this.month, this.date]).add(1, 'months');
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
+
+		this.calendarMonthChange.emit(mt.format('YYYY-MM-DD'));
 	}
 
 	// ensure the *ngFor directive to work properly

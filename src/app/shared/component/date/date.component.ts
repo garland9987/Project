@@ -211,10 +211,18 @@ export class DateComponent implements ControlValueAccessor {
 		}
 	}
 
-	getCalendar(calendar: string): void {
+	getCalendarDate(calendar: string): void {
 		[this.year, this.month, this.date] = calendar.split('-');
 
 		this.dispatchDate();
 		this.showCalendar = false;
+	}
+
+	getCalendarMonth(calendar: string): void {
+		[this.year, this.month, this.date] = calendar.split('-');
+
+		if(!this.initialized) this.initialized = true;
+
+		this.dispatchDate();
 	}
 }
