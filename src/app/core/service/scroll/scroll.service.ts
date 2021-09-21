@@ -17,8 +17,14 @@ export class ScrollService {
 
 	// argument type: [scrollTop, scrollLeft]
 	scrollToPosition(position: [number, number]): void {
-		this.container.scrollTop = position[0];
-		this.container.scrollLeft = position[1];
+		// this.container.scrollTop = position[0];
+		// this.container.scrollLeft = position[1];
+
+		this.container.scrollTo({
+			top: position[0],
+			left: position[1],
+			behavior: 'auto'
+		});
 	}
 
 	scrollToTop(): void {

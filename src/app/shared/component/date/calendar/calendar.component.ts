@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';
@@ -16,14 +16,24 @@ interface IDate {
 })
 export class CalendarComponent implements OnInit, OnChanges {
 	@Input() calendar: string = '';
-	@Output() calendarDateChange = new EventEmitter<string>();
-	@Output() calendarMonthChange = new EventEmitter<string>();
+	@Output() calendarDateChange = new EventEmitter<string>();		// use when date is changed
+	@Output() calendarMonthChange = new EventEmitter<string>();		// use when either year or month is changed
 
 	public date: number;
 	public month: number;
 	public year: number;
 
 	public weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	public months: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+	public mode: string = 'standard';
+	public center: number;
+	public selectedYear: number;
+	public selectedMonth: number;
+
+	constructor(private elementRef: ElementRef) {}
+
+	get element(): HTMLElement { return this.elementRef.nativeElement; }
 
 	ngOnInit(): void {
 		this.setStatus();
@@ -144,4 +154,89 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	// ensure the *ngFor directive to work properly
 	indexTracker(index: number, value: any) { return index; }
+
+	changeMode(mode: string): void {
+		this.mode = mode;
+
+		switch(this.mode) {
+			case 'advanced':
+				this.center = this.year;
+				this.selectedYear = this.year;
+				this.selectedMonth = this.month;
+				this.scrollIntoView(this.year);
+				break;
+			case 'standard':
+				break;
+		}
+	}
+
+	isOriginalMonth(year: number, month: number): boolean {
+		return (year === this.year) && (month === this.month);
+	}
+
+	selectYear(year: number): void {
+		this.center = year;
+		this.selectedYear = year;
+		this.scrollIntoView(this.selectedYear);
+	}
+
+	selectMonth(month: number): void {
+		this.selectedMonth = month;
+
+		this.year = this.selectedYear;
+		this.month = this.selectedMonth;
+		this.changeMode('standard');
+
+		this.calendarMonthChange.emit(moment([this.year, this.month, this.date]).format('YYYY-MM-DD'));
+	}
+
+	get years(): number[] {
+		return this.calcYears(this.center, 200);
+	}
+
+	calcYears(center: number, radius: number): number[] {
+		let years: number[] = [];
+
+		let start: number = center - radius;
+		let end: number = center + radius;
+
+		for(let year = start; year <= end; year++) years.push(year);
+
+		return years;
+	}
+
+	moveCenterUp(center: number, radius: number, offset: number, min: number): number {
+		return (center - offset - radius) < min ? (min + radius) : (center - offset);
+	}
+
+	moveCenterDown(center: number, radius: number, offset: number, max: number): number {
+		return (center + offset + radius) > max ? (max - radius) : (center + offset);
+	}
+
+	scroll(event): void {
+		const element = event.target;
+		const innerHeight = getComputedStyle(element).getPropertyValue('height');
+
+		if(element.scrollTop <= 1000) {
+			this.center = this.moveCenterUp(this.center, 200, 200, 1);
+		}
+		else if((element.scrollHeight - (element.scrollTop + parseInt(innerHeight))) <= 1000) {
+			this.center = this.moveCenterDown(this.center, 200, 200, 9999);
+		}
+	}
+
+	scrollIntoView(year: number): void {
+		window.requestAnimationFrame(() => {
+			const container = this.element.querySelector('.years') as HTMLElement;
+			const target = this.element.querySelector(`[data-stamp='${year}']`) as HTMLElement;
+
+			// container.scrollLeft = target.offsetLeft;
+			// container.scrollTop = target.offsetTop;
+			container.scrollTo({
+				top: target.offsetTop,
+				left: target.offsetLeft,
+				behavior: 'auto'
+			});
+		});
+	}
 }

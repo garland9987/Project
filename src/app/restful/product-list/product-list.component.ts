@@ -192,7 +192,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 		this.mapService.delete('productId');
 
 		if(id !== undefined) {
-			setTimeout(() => {
+			window.requestAnimationFrame(() => {
 				const target = this.element.querySelector(`[data-stamp='${ id }']`);
 
 				if(target) {
@@ -202,7 +202,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 
 					this.scrollService.scrollToPosition([(top - offset), left]);
 				}
-			}, 0);
+			});
 		}
 	}
 }
