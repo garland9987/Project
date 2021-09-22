@@ -7,7 +7,7 @@ import { Component, HostListener, Input, Output, EventEmitter, OnInit, OnChanges
 })
 export class DateSectionComponent implements OnInit, OnChanges {
 	public currentInput: string = '';
-	public startTyping: boolean = false;
+	public getFocused: boolean = false;
 
 	@Input() date: string = '';
 	@Output() dateChange = new EventEmitter<string>();
@@ -24,13 +24,8 @@ export class DateSectionComponent implements OnInit, OnChanges {
 		this.element.value = this.date;
 	}
 
-	getFocus(): void {
-		this.element.focus();
-	}
-
-	getBlur(): void {
-		this.element.blur();
-	}
+	focus(): void { this.element.focus(); }
+	blur(): void { this.element.blur(); }
 
 	@HostListener('input', ['$event'])
 	input(event) {
@@ -45,12 +40,12 @@ export class DateSectionComponent implements OnInit, OnChanges {
 		// check the first user input when the element gains focus
 		// the element value remains unchanged if the first user input is invalid
 		// the element value is updated using the first user input if it is valid, and is passed to its parent element
-		if(this.startTyping) {
+		if(this.getFocused) {
 			if(!this.isValidInput(this.currentInput)) {
 				this.element.value = this.normailze(this.element.value);
 			}
 			else {
-				this.startTyping = false;
+				this.getFocused = false;
 				this.element.value = this.normailze(this.currentInput);
 				this.dateChange.emit(this.element.value);
 			}
@@ -84,13 +79,13 @@ export class DateSectionComponent implements OnInit, OnChanges {
 
 	@HostListener('focusin', ['$event'])
 	focusin(event) {
-		this.startTyping = true;
+		this.getFocused = true;
 		this.locateCursor(event.target);
 	}
 
 	@HostListener('focusout', ['$event'])
 	focusout(event) {
-		this.startTyping = false;
+		this.getFocused = false;
 	}
 
 	// ensure the cursor is at the end of the input field

@@ -7,10 +7,10 @@
 		<app-month-section [month]="month" (monthChange)="editMonth($event)"></app-month-section>
 		<div class="separator"></div>
 		<app-year-section [year]="year" (yearChange)="editYear($event)"></app-year-section>
-		<span class="calendar-button" (click)="setCalendar()"></span>
+		<span class="calendar-button" (mousedown)="setCalendar()"></span>
 	</div>
 
-	<div class="calendar" *ngIf="showCalendar">
+	<div class="calendar" [hidden]="!showCalendar">
 		<app-calendar [calendar]="calendar" (calendarDateChange)="getCalendarDate($event)" (calendarMonthChange)="getCalendarMonth($event)"></app-calendar>
 	</div>
 </div>

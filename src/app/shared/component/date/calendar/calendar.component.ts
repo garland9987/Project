@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';
@@ -23,6 +23,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	public month: number;
 	public year: number;
 
+	public getFocused: boolean = false;
 	public weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 	public months: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
@@ -33,7 +34,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	constructor(private elementRef: ElementRef) {}
 
-	get element(): HTMLElement { return this.elementRef.nativeElement; }
+	get element(): HTMLElement { return this.elementRef.nativeElement.querySelector('div.calendar'); }
 
 	ngOnInit(): void {
 		this.setStatus();
@@ -47,6 +48,19 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const mt = moment(this.calendar, 'YYYY-MM-DD', true).isValid() ? moment(this.calendar, 'YYYY-MM-DD', true) : moment();
 
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
+	}
+
+	focus(): void { this.element.focus(); }
+	blur(): void { this.element.blur(); }
+
+	@HostListener('focusin', ['$event'])
+	focusin(event) {
+		this.getFocused = true;
+	}
+
+	@HostListener('focusout', ['$event'])
+	focusout(event) {
+		this.getFocused = false;
 	}
 
 	get dates(): IDate[] {
@@ -118,15 +132,15 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const mt = moment([this.year, this.month, this.date]);
 
 		switch(date.month) {
-			case 'current':
-				mt.date(date.date);
-				break;
-			case 'previous':
-				mt.subtract(1, 'months').date(date.date);
-				break;
-			case 'next':
-				mt.add(1, 'months').date(date.date);
-				break;
+		case 'current':
+			mt.date(date.date);
+			break;
+		case 'previous':
+			mt.subtract(1, 'months').date(date.date);
+			break;
+		case 'next':
+			mt.add(1, 'months').date(date.date);
+			break;
 		}
 
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
@@ -159,14 +173,14 @@ export class CalendarComponent implements OnInit, OnChanges {
 		this.mode = mode;
 
 		switch(this.mode) {
-			case 'advanced':
-				this.center = this.year;
-				this.selectedYear = this.year;
-				this.selectedMonth = this.month;
-				this.scrollIntoView(this.year);
-				break;
-			case 'standard':
-				break;
+		case 'advanced':
+			this.center = this.year;
+			this.selectedYear = this.year;
+			this.selectedMonth = this.month;
+			this.scrollIntoView(this.year);
+			break;
+		case 'standard':
+			break;
 		}
 	}
 

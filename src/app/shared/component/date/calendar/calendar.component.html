@@ -1,4 +1,4 @@
-<div class="calendar" [ngSwitch]="mode">
+<div tabindex="-1" class="calendar" [ngSwitch]="mode">
 	<div class="standard" *ngSwitchCase="'standard'">
 		<div class="header">
 			<div class="year-month" (click)="changeMode('advanced')">{{ month | month }} {{ year }}</div>

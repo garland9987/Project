@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { DateSectionComponent } from './date-section/date-section.component';
 import { MonthSectionComponent } from './month-section/month-section.component';
 import { YearSectionComponent } from './year-section/year-section.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @Component({
 	selector: 'app-date',
@@ -33,6 +34,7 @@ export class DateComponent implements ControlValueAccessor {
 	@ViewChild(DateSectionComponent) dateSectionComponent: DateSectionComponent;
 	@ViewChild(MonthSectionComponent) monthSectionComponent: MonthSectionComponent;
 	@ViewChild(YearSectionComponent) yearSectionComponent: YearSectionComponent;
+	@ViewChild(CalendarComponent) calendarComponent: CalendarComponent;
 
 	// pass the initial value from the parent form (by ngModal or formControlName)
 	writeValue(value: string) {
@@ -55,10 +57,10 @@ export class DateComponent implements ControlValueAccessor {
 	focusout(event) {
 		setTimeout(() => {
 			if(!this.touched &&
-				!this.dateSectionComponent.startTyping &&
-				!this.monthSectionComponent.startTyping &&
-				!this.yearSectionComponent.startTyping &&
-				!this.showCalendar) {
+				!this.dateSectionComponent.getFocused &&
+				!this.monthSectionComponent.getFocused &&
+				!this.yearSectionComponent.getFocused &&
+				!this.calendarComponent.getFocused) {
 
 				if(!this.initialized) {
 					this.initialized = true;
@@ -74,16 +76,14 @@ export class DateComponent implements ControlValueAccessor {
 	@HostListener('keydown', ['$event'])
 	keydown(event) {
 		switch(event.key) {
-			case 'ArrowLeft':
-				if(document.activeElement === this.yearSectionComponent.element) this.moveYearToMonth();
-				else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToDate();
-				break;
-			case 'ArrowRight':
-				if(document.activeElement === this.dateSectionComponent.element) this.moveDateToMonth();
-				else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToYear();
-				break;
-			default:
-				this.showCalendar = false;
+		case 'ArrowLeft':
+			if(document.activeElement === this.yearSectionComponent.element) this.moveYearToMonth();
+			else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToDate();
+			break;
+		case 'ArrowRight':
+			if(document.activeElement === this.dateSectionComponent.element) this.moveDateToMonth();
+			else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToYear();
+			break;
 		}
 	}
 
@@ -98,10 +98,6 @@ export class DateComponent implements ControlValueAccessor {
 			element.matches('.date-backdrop')) {
 
 			this.showCalendar = false;
-		}
-
-		if(element.matches('.calendar-button')) {
-			this.showCalendar = !this.showCalendar;
 		}
 	}
 
@@ -181,48 +177,52 @@ export class DateComponent implements ControlValueAccessor {
 	}
 
 	moveDateToMonth(): void {
-		this.dateSectionComponent.getBlur();
-		this.monthSectionComponent.getFocus();
+		this.dateSectionComponent.blur();
+		this.monthSectionComponent.focus();
 	}
 
 	moveMonthToYear(): void {
-		this.monthSectionComponent.getBlur();
-		this.yearSectionComponent.getFocus();
+		this.monthSectionComponent.blur();
+		this.yearSectionComponent.focus();
 	}
 
 	moveYearToMonth(): void {
-		this.yearSectionComponent.getBlur();
-		this.monthSectionComponent.getFocus();
+		this.yearSectionComponent.blur();
+		this.monthSectionComponent.focus();
 	}
 
 	moveMonthToDate(): void {
-		this.monthSectionComponent.getBlur();
-		this.dateSectionComponent.getFocus();
+		this.monthSectionComponent.blur();
+		this.dateSectionComponent.focus();
 	}
 
 	setCalendar(): void {
-		if(this.showCalendar) {
-			this.calendar = `${this.year}-${this.month}-${this.date}`;
-			this.dateSectionComponent.getFocus();
-		}
-		else {
-			this.calendar = '';
-			this.dateSectionComponent.getBlur();
-		}
+		this.showCalendar = !this.showCalendar;
+
+		this.calendar = this.showCalendar ? `${this.year}-${this.month}-${this.date}` : '';
+
+		setTimeout(() => {
+			this.showCalendar ?
+				this.calendarComponent.focus() :
+				this.calendarComponent.blur();
+		}, 0);
 	}
 
+	// close calendar after selecting a date
 	getCalendarDate(calendar: string): void {
 		[this.year, this.month, this.date] = calendar.split('-');
 
+		this.initialized = true;
 		this.dispatchDate();
+
 		this.showCalendar = false;
 	}
 
+	// keep calendar open after selecting year or month
 	getCalendarMonth(calendar: string): void {
 		[this.year, this.month, this.date] = calendar.split('-');
 
-		if(!this.initialized) this.initialized = true;
-
+		this.initialized = true;
 		this.dispatchDate();
 	}
 }
