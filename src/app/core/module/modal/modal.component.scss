@@ -11,12 +11,12 @@
 
 .modal {
 	@include position(fixed, 0, 0);
-	z-index: $z-index-level-1;
+	z-index: $z-index-level-2;
 
 	display: block;
 	width: 100%;
 	height: 100%;
-	overflow: scroll;
+	overflow: auto;
 
 	background-color: rgba(124, 125, 125, .5);
 

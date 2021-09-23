@@ -4,7 +4,9 @@
 
 .button-group {
 	display: flex;
+	flex-wrap: wrap;
 	column-gap: .5rem;
+	row-gap: .5rem;
 }
 
 .pointer {
@@ -15,6 +17,10 @@
 	background-color: #e9ecef;
 	box-shadow: 1.2em 0 #e9ecef,
 				-1.2em 0 #e9ecef;
+}
+
+.no-shadow {
+	box-shadow: none;
 }
 
 .product-list {

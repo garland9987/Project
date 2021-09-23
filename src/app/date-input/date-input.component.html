@@ -2,34 +2,44 @@
 <hr>
 
 <form class="form mb-3" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
-	<!-- date -->
-	<div class="form-date me-3 mb-3">
-		<label for="date">Date: </label>
-		<input type="date" id="date" formControlName="date" [ngClass]="validation(date)">
-		<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
-	</div>
+	<div class="native-inputs">
+		<!-- date -->
+		<div class="form-date">
+			<label for="date">Date: </label>
+			<input type="date" id="date" formControlName="date" [ngClass]="validation(date)">
+			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+		</div>
 
-	<!-- time -->
-	<div class="form-time me-3 mb-3">
-		<label for="time">Time: </label>
-		<input type="time" id="time" formControlName="time" [ngClass]="validation(time)">
-		<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Please enter a valid time</span>
-	</div>
+		<!-- time -->
+		<div class="form-time">
+			<label for="time">Time: </label>
+			<input type="time" id="time" formControlName="time" [ngClass]="validation(time)">
+			<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Please enter a valid time</span>
+		</div>
 
-	<!-- datetime-local -->
-	<div class="form-datetime me-3 mb-3">
-		<label for="datetime">Datetime: </label>
-		<input type="datetime-local" id="datetime" formControlName="datetime" [ngClass]="validation(datetime)">
-		<span class="form-invalid-prompt placeholder" *ngIf="datetime.errors?.required">Please enter a valid date and time</span>
+		<!-- datetime-local -->
+		<div class="form-datetime">
+			<label for="datetime">Datetime: </label>
+			<input type="datetime-local" id="datetime" formControlName="datetime" [ngClass]="validation(datetime)">
+			<span class="form-invalid-prompt placeholder" *ngIf="datetime.errors?.required">Please enter a valid date and time</span>
+		</div>
 	</div>
 
 	<hr>
 
 	<!-- custom date -->
-	<div class="form-date me-3 mb-3">
-		<label>Date: </label>
-		<app-date formControlName="date" [ngClass]="validation(date)"></app-date>
-		<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+	<div>
+		<div class="form-date" *ngIf="isMobileDevice()">
+			<label for="date">Date: </label>
+			<input type="date" id="date" formControlName="date" [ngClass]="validation(date)">
+			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+		</div>
+
+		<div class="form-date" *ngIf="!isMobileDevice()">
+			<label>Date: </label>
+			<app-date formControlName="date" [ngClass]="validation(date)"></app-date>
+			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+		</div>
 	</div>
 
 	<hr>

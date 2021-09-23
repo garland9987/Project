@@ -4,7 +4,7 @@
 
 .nav {
 	@include position(fixed, 0, 0);
-	z-index: $z-index-level-1;
+	z-index: $z-index-level-2;
 
 	display: flex;
 	align-items: center;
@@ -58,17 +58,14 @@
 
 .nav-sidebar-modal {
 	@include position(fixed, 0, 0, 0, 0);
-	z-index: $z-index-level-1;
+	z-index: $z-index-level-2;
 
-	background-color: rgba(255, 255, 255, 0);
+	background-color: transparent;
 
 	&.show-sidebar-modal { display: block; }
 	&.hide-sidebar-modal { display: none; }
 
 	.nav-sidebar-content {
-		@include position(absolute, 0, 0);
-		z-index: $z-index-level-1;
-
 		width: 15rem;
 		height: 100vh;
 		padding: 0 3px;

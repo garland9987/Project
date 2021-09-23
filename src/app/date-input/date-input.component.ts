@@ -43,4 +43,8 @@ export class DateInputComponent extends BaseComponent implements OnInit {
 		// debug
 		console.log(this.formGroup.value);
 	}
+
+	isMobileDevice(): boolean {
+		return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+	}
 }
