@@ -1,0 +1,12 @@
+.year-section {
+	width: 3em;
+	border: none;
+	outline: none;
+
+	text-align: center;
+	caret-color: transparent;
+}
+
+.year-section:focus {
+	background-color: #b5d5ff;
+}

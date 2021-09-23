@@ -9,6 +9,7 @@ const routes: Routes = [
 	{ path: 'restful', loadChildren: () => import('./restful/restful.module').then(m => m.RestfulModule) },
 	{ path: 'translation', loadChildren: () => import('./translation/translation.module').then(m => m.TranslationModule) },
 	{ path: 'sortable', loadChildren: () => import('./sortable/sortable.module').then(m => m.SortableModule) },
+	{ path: 'date-input', loadChildren: () => import('./date-input/date-input.module').then(m => m.DateInputModule) },
 	{ path: '**', component: NotFoundComponent }
 ];
 

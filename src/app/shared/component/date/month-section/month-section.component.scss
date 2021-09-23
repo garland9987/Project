@@ -1,0 +1,12 @@
+.month-section {
+	width: 2em;
+	border: none;
+	outline: none;
+
+	text-align: center;
+	caret-color: transparent;
+}
+
+.month-section:focus {
+	background-color: #b5d5ff;
+}

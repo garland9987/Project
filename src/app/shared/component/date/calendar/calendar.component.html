@@ -1,0 +1,34 @@
+<div tabindex="-1" class="calendar" [ngSwitch]="mode">
+	<div class="standard" *ngSwitchCase="'standard'">
+		<div class="header">
+			<div class="year-month" (click)="changeMode('advanced')">{{ month | month }} {{ year }}</div>
+			<div class="prev-next-month">
+				<div class="prev-month" (click)="prevMonth()"></div>
+				<div class="next-month" (click)="nextMonth()"></div>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="cell" *ngFor="let weekday of weekdays">{{ weekday }}</div>
+		</div>
+		<div class="grid">
+			<div class="cell date" *ngFor="let date of dates; trackBy:indexTracker" [ngClass]="styleDate(date)" (click)="selectDate(date)">{{ date.date }}</div>
+		</div>
+		<div class="footer">
+			<div class="text-info" (click)="today()">Today</div>
+		</div>
+	</div>
+	<div class="advanced" *ngSwitchCase="'advanced'">
+		<div class="header">
+			<div class="year-month" (click)="changeMode('standard')">{{ month | month }} {{ year }}</div>
+		</div>
+
+		<div class="years" (scroll)="scroll($event)">
+			<div class="year" *ngFor="let year of years" (click)="selectYear(year)" [attr.data-stamp]="year">
+				<span>{{ year }}</span>
+				<div class="months" *ngIf="selectedYear === year">
+					<div class="month" *ngFor="let month of months" [class.selected-month]="isOriginalMonth(year, month)" (click)="selectMonth(month)">{{ month | month:"short" }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

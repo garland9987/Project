@@ -2,7 +2,6 @@ import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 // Return null if the user input is valid
 // Return an object if the user input is invalid
-
 export function startsWith(value: string): ValidatorFn {
 	return (control: AbstractControl): ValidationErrors | null => {
 		const condition1 = control.value.toString().startsWith(value);

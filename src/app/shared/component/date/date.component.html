@@ -1,0 +1,16 @@
+<div class="date-backdrop" *ngIf="showCalendar"></div>
+
+<div class="date">
+	<div class="input-field">
+		<app-date-section [date]="date" (dateChange)="editDate($event)"></app-date-section>
+		<div class="separator"></div>
+		<app-month-section [month]="month" (monthChange)="editMonth($event)"></app-month-section>
+		<div class="separator"></div>
+		<app-year-section [year]="year" (yearChange)="editYear($event)"></app-year-section>
+		<span class="calendar-button" (mousedown)="setCalendar()"></span>
+	</div>
+
+	<div class="calendar" [hidden]="!showCalendar">
+		<app-calendar [calendar]="calendar" (calendarDateChange)="getCalendarDate($event)" (calendarMonthChange)="getCalendarMonth($event)"></app-calendar>
+	</div>
+</div>
