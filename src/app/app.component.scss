@@ -12,10 +12,13 @@
 
 		@media (min-width: 576px) {
 			position: fixed;
+			z-index: $z-index-level-2;
 
 			display: block;
 			height: subtract($view-height, ($view-v-indent * 2));
 			overflow: auto;
+
+			background-color: #fff;
 		}
 	}
 

@@ -10,3 +10,10 @@
 		grid-column: 2;
 	}
 }
+
+.native-inputs {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 1em;
+	row-gap: 1em;
+}
