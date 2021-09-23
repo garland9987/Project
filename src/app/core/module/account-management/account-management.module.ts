@@ -16,4 +16,4 @@ import { AccountManagementComponent } from './account-management.component';
 		AccountManagementComponent
 	]
 })
-export class AccountManagementModule { }
+export class AccountManagementModule {}

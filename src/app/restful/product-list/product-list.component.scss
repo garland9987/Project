@@ -17,6 +17,10 @@
 				-1.2em 0 #e9ecef;
 }
 
+.no-shadow {
+	box-shadow: none;
+}
+
 .product-list {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);

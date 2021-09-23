@@ -3,7 +3,7 @@
 	<button class="btn btn-success" (click)="create()">Create</button>
 	<app-menu menuAlign="left">
 		<app-menu-button [appMenuTrigger]="main">
-			<button class="btn btn-info text-white">Sorted By</button>
+			<button class="btn btn-info text-white no-shadow">Sorted By</button>
 		</app-menu-button>
 		<app-menu-panel #main="appMenuPanel">
 			<div appMenuItem [appMenuTrigger]="null" *ngFor="let sortOption of sortOptions"
