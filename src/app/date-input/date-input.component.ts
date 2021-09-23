@@ -22,6 +22,7 @@ export class DateInputComponent extends BaseComponent implements OnInit {
 		// the 'value' attribute is used to set value for the input element
 		// the format of the 'value' attribute for 'date', 'time' and 'datetime-local' are 'yyyy-MM-dd', 'HH:mm' and 'yyyy-MM-ddTHH:mm' respectively
 		this.formGroup = this.formBuilder.group({
+			// date: ['', [Validators.required]],
 			date: [formatDate(this.now, 'yyyy-MM-dd', 'en'), [Validators.required]],
 			time: [formatDate(this.now, 'HH:mm', 'en'), [Validators.required]],
 			datetime: [formatDate(this.now, 'yyyy-MM-ddTHH:mm', 'en'), [Validators.required]]

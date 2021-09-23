@@ -97,7 +97,7 @@ export class DateComponent implements ControlValueAccessor {
 			element.matches('.year-section') ||
 			element.matches('.date-backdrop')) {
 
-			this.showCalendar = false;
+			this.closeCalendar();
 		}
 	}
 
@@ -214,8 +214,7 @@ export class DateComponent implements ControlValueAccessor {
 
 		this.initialized = true;
 		this.dispatchDate();
-
-		this.showCalendar = false;
+		this.closeCalendar();
 	}
 
 	// keep calendar open after selecting year or month
@@ -224,5 +223,10 @@ export class DateComponent implements ControlValueAccessor {
 
 		this.initialized = true;
 		this.dispatchDate();
+	}
+
+	closeCalendar(): void {
+		this.showCalendar = false;
+		this.calendar = '';
 	}
 }

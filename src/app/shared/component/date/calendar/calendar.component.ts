@@ -48,9 +48,13 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const mt = moment(this.calendar, 'YYYY-MM-DD', true).isValid() ? moment(this.calendar, 'YYYY-MM-DD', true) : moment();
 
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
+
+		this.mode = 'standard';
+		this.selectedYear = 0;
+		this.selectedMonth = 0;
 	}
 
-	focus(): void { this.element.focus(); }
+	focus(): void { this.element.focus({preventScroll:true}); }
 	blur(): void { this.element.blur(); }
 
 	@HostListener('focusin', ['$event'])
