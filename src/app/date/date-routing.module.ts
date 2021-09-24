@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DateInputComponent } from './date-input.component';
+import { DateComponent } from './date.component';
 
 const routes: Routes = [
-	{ path: '', component: DateInputComponent }
+	{ path: '', component: DateComponent }
 ];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]
 })
-export class DateInputRoutingModule {}
+export class DateRoutingModule {}

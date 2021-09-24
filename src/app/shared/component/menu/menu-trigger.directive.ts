@@ -44,15 +44,15 @@ export class MenuTriggerDirective {
 
 	alignMenuPanel(element: HTMLElement) {
 		switch (this.menuAlign) {
-		case 'left':
-			this.renderer.addClass(element, 'menu-panel-align-left');
-			break;
-		case 'center':
-			this.renderer.addClass(element, 'menu-panel-align-center');
-			break;
-		case 'right':
-			this.renderer.addClass(element, 'menu-panel-align-right');
-			break;
+			case 'left':
+				this.renderer.addClass(element, 'menu-panel-align-left');
+				break;
+			case 'center':
+				this.renderer.addClass(element, 'menu-panel-align-center');
+				break;
+			case 'right':
+				this.renderer.addClass(element, 'menu-panel-align-right');
+				break;
 		}
 	}
 }

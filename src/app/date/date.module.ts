@@ -2,18 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 
-import { DateInputRoutingModule } from './date-input-routing.module';
-import { DateInputComponent } from './date-input.component';
-
+import { DateRoutingModule } from './date-routing.module';
+import { DateComponent } from './date.component';
 
 @NgModule({
 	declarations: [
-		DateInputComponent
+		DateComponent
 	],
 	imports: [
 		CommonModule,
 		SharedModule,
-		DateInputRoutingModule
+		DateRoutingModule
 	]
 })
-export class DateInputModule {}
+export class DateModule {}

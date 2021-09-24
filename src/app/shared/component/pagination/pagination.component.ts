@@ -94,14 +94,14 @@ export class PaginationComponent implements OnInit, OnChanges {
 
 	selectPage(page: any): void {
 		switch(page) {
-		case '<':
-			if(this.selectedPage > 1) --this.selectedPage;
-			break;
-		case '>':
-			if(this.selectedPage < this.pagesCount) ++this.selectedPage;
-			break;
-		default:
-			this.selectedPage = page;
+			case '<':
+				if(this.selectedPage > 1) --this.selectedPage;
+				break;
+			case '>':
+				if(this.selectedPage < this.pagesCount) ++this.selectedPage;
+				break;
+			default:
+				this.selectedPage = page;
 		}
 
 		this.selectedPageChange.emit(this.selectedPage);

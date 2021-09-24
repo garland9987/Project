@@ -7,10 +7,10 @@ export class SortPipe implements PipeTransform {
 
 	transform(value: string): string {
 		switch (value) {
-		case 'id': return 'Default';
-		case 'price': return 'Price';
-		case 'quantity': return 'Quantity';
-		default: return value;
+			case 'id': return 'Default';
+			case 'price': return 'Price';
+			case 'quantity': return 'Quantity';
+			default: return value;
 		}
 	}
 }

@@ -37,7 +37,7 @@
 
 		<div class="form-date" *ngIf="!isMobileDevice()">
 			<label>Date: </label>
-			<app-date formControlName="date" [ngClass]="validation(date)"></app-date>
+			<app-input-date formControlName="date" [ngClass]="validation(date)"></app-input-date>
 			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
 		</div>
 	</div>

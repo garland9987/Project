@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+
 import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { BaseComponent } from '@shared/component/base/base.component';
 
 @Component({
-	selector: 'app-date-input',
-	templateUrl: './date-input.component.html',
-	styleUrls: ['./date-input.component.scss']
+	selector: 'app-date',
+	templateUrl: './date.component.html',
+	styleUrls: ['./date.component.scss']
 })
-export class DateInputComponent extends BaseComponent implements OnInit {
+export class DateComponent extends BaseComponent implements OnInit {
 	public title: string = 'Date & Time';
 	public now: Date = new Date();
 	public formGroup: FormGroup;

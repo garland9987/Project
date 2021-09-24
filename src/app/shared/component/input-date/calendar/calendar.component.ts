@@ -136,15 +136,15 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const mt = moment([this.year, this.month, this.date]);
 
 		switch(date.month) {
-		case 'current':
-			mt.date(date.date);
-			break;
-		case 'previous':
-			mt.subtract(1, 'months').date(date.date);
-			break;
-		case 'next':
-			mt.add(1, 'months').date(date.date);
-			break;
+			case 'current':
+				mt.date(date.date);
+				break;
+			case 'previous':
+				mt.subtract(1, 'months').date(date.date);
+				break;
+			case 'next':
+				mt.add(1, 'months').date(date.date);
+				break;
 		}
 
 		[this.year, this.month, this.date] = [mt.year(), mt.month(), mt.date()];
@@ -177,14 +177,14 @@ export class CalendarComponent implements OnInit, OnChanges {
 		this.mode = mode;
 
 		switch(this.mode) {
-		case 'advanced':
-			this.center = this.year;
-			this.selectedYear = this.year;
-			this.selectedMonth = this.month;
-			this.scrollIntoView(this.year);
-			break;
-		case 'standard':
-			break;
+			case 'advanced':
+				this.center = this.year;
+				this.selectedYear = this.year;
+				this.selectedMonth = this.month;
+				this.scrollIntoView(this.year);
+				break;
+			case 'standard':
+				break;
 		}
 	}
 

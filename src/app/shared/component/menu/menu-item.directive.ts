@@ -18,15 +18,15 @@ export class MenuItemDirective implements OnInit {
 		this.renderer.addClass(this.element, 'menu-item');
 
 		switch(this.direction) {
-		case 'left':
-			this.renderer.addClass(this.element, 'menu-item-left');
-			break;
-		case 'right':
-			this.renderer.addClass(this.element, 'menu-item-right');
-			break;
-		case 'divider':
-			this.renderer.addClass(this.element, 'menu-item-divider');
-			break;
+			case 'left':
+				this.renderer.addClass(this.element, 'menu-item-left');
+				break;
+			case 'right':
+				this.renderer.addClass(this.element, 'menu-item-right');
+				break;
+			case 'divider':
+				this.renderer.addClass(this.element, 'menu-item-divider');
+				break;
 		}
 	}
 }

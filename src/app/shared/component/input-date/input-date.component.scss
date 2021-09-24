@@ -2,7 +2,7 @@
 @import '_mixins';
 @import '_utilities';
 
-.date {
+.input-date {
 	position: relative;
 
 	.input-field {
@@ -44,13 +44,13 @@
 	}
 }
 
-.date-backdrop {
+.input-date-backdrop {
 	@include position(fixed, 0, 0, 0, 0);
 	z-index: $z-index-level-1;
 
 	background-color: transparent;
 }
 
-.date-backdrop ~ .date {
+.input-date-backdrop ~ .input-date {
 	z-index: $z-index-level-1;
 }

@@ -6,31 +6,35 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FileUploadComponent } from './component/file-upload/file-upload.component';
+import { LoginComponent } from './custom-modal/login/login.component';
+import { RegisterComponent } from './custom-modal/register/register.component';
+import { AuthorizedComponent } from './custom-modal/authorized/authorized.component';
+import { UnsavedComponent } from './custom-modal/unsaved/unsaved.component';
+import { PaginationComponent } from './component/pagination/pagination.component';
+import { LoadingComponent } from './custom-modal/loading/loading.component';
+import { ProcessComponent } from './custom-modal/process/process.component';
+import { NamespacePipe } from './pipe/namespace/namespace.pipe';
+
+import { BaseComponent } from './component/base/base.component';
+import { BaseDirective } from './directive/base/base.directive';
+
 import { MenuComponent } from './component/menu/menu.component';
 import { MenuButtonComponent } from './component/menu/menu-button/menu-button.component';
 import { MenuPanelComponent } from './component/menu/menu-panel/menu-panel.component';
 import { MenuTriggerDirective } from './component/menu/menu-trigger.directive';
 import { MenuItemDirective } from './component/menu/menu-item.directive';
-import { LoginComponent } from './custom-modal/login/login.component';
-import { RegisterComponent } from './custom-modal/register/register.component';
-import { AuthorizedComponent } from './custom-modal/authorized/authorized.component';
-import { UnsavedComponent } from './custom-modal/unsaved/unsaved.component';
-import { BaseComponent } from './component/base/base.component';
-import { BaseDirective } from './directive/base/base.directive';
-import { PaginationComponent } from './component/pagination/pagination.component';
-import { LoadingComponent } from './custom-modal/loading/loading.component';
-import { ProcessComponent } from './custom-modal/process/process.component';
-import { NamespacePipe } from './pipe/namespace/namespace.pipe';
+
 import { DraggableDirective } from './directive/draggable/draggable.directive';
 import { DraggableHandleDirective } from './directive/draggable/draggable-handle.directive';
 import { SortableItemDirective } from './directive/sortable/sortable-item.directive';
 import { SortableContainerDirective } from './directive/sortable/sortable-container.directive';
-import { DateComponent } from './component/date/date.component';
-import { DateSectionComponent } from './component/date/date-section/date-section.component';
-import { MonthSectionComponent } from './component/date/month-section/month-section.component';
-import { YearSectionComponent } from './component/date/year-section/year-section.component';
-import { CalendarComponent } from './component/date/calendar/calendar.component';
-import { MonthPipe } from './component/date/calendar/month.pipe';
+
+import { InputDateComponent } from './component/input-date/input-date.component';
+import { DateSectionComponent } from './component/input-date/date-section/date-section.component';
+import { MonthSectionComponent } from './component/input-date/month-section/month-section.component';
+import { YearSectionComponent } from './component/input-date/year-section/year-section.component';
+import { CalendarComponent } from './component/input-date/calendar/calendar.component';
+import { MonthPipe } from './component/input-date/calendar/month.pipe';
 
 @NgModule({
 	declarations: [
@@ -54,7 +58,7 @@ import { MonthPipe } from './component/date/calendar/month.pipe';
 		DraggableHandleDirective,
 		SortableItemDirective,
 		SortableContainerDirective,
-		DateComponent,
+		InputDateComponent,
 		DateSectionComponent,
 		MonthSectionComponent,
 		YearSectionComponent,
@@ -87,7 +91,7 @@ import { MonthPipe } from './component/date/calendar/month.pipe';
 		DraggableHandleDirective,
 		SortableItemDirective,
 		SortableContainerDirective,
-		DateComponent,
+		InputDateComponent,
 		// pipe
 		NamespacePipe
 	]

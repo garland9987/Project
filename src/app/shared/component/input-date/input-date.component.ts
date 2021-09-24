@@ -9,16 +9,16 @@ import { YearSectionComponent } from './year-section/year-section.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
 @Component({
-	selector: 'app-date',
-	templateUrl: './date.component.html',
-	styleUrls: ['./date.component.scss'],
+	selector: 'app-input-date',
+	templateUrl: './input-date.component.html',
+	styleUrls: ['./input-date.component.scss'],
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
-		useExisting: DateComponent,
+		useExisting: InputDateComponent,
 		multi: true
 	}]
 })
-export class DateComponent implements ControlValueAccessor {
+export class InputDateComponent implements ControlValueAccessor {
 	public initialized: boolean = false;
 	public touched: boolean = false;
 	public showCalendar: boolean = false;
@@ -76,14 +76,14 @@ export class DateComponent implements ControlValueAccessor {
 	@HostListener('keydown', ['$event'])
 	keydown(event) {
 		switch(event.key) {
-		case 'ArrowLeft':
-			if(document.activeElement === this.yearSectionComponent.element) this.moveYearToMonth();
-			else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToDate();
-			break;
-		case 'ArrowRight':
-			if(document.activeElement === this.dateSectionComponent.element) this.moveDateToMonth();
-			else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToYear();
-			break;
+			case 'ArrowLeft':
+				if(document.activeElement === this.yearSectionComponent.element) this.moveYearToMonth();
+				else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToDate();
+				break;
+			case 'ArrowRight':
+				if(document.activeElement === this.dateSectionComponent.element) this.moveDateToMonth();
+				else if(document.activeElement === this.monthSectionComponent.element) this.moveMonthToYear();
+				break;
 		}
 	}
 
@@ -95,7 +95,7 @@ export class DateComponent implements ControlValueAccessor {
 		if(element.matches('.date-section') ||
 			element.matches('.month-section') ||
 			element.matches('.year-section') ||
-			element.matches('.date-backdrop')) {
+			element.matches('.input-date-backdrop')) {
 
 			this.closeCalendar();
 		}

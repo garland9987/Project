@@ -20,7 +20,8 @@
       ],
       "rules": {
         "@typescript-eslint/indent": ["error", "tab", {
-          "FunctionExpression": { "parameters": "off" }
+          "SwitchCase": 1,
+          "FunctionExpression": { "parameters": "off", "body": 1 }
         }],
         "@angular-eslint/directive-selector": [
           "error",
