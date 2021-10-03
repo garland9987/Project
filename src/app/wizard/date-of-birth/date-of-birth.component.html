@@ -1,0 +1,38 @@
+<ng-template>
+
+<div class="date-of-birth">
+	<h3>Date of Birth:</h3>
+
+	<form class="form" [formGroup]="formGroup" autocomplete="off" novalidate>
+		<!-- date -->
+		<div class="date mb-3">
+			<label class="form-label">Date</label>
+			<app-input-date formControlName="date" [ngClass]="validation(date)"></app-input-date>
+			<span class="form-invalid-prompt" *ngIf="date.errors?.required">Please enter a valid date</span>
+		</div>
+
+		<!-- gender -->
+		<div class="gender mb-3">
+			<label class="form-label">Gender</label>
+			<div class="input-radio me-3" [ngClass]="validation(gender)">
+				<input type="radio" id="male" name="gender" value="male" formControlName="gender">
+				<label for="male">Male</label>
+			</div>
+			<div class="input-radio me-3" [ngClass]="validation(gender)">
+				<input type="radio" id="female" name="gender" value="female" formControlName="gender">
+				<label for="female">Female</label>
+			</div>
+			<div class="input-radio" [ngClass]="validation(gender)">
+				<input type="radio" id="other" name="gender" value="other" formControlName="gender">
+				<label for="other">Other</label>
+			</div>
+			<span class="form-invalid-prompt" *ngIf="gender.errors?.required">Gender is required</span>
+		</div>
+	</form>
+
+	<div class="buttons">
+		<ng-content></ng-content>
+	</div>
+</div>
+
+</ng-template>
