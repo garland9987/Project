@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from '@shared/component/base/base.component';
+import { Utility } from '@shared/global/utility';
 import { WizardService } from '../wizard.service';
 
 @Component({
@@ -37,4 +38,8 @@ export class DateOfBirthComponent extends BaseComponent implements OnInit {
 
 	get date() { return this.formGroup.get('date') as FormControl; }
 	get gender() { return this.formGroup.get('gender') as FormControl; }
+
+	isMobileDevice(): boolean {
+		return Utility.isMobileDevice();
+	}
 }

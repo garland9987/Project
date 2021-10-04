@@ -4,6 +4,7 @@ import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { BaseComponent } from '@shared/component/base/base.component';
+import { Utility } from '@shared/global/utility';
 
 @Component({
 	selector: 'app-date',
@@ -46,6 +47,6 @@ export class DateComponent extends BaseComponent implements OnInit {
 	}
 
 	isMobileDevice(): boolean {
-		return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+		return Utility.isMobileDevice();
 	}
 }

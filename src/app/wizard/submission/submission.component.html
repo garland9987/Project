@@ -1,0 +1,22 @@
+<ng-template>
+
+<div class="submission">
+	<div class="card">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">First name: {{ firstName }}</li>
+			<li class="list-group-item">Last name: {{ lastName }}</li>
+			<li class="list-group-item">Email: {{ email }}</li>
+			<li class="list-group-item">Phone: {{ phone }}</li>
+			<li class="list-group-item">Date: {{ date }}</li>
+			<li class="list-group-item">Gender: {{ gender }}</li>
+			<li class="list-group-item">User name: {{ userName }}</li>
+			<li class="list-group-item">Password: {{ password }}</li>
+		</ul>
+	</div>
+
+	<div class="buttons">
+		<ng-content></ng-content>
+	</div>
+</div>
+
+</ng-template>

@@ -1,9 +1,9 @@
 <h1>{{ title }}</h1>
 <hr>
 
-<div class="wizard-container">
-	<div class="wizard-indicator">
-
+<div class="wizard-container mb-5">
+	<div class="wizard-indicator mb-3">
+		<app-wizard-indicator [page]="currentPage"></app-wizard-indicator>
 	</div>
 	<div class="wizard-content">
 		<ng-container #viewContainerRef></ng-container>
@@ -24,7 +24,12 @@
 
 		<app-login-details #page4="loginDetails">
 			<button class="btn btn-primary" (click)="switch(page3)">Prev</button>
-			<button class="btn btn-primary" (click)="submit()" [disabled]="page4.formGroup.invalid">Submit</button>
+			<button class="btn btn-primary" (click)="switch(page5)" [disabled]="page4.formGroup.invalid">Next</button>
 		</app-login-details>
+
+		<app-submission #page5="submission" [page]="currentPage">
+			<button class="btn btn-primary" (click)="switch(page4)">Prev</button>
+			<button class="btn btn-primary" (click)="submit()">Submit</button>
+		</app-submission>
 	</div>
 </div>

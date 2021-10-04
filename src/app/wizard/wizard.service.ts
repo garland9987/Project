@@ -10,4 +10,15 @@ export class WizardService {
 	public gender: string = '';
 	public userName: string = '';
 	public password: string = '';
+
+	clear(): void {
+		this.firstName = '';
+		this.lastName = '';
+		this.email = '';
+		this.phone = '';
+		this.date = '';
+		this.gender = '';
+		this.userName = '';
+		this.password = '';
+	}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';
@@ -40,7 +40,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 		this.setStatus();
 	}
 
-	ngOnChanges(changes: {[property: string]: SimpleChange}): void {
+	ngOnChanges(changes: SimpleChanges): void {
 		this.setStatus();
 	}
 
