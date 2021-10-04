@@ -61,6 +61,7 @@ $input-checkbox: (
 			height: 1em;
 			border: 1px solid $color-border-normal;
 			border-radius: .25em;
+			background-color: #fff;
 		}
 
 		input[type=#{$type}]:focus + label::before {

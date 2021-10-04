@@ -1,0 +1,11 @@
+.login-details {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	row-gap: 1em;
+
+	.buttons {
+		display: flex;
+		justify-content: center;
+		column-gap: .5em;
+	}
+}

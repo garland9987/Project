@@ -1,0 +1,27 @@
+<ng-template>
+
+<div class="login-details">
+	<h3>Login Details:</h3>
+
+	<form class="form" [formGroup]="formGroup" autocomplete="off" novalidate>
+		<!-- user name -->
+		<div class="user-name mb-3">
+			<label for="userName" class="form-label">User Name</label>
+			<input type="text" id="userName" class="form-control" formControlName="userName" [ngClass]="validation(userName)">
+			<span class="form-invalid-prompt" *ngIf="userName.errors?.required">User name is required</span>
+		</div>
+
+		<!-- password -->
+		<div class="password mb-3">
+			<label for="password" class="form-label">Password</label>
+			<input type="password" id="password" class="form-control" formControlName="password" [ngClass]="validation(password)">
+			<span class="form-invalid-prompt" *ngIf="password.errors?.required">Password is required</span>
+		</div>
+	</form>
+
+	<div class="buttons">
+		<ng-content></ng-content>
+	</div>
+</div>
+
+</ng-template>

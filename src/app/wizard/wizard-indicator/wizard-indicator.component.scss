@@ -1,0 +1,86 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+@keyframes cover-link {
+	0% { transform: scaleX(0); }
+	100% { transform: scaleX(1); }
+}
+
+.wizard-indicator {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+
+	width: 20em;
+	margin: 0 auto;
+
+	@media (min-width: 768px) {
+		width: 25em;
+	}
+
+	.cell {
+		position: relative;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		row-gap: .5em;
+
+		.number {
+			@include flexbox-center;
+
+			width: 2em;
+			height: 2em;
+			border: 1px solid #b6bfc8;
+			border-radius: 50%;
+		}
+
+		.link {
+			position: absolute;
+			bottom: 1em;
+			left: add(50%, 1.2em);
+
+			width: subtract(100%, 2.4em);
+			height: 2px;
+			background-color: #000;
+
+			@media (min-width: 768px) {
+				position: absolute;
+				bottom: 1em;
+				left: add(50%, 1.5em);
+
+				width: subtract(100%, 3em);
+				height: 2px;
+				background-color: #000;
+			}
+		}
+	}
+
+	.cell.active {
+		.label { color: #51b4ec; }
+
+		.number {
+			span { display: none; }
+
+			border: 1px solid #51b4ec;
+			background-color: #51b4ec;
+			background-image: url('/assets/icons/wizard-indicator.svg');
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+		}
+
+		.link::before {
+			content: '';
+
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			background-color: #51b4ec;
+
+			transform-origin: 0 0;
+			animation: cover-link .5s both;
+		}
+	}
+}

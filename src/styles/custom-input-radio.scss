@@ -61,6 +61,7 @@ $input-radio: (
 			height: 1em;
 			border: 1px solid $color-border-normal;
 			border-radius: 50%;
+			background-color: #fff;
 		}
 
 		input[type=#{$type}]:focus + label::before {

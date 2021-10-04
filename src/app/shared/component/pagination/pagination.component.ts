@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef, SimpleChange, HostListener } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef, SimpleChanges, HostListener } from '@angular/core';
 
 interface Range {
 	start: number;
@@ -28,7 +28,7 @@ export class PaginationComponent implements OnInit, OnChanges {
 		this.render();
 	}
 
-	ngOnChanges(changes: {[property: string]: SimpleChange}): void {
+	ngOnChanges(changes: SimpleChanges): void {
 		this.render();
 	}
 

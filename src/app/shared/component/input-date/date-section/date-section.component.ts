@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef } from '@angular/core';
+import { Component, HostListener, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
 
 @Component({
 	selector: 'app-date-section',
@@ -20,7 +20,7 @@ export class DateSectionComponent implements OnInit, OnChanges {
 		this.element.value = this.date;
 	}
 
-	ngOnChanges(changes: {[property: string]: SimpleChange}) {
+	ngOnChanges(changes: SimpleChanges) {
 		this.element.value = this.date;
 	}
 
