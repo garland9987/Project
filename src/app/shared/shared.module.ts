@@ -35,6 +35,7 @@ import { MonthSectionComponent } from './component/input-date/month-section/mont
 import { YearSectionComponent } from './component/input-date/year-section/year-section.component';
 import { CalendarComponent } from './component/input-date/calendar/calendar.component';
 import { MonthPipe } from './component/input-date/calendar/month.pipe';
+import { InputTimeComponent } from './component/input-time/input-time.component';
 
 @NgModule({
 	declarations: [
@@ -63,7 +64,8 @@ import { MonthPipe } from './component/input-date/calendar/month.pipe';
 		MonthSectionComponent,
 		YearSectionComponent,
 		CalendarComponent,
-		MonthPipe
+		MonthPipe,
+		InputTimeComponent
 	],
 	imports: [
 		CommonModule,
@@ -92,6 +94,7 @@ import { MonthPipe } from './component/input-date/calendar/month.pipe';
 		SortableItemDirective,
 		SortableContainerDirective,
 		InputDateComponent,
+		InputTimeComponent,
 		// pipe
 		NamespacePipe
 	]
