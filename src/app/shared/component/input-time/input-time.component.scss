@@ -1,0 +1,27 @@
+@import '_variables';
+@import '_mixins';
+@import '_utilities';
+
+.input-time {
+	position: relative;
+
+	.input-field {
+		display: inline-flex;
+		align-items: center;
+
+		width: 8em;
+		padding: .1em .4em .1em .2em;
+		border: 1px solid #ced4da;
+		border-radius: .2em;
+		background-color: #fff;
+
+		.colon::before {
+			content: ':';
+		}
+
+		&:focus-within {
+			border: 1px solid #80bdff;
+			box-shadow: 0 0 0 1px #80bdff;
+		}
+	}
+}

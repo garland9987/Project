@@ -1,27 +1,27 @@
-import { Component, HostListener, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Component({
-	selector: 'app-month-section',
-	templateUrl: './month-section.component.html',
-	styleUrls: ['./month-section.component.scss']
+	selector: 'app-hour-section',
+	templateUrl: './hour-section.component.html',
+	styleUrls: ['./hour-section.component.scss']
 })
-export class MonthSectionComponent implements OnInit, OnChanges {
+export class HourSectionComponent implements OnInit, OnChanges {
 	public currentInput: string = '';
 	public getFocused: boolean = false;
 
-	@Input() month: string = '';
-	@Output() monthChange = new EventEmitter<string>();
+	@Input() hour: string = '';
+	@Output() hourChange = new EventEmitter<string>();
 
 	constructor(private elementRef: ElementRef) {}
 
-	get element(): HTMLInputElement { return this.elementRef.nativeElement.querySelector('input.month-section'); }
+	get element(): HTMLInputElement { return this.elementRef.nativeElement.querySelector('input.hour-section'); }
 
 	ngOnInit() {
-		this.element.value = this.month;
+		this.element.value = this.hour;
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.element.value = this.month;
+		this.element.value = this.hour;
 	}
 
 	focus(): void { this.element.focus(); }
@@ -32,7 +32,7 @@ export class MonthSectionComponent implements OnInit, OnChanges {
 		// for delete button, the element value is set to an empty string, and is passed to its parent element
 		if(this.currentInput === 'Backspace') {
 			this.element.value = '';
-			this.monthChange.emit('');
+			this.hourChange.emit('');
 
 			return;
 		}
@@ -47,7 +47,7 @@ export class MonthSectionComponent implements OnInit, OnChanges {
 			else {
 				this.getFocused = false;
 				this.element.value = this.normalize(this.currentInput);
-				this.monthChange.emit(this.element.value);
+				this.hourChange.emit(this.element.value);
 			}
 
 			return;
@@ -55,7 +55,7 @@ export class MonthSectionComponent implements OnInit, OnChanges {
 
 		// after the first user input, the element value is normalized for each input and is passed to its parent element
 		this.element.value = this.normalize(this.element.value);
-		this.monthChange.emit(this.element.value);
+		this.hourChange.emit(this.element.value);
 	}
 
 	/**

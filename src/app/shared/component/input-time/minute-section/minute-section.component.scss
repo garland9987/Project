@@ -1,0 +1,12 @@
+.minute-section {
+	width: 1.5em;
+	border: none;
+	outline: none;
+
+	text-align: center;
+	caret-color: transparent;
+}
+
+.minute-section:focus {
+	background-color: #b5d5ff;
+}
