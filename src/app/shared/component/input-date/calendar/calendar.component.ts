@@ -233,12 +233,11 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	scroll(event): void {
 		const element = event.target;
-		const innerHeight = getComputedStyle(element).getPropertyValue('height');
 
 		if(element.scrollTop <= 1000) {
 			this.center = this.moveCenterUp(this.center, 200, 200, 1);
 		}
-		else if((element.scrollHeight - (element.scrollTop + parseInt(innerHeight))) <= 1000) {
+		else if((element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 1000) {
 			this.center = this.moveCenterDown(this.center, 200, 200, 9999);
 		}
 	}
