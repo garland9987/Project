@@ -36,6 +36,12 @@ import { YearSectionComponent } from './component/input-date/year-section/year-s
 import { CalendarComponent } from './component/input-date/calendar/calendar.component';
 import { MonthPipe } from './component/input-date/calendar/month.pipe';
 
+import { InputTimeComponent } from './component/input-time/input-time.component';
+import { HourSectionComponent } from './component/input-time/hour-section/hour-section.component';
+import { MinuteSectionComponent } from './component/input-time/minute-section/minute-section.component';
+import { MeridiemSectionComponent } from './component/input-time/meridiem-section/meridiem-section.component';
+import { ClockComponent } from './component/input-time/clock/clock.component';
+
 @NgModule({
 	declarations: [
 		FileUploadComponent,
@@ -63,7 +69,12 @@ import { MonthPipe } from './component/input-date/calendar/month.pipe';
 		MonthSectionComponent,
 		YearSectionComponent,
 		CalendarComponent,
-		MonthPipe
+		MonthPipe,
+		InputTimeComponent,
+		HourSectionComponent,
+		MinuteSectionComponent,
+		MeridiemSectionComponent,
+		ClockComponent
 	],
 	imports: [
 		CommonModule,
@@ -92,6 +103,7 @@ import { MonthPipe } from './component/input-date/calendar/month.pipe';
 		SortableItemDirective,
 		SortableContainerDirective,
 		InputDateComponent,
+		InputTimeComponent,
 		// pipe
 		NamespacePipe
 	]

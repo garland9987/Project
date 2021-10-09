@@ -42,11 +42,11 @@ export class YearSectionComponent implements OnInit, OnChanges {
 		// the element value is updated using the first user input if it is valid, and is passed to its parent element
 		if(this.getFocused) {
 			if(!this.isValidInput(this.currentInput)) {
-				this.element.value = this.normailze(this.element.value);
+				this.element.value = this.normalize(this.element.value);
 			}
 			else {
 				this.getFocused = false;
-				this.element.value = this.normailze(this.currentInput);
+				this.element.value = this.normalize(this.currentInput);
 				this.yearChange.emit(this.element.value);
 			}
 
@@ -54,7 +54,7 @@ export class YearSectionComponent implements OnInit, OnChanges {
 		}
 
 		// after the first user input, the element value is normalized for each input and is passed to its parent element
-		this.element.value = this.normailze(this.element.value);
+		this.element.value = this.normalize(this.element.value);
 		this.yearChange.emit(this.element.value);
 	}
 
@@ -62,7 +62,7 @@ export class YearSectionComponent implements OnInit, OnChanges {
 	 * Return an empty string if the user inputs don't contain any legal input
 	 * Return a string containing four legal inputs or consisting of less than 4 legal inputs and leading zeros (0000 ~ 9999)
 	 */
-	normailze(inputs: string): string {
+	normalize(inputs: string): string {
 		let normalized: string = '';
 
 		normalized = inputs.split('').filter((input) => { return this.isValidInput(input); }).join('');
@@ -116,6 +116,6 @@ export class YearSectionComponent implements OnInit, OnChanges {
 	}
 
 	locateCursor(target: HTMLInputElement): void {
-		setTimeout(() => { target.setSelectionRange(target.value.length, target.value.length); }, 0);
+		setTimeout(() => { target.setSelectionRange(target.value.length, target.value.length); });
 	}
 }

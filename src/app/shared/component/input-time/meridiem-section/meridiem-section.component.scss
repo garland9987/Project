@@ -1,0 +1,12 @@
+.meridiem-section {
+	width: 1.8em;
+	border: none;
+	outline: none;
+
+	text-align: center;
+	caret-color: transparent;
+}
+
+.meridiem-section:focus {
+	background-color: #b5d5ff;
+}

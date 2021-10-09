@@ -1,27 +1,27 @@
-import { Component, HostListener, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 
 @Component({
-	selector: 'app-date-section',
-	templateUrl: './date-section.component.html',
-	styleUrls: ['./date-section.component.scss']
+	selector: 'app-meridiem-section',
+	templateUrl: './meridiem-section.component.html',
+	styleUrls: ['./meridiem-section.component.scss']
 })
-export class DateSectionComponent implements OnInit, OnChanges {
+export class MeridiemSectionComponent implements OnInit, OnChanges {
 	public currentInput: string = '';
 	public getFocused: boolean = false;
 
-	@Input() date: string = '';
-	@Output() dateChange = new EventEmitter<string>();
+	@Input() meridiem: string = '';
+	@Output() meridiemChange = new EventEmitter<string>();
 
 	constructor(private elementRef: ElementRef) {}
 
-	get element(): HTMLInputElement { return this.elementRef.nativeElement.querySelector('input.date-section'); }
+	get element(): HTMLInputElement { return this.elementRef.nativeElement.querySelector('input.meridiem-section'); }
 
 	ngOnInit() {
-		this.element.value = this.date;
+		this.element.value = this.meridiem;
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.element.value = this.date;
+		this.element.value = this.meridiem;
 	}
 
 	focus(): void { this.element.focus(); }
@@ -32,47 +32,31 @@ export class DateSectionComponent implements OnInit, OnChanges {
 		// for delete button, the element value is set to an empty string, and is passed to its parent element
 		if(this.currentInput === 'Backspace') {
 			this.element.value = '';
-			this.dateChange.emit('');
+			this.meridiemChange.emit('');
 
 			return;
 		}
 
-		// check the first user input when the element gains focus
-		// the element value remains unchanged if the first user input is invalid
-		// the element value is updated using the first user input if it is valid, and is passed to its parent element
-		if(this.getFocused) {
-			if(!this.isValidInput(this.currentInput)) {
-				this.element.value = this.normalize(this.element.value);
-			}
-			else {
-				this.getFocused = false;
-				this.element.value = this.normalize(this.currentInput);
-				this.dateChange.emit(this.element.value);
-			}
-
-			return;
-		}
-
-		// after the first user input, the element value is normalized for each input and is passed to its parent element
+		// normalize the user input and pass it to the parent element
 		this.element.value = this.normalize(this.element.value);
-		this.dateChange.emit(this.element.value);
+		this.meridiemChange.emit(this.element.value);
 	}
 
 	/**
 	 * Return an empty string if the user inputs don't contain any legal input
-	 * Return a string containing two legal inputs or one legal input with a leading zero (00 ~ 99)
+	 * Return 'am' or 'pm' when entering 'a' or 'p' respectively, and ignore any other inputs
 	 */
 	normalize(inputs: string): string {
 		let normalized: string = '';
 
 		normalized = inputs.split('').filter((input) => { return this.isValidInput(input); }).join('');
-		normalized = normalized === '' ? '' : ('0' + normalized).slice(-2);
+		normalized = normalized === '' ? '' : (normalized.slice(-1) + 'm');
 
 		return normalized;
 	}
 
 	isValidInput(input: string): boolean {
-		const list: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+		const list: string[] = ['a', 'p'];
 
 		return list.includes(input);
 	}
