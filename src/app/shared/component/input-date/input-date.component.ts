@@ -70,7 +70,7 @@ export class InputDateComponent implements ControlValueAccessor {
 				this.touched = true;
 				this.onTouched();
 			}
-		}, 0);
+		});
 	}
 
 	@HostListener('keydown', ['$event'])
@@ -137,7 +137,7 @@ export class InputDateComponent implements ControlValueAccessor {
 			}
 
 			this.dispatchDate();
-		}, 0);
+		});
 	}
 
 	editMonth(month: string): void {
@@ -160,7 +160,7 @@ export class InputDateComponent implements ControlValueAccessor {
 			}
 
 			this.dispatchDate();
-		}, 0);
+		});
 	}
 
 	editYear(year: string): void {
@@ -173,7 +173,7 @@ export class InputDateComponent implements ControlValueAccessor {
 			if(digit < 1) this.year = '0001';
 
 			this.dispatchDate();
-		}, 0);
+		});
 	}
 
 	moveDateToMonth(): void {
@@ -205,7 +205,7 @@ export class InputDateComponent implements ControlValueAccessor {
 			this.showCalendar ?
 				this.calendarComponent.focus() :
 				this.calendarComponent.blur();
-		}, 0);
+		});
 	}
 
 	// close calendar after selecting a date

@@ -1,8 +1,15 @@
+<div class="input-time-backdrop" *ngIf="showClock"></div>
+
 <div class="input-time">
 	<div class="input-field">
 		<app-hour-section [hour]="hour" (hourChange)="editHour($event)"></app-hour-section>
 		<div class="colon"></div>
 		<app-minute-section [minute]="minute" (minuteChange)="editMinute($event)"></app-minute-section>
 		<app-meridiem-section [meridiem]="meridiem" (meridiemChange)="editMeridiem($event)"></app-meridiem-section>
+		<span class="clock-button" (mousedown)="setClock()"></span>
+	</div>
+
+	<div class="clock" [hidden]="!showClock">
+		<app-clock [clock]="clock" (clockChange)="getClock($event)"></app-clock>
 	</div>
 </div>

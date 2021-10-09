@@ -116,6 +116,6 @@ export class YearSectionComponent implements OnInit, OnChanges {
 	}
 
 	locateCursor(target: HTMLInputElement): void {
-		setTimeout(() => { target.setSelectionRange(target.value.length, target.value.length); }, 0);
+		setTimeout(() => { target.setSelectionRange(target.value.length, target.value.length); });
 	}
 }

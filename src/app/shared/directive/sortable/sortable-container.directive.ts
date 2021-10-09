@@ -35,7 +35,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 		this.sortableItemDirectives.changes
 			.pipe(takeUntil(this.terminator))
 			.subscribe(() => {
-				setTimeout(() => { this.setSortableItem(); }, 0);
+				setTimeout(() => { this.setSortableItem(); });
 			});
 	}
 

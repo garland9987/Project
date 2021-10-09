@@ -54,7 +54,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 		this.selectedMonth = 0;
 	}
 
-	focus(): void { this.element.focus({preventScroll:true}); }
+	focus(): void { this.element.focus({preventScroll: true}); }
 	blur(): void { this.element.blur(); }
 
 	@HostListener('focusin', ['$event'])

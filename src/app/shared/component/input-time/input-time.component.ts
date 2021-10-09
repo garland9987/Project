@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { HourSectionComponent } from './hour-section/hour-section.component';
 import { MinuteSectionComponent } from './minute-section/minute-section.component';
 import { MeridiemSectionComponent } from './meridiem-section/meridiem-section.component';
+import { ClockComponent } from './clock/clock.component';
 
 @Component({
 	selector: 'app-input-time',
@@ -20,10 +21,12 @@ import { MeridiemSectionComponent } from './meridiem-section/meridiem-section.co
 export class InputTimeComponent implements ControlValueAccessor {
 	public initialized: boolean = false;
 	public touched: boolean = false;
+	public showClock: boolean = false;
 
 	public hour: string = '';
 	public minute: string = '';
 	public meridiem: string = '';
+	public clock: string = '';
 
 	public onChange = (value: string) => {};
 	public onTouched = () => {};
@@ -31,6 +34,7 @@ export class InputTimeComponent implements ControlValueAccessor {
 	@ViewChild(HourSectionComponent) hourSectionComponent: HourSectionComponent;
 	@ViewChild(MinuteSectionComponent) minuteSectionComponent: MinuteSectionComponent;
 	@ViewChild(MeridiemSectionComponent) meridiemSectionComponent: MeridiemSectionComponent;
+	@ViewChild(ClockComponent) clockComponent: ClockComponent;
 
 	// pass the initial value from the parent form (by ngModal or formControlName)
 	writeValue(value: string) {
@@ -55,7 +59,8 @@ export class InputTimeComponent implements ControlValueAccessor {
 			if(!this.touched &&
 				!this.hourSectionComponent.getFocused &&
 				!this.minuteSectionComponent.getFocused &&
-				!this.meridiemSectionComponent.getFocused) {
+				!this.meridiemSectionComponent.getFocused &&
+				!this.clockComponent.getFocused) {
 
 				if(!this.initialized) {
 					this.initialized = true;
@@ -65,7 +70,7 @@ export class InputTimeComponent implements ControlValueAccessor {
 				this.touched = true;
 				this.onTouched();
 			}
-		}, 0);
+		});
 	}
 
 	@HostListener('keydown', ['$event'])
@@ -79,6 +84,20 @@ export class InputTimeComponent implements ControlValueAccessor {
 				if(document.activeElement === this.hourSectionComponent.element) this.moveHourToMinute();
 				else if(document.activeElement === this.minuteSectionComponent.element) this.moveMinuteToMeridiem();
 				break;
+		}
+	}
+
+	// mousedown is trigged before focusout
+	@HostListener('mousedown', ['$event'])
+	mousedown(event) {
+		const element = event.target;
+
+		if(element.matches('.hour-section') ||
+			element.matches('.minute-section') ||
+			element.matches('.meridiem-section') ||
+			element.matches('.input-time-backdrop')) {
+
+			this.closeClock();
 		}
 	}
 
@@ -119,7 +138,7 @@ export class InputTimeComponent implements ControlValueAccessor {
 			}
 
 			this.dispatchTime();
-		}, 0);
+		});
 	}
 
 	// the range is from 00 to 59
@@ -142,7 +161,7 @@ export class InputTimeComponent implements ControlValueAccessor {
 			}
 
 			this.dispatchTime();
-		}, 0);
+		});
 	}
 
 	editMeridiem(meridiem: string): void {
@@ -150,7 +169,7 @@ export class InputTimeComponent implements ControlValueAccessor {
 
 		setTimeout(() => {
 			this.dispatchTime();
-		}, 0);
+		});
 	}
 
 	moveHourToMinute(): void {
@@ -171,5 +190,29 @@ export class InputTimeComponent implements ControlValueAccessor {
 	moveMinuteToHour(): void {
 		this.minuteSectionComponent.blur();
 		this.hourSectionComponent.focus();
+	}
+
+	setClock(): void {
+		this.showClock = !this.showClock;
+
+		this.clock = this.showClock ? `${this.hour}:${this.minute} ${this.meridiem}` : '';
+
+		setTimeout(() => {
+			this.clock ?
+				this.clockComponent.focus() :
+				this.clockComponent.blur();
+		});
+	}
+
+	getClock(clock: string): void {
+		[this.hour, this.minute, this.meridiem] = clock.split(',');
+
+		this.initialized = true;
+		this.dispatchTime();
+	}
+
+	closeClock(): void {
+		this.showClock = false;
+		this.clock = '';
 	}
 }

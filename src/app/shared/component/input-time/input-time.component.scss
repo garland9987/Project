@@ -9,7 +9,7 @@
 		display: inline-flex;
 		align-items: center;
 
-		width: 8em;
+		width: 7.5em;
 		padding: .1em .4em .1em .2em;
 		border: 1px solid #ced4da;
 		border-radius: .2em;
@@ -19,9 +19,34 @@
 			content: ':';
 		}
 
+		.clock-button {
+			display: block;
+			width: 1em;
+			height: 1em;
+			margin-left: auto;
+
+			cursor: pointer;
+			outline: none;
+
+			background-image: url('/assets/icons/clock.svg');
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+
 		&:focus-within {
 			border: 1px solid #80bdff;
 			box-shadow: 0 0 0 1px #80bdff;
 		}
 	}
+}
+
+.input-time-backdrop {
+	@include position(fixed, 0, 0, 0, 0);
+	z-index: $z-index-level-1;
+
+	background-color: transparent;
+}
+
+.input-time-backdrop ~ .input-time {
+	z-index: $z-index-level-1;
 }
