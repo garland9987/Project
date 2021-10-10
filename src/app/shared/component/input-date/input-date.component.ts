@@ -210,7 +210,7 @@ export class InputDateComponent implements ControlValueAccessor {
 
 	// close calendar after selecting a date
 	getCalendarDate(calendar: string): void {
-		[this.year, this.month, this.date] = calendar.split('-');
+		[this.year, this.month, this.date] = (calendar === '') ? ['', '', ''] : calendar.split('-');
 
 		this.initialized = true;
 		this.dispatchDate();
@@ -219,7 +219,7 @@ export class InputDateComponent implements ControlValueAccessor {
 
 	// keep calendar open after selecting year or month
 	getCalendarMonth(calendar: string): void {
-		[this.year, this.month, this.date] = calendar.split('-');
+		[this.year, this.month, this.date] = (calendar === '') ? ['', '', ''] : calendar.split('-');
 
 		this.initialized = true;
 		this.dispatchDate();

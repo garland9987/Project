@@ -152,6 +152,10 @@ export class CalendarComponent implements OnInit, OnChanges {
 		this.calendarDateChange.emit(mt.format('YYYY-MM-DD'));
 	}
 
+	clear(): void {
+		this.calendarDateChange.emit('');
+	}
+
 	today(): void {
 		this.calendarDateChange.emit(moment().format('YYYY-MM-DD'));
 	}
