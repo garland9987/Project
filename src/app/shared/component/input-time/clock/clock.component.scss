@@ -62,3 +62,11 @@
 .hide-scrollbar::-webkit-scrollbar {
 	display: none;				/* for Chrome, Safari, and Opera */
 }
+
+.scroll-snap-type {
+	scroll-snap-type: y mandatory;
+}
+
+.scroll-snap-align {
+	scroll-snap-align: start;
+}

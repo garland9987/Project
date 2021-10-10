@@ -108,6 +108,28 @@ export class ClockComponent implements OnInit, OnChanges {
 		}
 	}
 
+	enter(event): void {
+		const parent = event.target;
+		const children = parent.querySelectorAll('div');
+
+		this.renderer.removeClass(parent, 'scroll-snap-type');
+
+		children.forEach((child) => {
+			this.renderer.removeClass(child, 'scroll-snap-align');
+		});
+	}
+
+	leave(event): void {
+		const parent = event.target;
+		const children = parent.querySelectorAll('div');
+
+		this.renderer.addClass(parent, 'scroll-snap-type');
+
+		children.forEach((child) => {
+			this.renderer.addClass(child, 'scroll-snap-align');
+		});
+	}
+
 	isHour(hour: string): boolean { return this.hour === hour; }
 	isMinute(minute: string): boolean { return this.minute === minute; }
 	isMeridiem(meridiem: string): boolean { return this.meridiem === meridiem; }
