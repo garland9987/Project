@@ -63,3 +63,8 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+for(const type of ['TouchEvent']) {
+ 	if(typeof window[type] === 'undefined') {
+ 		window[type] = function() {};
+ 	}
+}
