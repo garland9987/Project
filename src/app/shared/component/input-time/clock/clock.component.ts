@@ -52,81 +52,60 @@ export class ClockComponent implements OnInit, OnChanges {
 
 		[this.hour, this.minute, this.meridiem] = mt.format('hh,mm,a').split(',');
 
-		this.hours = this.calc(1, 12, this.hour);
-		this.minutes = this.calc(0, 59, this.minute);
+		this.hours = this.assign(1, 12);
+		this.minutes = this.assign(0, 59);
 		this.meridiems = (this.meridiem === 'am') ? ['am', 'pm'] : ['pm', 'am'];
 
 		window.requestAnimationFrame(() => {
-			this.element.querySelector('.hour.selected')?.scrollIntoView();
-			this.element.querySelector('.minute.selected')?.scrollIntoView();
+			const hours = this.element.querySelector('.hours') as HTMLElement;
+			const hour = this.element.querySelectorAll('.hour.selected')[1] as HTMLElement;
+
+			const minutes = this.element.querySelector('.minutes') as HTMLElement;
+			const minute = this.element.querySelectorAll('.minute.selected')[1] as HTMLElement;
+
+			hours?.scrollTo({
+				top: hour.offsetTop,
+				left: hour.offsetLeft,
+				behavior: 'auto'
+			});
+
+			minutes?.scrollTo({
+				top: minute.offsetTop,
+				left: minute.offsetLeft,
+				behavior: 'auto'
+			});
 		});
 	}
 
-	/**
-	 * Slice the array until the previous element of the selected one
-	 * Retain the previous element in order to leave some space above the selected one, allowing user to scroll down at the beginning
-	 */
-	calc(start: number, end: number, element: string): string[] {
+	assign(start: number, end: number): string[] {
 		let array: string[] = [];
 
 		for(let i = start; i <= end; i++) {
 			array.push(('0' + i).slice(-2));
 		}
 
-		let index: number = array.indexOf(element);
-		let slice: string[] = [];
-
-		switch(index) {
-			case 0:
-				slice = array.slice(-1);
-				array.splice(-1, 1);
-				array.splice(0, 0, ...slice);
-
-				break;
-			case 1:
-				// no processing is required
-				break;
-			default:
-				slice = array.slice(0, index - 1);
-				array.splice(0, index - 1);
-				array.splice(array.length, 0, ...slice);
-		}
-
-		return array;
+		return [...array, ...array, ...array];
 	}
 
 	scrollLoop(event): void {
-		let parent = event.target;
-		let first = parent.querySelector('div:nth-of-type(1)');
-		let last = parent.querySelector('div:nth-last-of-type(1)');
+		const parent = event.target;
 
 		if(parent.scrollTop <= 64) {
-			this.renderer.insertBefore(parent, last, first);
+			this.transfer(parent, 'top');
 		}
 		else if((parent.scrollHeight - (parent.scrollTop + parent.clientHeight)) <= 64) {
-			this.renderer.appendChild(parent, first);
+			this.transfer(parent, 'bottom');
 		}
 	}
 
-	enter(event): void {
-		const parent = event.target;
-		const children = parent.querySelectorAll('div');
+	transfer(parent: HTMLElement, direction: string): void {
+		window.requestAnimationFrame(() => {
+			const count = parent.children.length / 3;
 
-		this.renderer.removeClass(parent, 'scroll-snap-type');
-
-		children.forEach((child) => {
-			this.renderer.removeClass(child, 'scroll-snap-align');
-		});
-	}
-
-	leave(event): void {
-		const parent = event.target;
-		const children = parent.querySelectorAll('div');
-
-		this.renderer.addClass(parent, 'scroll-snap-type');
-
-		children.forEach((child) => {
-			this.renderer.addClass(child, 'scroll-snap-align');
+			for(let i = 1; i <= count; i++) {
+				if(direction === 'top') this.renderer.insertBefore(parent, parent.lastElementChild, parent.firstElementChild);
+				if(direction === 'bottom') this.renderer.appendChild(parent, parent.firstElementChild);
+			}
 		});
 	}
 
