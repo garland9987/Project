@@ -25,9 +25,9 @@
 
 		<div class="years" (scroll)="scroll($event)">
 			<div class="year" *ngFor="let year of years" (click)="selectYear(year)" [attr.data-stamp]="year">
-				<span>{{ year }}</span>
+				<div>{{ year }}</div>
 				<div class="months" *ngIf="selectedYear === year">
-					<div class="month" *ngFor="let month of months" [class.selected-month]="isOriginalMonth(year, month)" (click)="selectMonth(month)">{{ month | month:"short" }}</div>
+					<div class="month" *ngFor="let month of months" [class.is-year-month]="isYearMonth(year, month)" (click)="selectMonth(month)">{{ month | month:"short" }}</div>
 				</div>
 			</div>
 		</div>

@@ -3,6 +3,8 @@ import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitte
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
+import { Utility } from '@shared/global/utility';
+
 interface IDate {
 	date: number;
 	valid: boolean;
@@ -31,6 +33,13 @@ export class CalendarComponent implements OnInit, OnChanges {
 	public center: number;
 	public selectedYear: number;
 	public selectedMonth: number;
+
+	public radius: number = 200;
+	public offset: number = 200;
+	public min: number = 1;
+	public max: number = 9999;
+
+	public prevCenter: number;
 
 	constructor(private elementRef: ElementRef) {}
 
@@ -192,8 +201,8 @@ export class CalendarComponent implements OnInit, OnChanges {
 		}
 	}
 
-	isOriginalMonth(year: number, month: number): boolean {
-		return (year === this.year) && (month === this.month);
+	isYearMonth(year: number, month: number): boolean {
+		return (this.year === year) && (this.month === month);
 	}
 
 	selectYear(year: number): void {
@@ -213,36 +222,70 @@ export class CalendarComponent implements OnInit, OnChanges {
 	}
 
 	get years(): number[] {
-		return this.calcYears(this.center, 200);
+		return this.calcYears(this.center);
 	}
 
-	calcYears(center: number, radius: number): number[] {
+	calcYears(center: number): number[] {
 		let years: number[] = [];
 
-		let start: number = center - radius;
-		let end: number = center + radius;
+		let start: number = (center - this.radius) < this.min ? this.min : (center - this.radius);
+		let end: number = (center + this.radius) > this.max ? this.max : (center + this.radius);
 
 		for(let year = start; year <= end; year++) years.push(year);
 
 		return years;
 	}
 
-	moveCenterUp(center: number, radius: number, offset: number, min: number): number {
-		return (center - offset - radius) < min ? (min + radius) : (center - offset);
+	moveCenterUp(center: number): number {
+		return (center - this.offset - this.radius) < this.min ? (this.min + this.radius) : (center - this.offset);
 	}
 
-	moveCenterDown(center: number, radius: number, offset: number, max: number): number {
-		return (center + offset + radius) > max ? (max - radius) : (center + offset);
+	moveCenterDown(center: number): number {
+		return (center + this.offset + this.radius) > this.max ? (this.max - this.radius) : (center + this.offset);
+	}
+
+	calcItemHeight(element: HTMLElement): number {
+		let height: number;
+
+		for(let child of element.children) {
+			if(child.getAttribute('data-stamp') !== this.selectedYear.toString()) {
+				height = parseFloat(getComputedStyle(child).getPropertyValue('height'));
+				break;
+			}
+		}
+
+		return height;
 	}
 
 	scroll(event): void {
 		const element = event.target;
+		const breakpoint = this.calcItemHeight(element) * 50;
 
-		if(element.scrollTop <= 1000) {
-			this.center = this.moveCenterUp(this.center, 200, 200, 1);
+		if(element.scrollTop <= breakpoint) {
+			this.prevCenter = this.center;
+			this.center = this.moveCenterUp(this.center);
+
+			// adjust scroll position for Safari
+			window.requestAnimationFrame(() => {
+				if(Utility.browser() === 'Safari') {
+					(this.prevCenter - this.offset - this.radius) < this.min ?
+						element.scrollTop = element.scrollTop + (this.calcItemHeight(element) * ((this.prevCenter - this.offset) - this.min)) :
+						element.scrollTop = element.scrollTop + (this.calcItemHeight(element) * this.radius);
+				}
+			});
 		}
-		else if((element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 1000) {
-			this.center = this.moveCenterDown(this.center, 200, 200, 9999);
+		else if((element.scrollHeight - (element.scrollTop + element.clientHeight)) <= breakpoint) {
+			this.prevCenter = this.center;
+			this.center = this.moveCenterDown(this.center);
+
+			// adjust scroll position for Safari
+			window.requestAnimationFrame(() => {
+				if(Utility.browser() === 'Safari') {
+					(this.prevCenter + this.offset + this.radius) > this.max ?
+						element.scrollTop = element.scrollTop - (this.calcItemHeight(element) * (this.max - (this.prevCenter + this.offset))) :
+						element.scrollTop = element.scrollTop - (this.calcItemHeight(element) * this.radius);
+				}
+			});
 		}
 	}
 

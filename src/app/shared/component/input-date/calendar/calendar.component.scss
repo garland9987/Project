@@ -114,12 +114,12 @@
 					@include flexbox-center;
 				}
 
-				.month:not(.selected-month):hover {
+				.month:not(.is-year-month):hover {
 					background-color: #b5d5ff;
 					cursor: default;
 				}
 
-				.selected-month {
+				.is-year-month {
 					color: #fff;
 					background-color: #0d6efd;
 

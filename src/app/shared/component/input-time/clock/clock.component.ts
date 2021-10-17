@@ -100,13 +100,21 @@ export class ClockComponent implements OnInit, OnChanges {
 
 	transfer(parent: HTMLElement, direction: string): void {
 		window.requestAnimationFrame(() => {
-			const count = parent.children.length / 3;
+			this.hours.unshift('a', 'b', 'c');
 
-			for(let i = 1; i <= count; i++) {
-				if(direction === 'top') this.renderer.insertBefore(parent, parent.lastElementChild, parent.firstElementChild);
-				if(direction === 'bottom') this.renderer.appendChild(parent, parent.firstElementChild);
-			}
+			window.requestAnimationFrame(() => {
+				parent.scrollTop = parent.scrollTop + 96;
+			});
 		});
+
+		// window.requestAnimationFrame(() => {
+		// 	const count = parent.children.length / 3;
+
+		// 	for(let i = 1; i <= count; i++) {
+		// 		if(direction === 'top') this.renderer.insertBefore(parent, parent.lastElementChild, parent.firstElementChild);
+		// 		if(direction === 'bottom') this.renderer.appendChild(parent, parent.firstElementChild);
+		// 	}
+		// });
 	}
 
 	isHour(hour: string): boolean { return this.hour === hour; }
