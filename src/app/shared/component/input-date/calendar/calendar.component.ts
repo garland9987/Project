@@ -191,7 +191,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 		switch(this.mode) {
 			case 'advanced':
-				this.center = this.year;
+				this.center = this.normalizeCenter(this.year);
 				this.selectedYear = this.year;
 				this.selectedMonth = this.month;
 				this.scrollIntoView(this.year);
@@ -206,7 +206,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	}
 
 	selectYear(year: number): void {
-		this.center = year;
+		this.center = this.normalizeCenter(year);
 		this.selectedYear = year;
 		this.scrollIntoView(this.selectedYear);
 	}
@@ -225,11 +225,17 @@ export class CalendarComponent implements OnInit, OnChanges {
 		return this.calcYears(this.center);
 	}
 
+	normalizeCenter(center: number): number {
+		if((center - this.radius) < this.min) return (this.min + this.radius);
+		else if((center + this.radius) > this.max) return (this.max - this.radius);
+		else return center;
+	}
+
 	calcYears(center: number): number[] {
 		let years: number[] = [];
 
-		let start: number = (center - this.radius) < this.min ? this.min : (center - this.radius);
-		let end: number = (center + this.radius) > this.max ? this.max : (center + this.radius);
+		let start: number = center - this.radius;
+		let end: number = center + this.radius;
 
 		for(let year = start; year <= end; year++) years.push(year);
 
