@@ -138,6 +138,15 @@ export class ClockComponent implements OnInit, OnChanges {
 		this.meridiem = meridiem;
 		this.clockChange.emit(`${this.hour},${this.minute},${this.meridiem}`);
 	}
+
+	align(event): void {
+		const element = event.target;
+		const unit = this.calcItemHeight(element);
+
+		window.requestAnimationFrame(() => {
+			element.scrollTop = unit * Math.round(element.scrollTop / unit);
+		});
+	}
 }
 
 class ClockInit {
