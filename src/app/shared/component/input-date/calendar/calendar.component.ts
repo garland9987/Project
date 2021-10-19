@@ -3,8 +3,6 @@ import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitte
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
-import { Utility } from '@shared/global/utility';
-
 interface IDate {
 	date: number;
 	valid: boolean;
@@ -267,32 +265,40 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const element = event.target;
 		const breakpoint = this.calcItemHeight(element) * 50;	// 50 items
 
-		if(element.scrollTop <= breakpoint) {
+		if(this.checkTopSpace(element, breakpoint)) {
 			this.prevCenter = this.center;
 			this.center = this.moveCenterUp(this.center);
 
-			// adjust scroll position for Safari
+			// adjust scroll position if it isn't right
 			window.requestAnimationFrame(() => {
-				if(Utility.browser() === 'Safari') {
+				if(this.checkTopSpace(element, breakpoint)) {
 					(this.prevCenter - this.offset - this.radius) < this.min ?
 						element.scrollTop = element.scrollTop + (this.calcItemHeight(element) * ((this.prevCenter - this.offset) - this.min)) :
 						element.scrollTop = element.scrollTop + (this.calcItemHeight(element) * this.radius);
 				}
 			});
 		}
-		else if((element.scrollHeight - (element.scrollTop + element.clientHeight)) <= breakpoint) {
+		else if(this.checkBottomSpace(element, breakpoint)) {
 			this.prevCenter = this.center;
 			this.center = this.moveCenterDown(this.center);
 
-			// adjust scroll position for Safari
+			// adjust scroll position if it isn't right
 			window.requestAnimationFrame(() => {
-				if(Utility.browser() === 'Safari') {
+				if(this.checkBottomSpace(element, breakpoint)) {
 					(this.prevCenter + this.offset + this.radius) > this.max ?
 						element.scrollTop = element.scrollTop - (this.calcItemHeight(element) * (this.max - (this.prevCenter + this.offset))) :
 						element.scrollTop = element.scrollTop - (this.calcItemHeight(element) * this.radius);
 				}
 			});
 		}
+	}
+
+	checkTopSpace(element: HTMLElement, breakpoint: number): boolean {
+		return element.scrollTop <= breakpoint;
+	}
+
+	checkBottomSpace(element: HTMLElement, breakpoint: number): boolean {
+		return (element.scrollHeight - (element.scrollTop + element.clientHeight)) <= breakpoint;
 	}
 
 	scrollIntoView(year: number): void {
