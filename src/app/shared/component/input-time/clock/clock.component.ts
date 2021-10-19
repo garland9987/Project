@@ -20,6 +20,7 @@ export class ClockComponent implements OnInit, OnChanges {
 	public meridiems: string[] = ['am', 'pm'];
 
 	public getFocused: boolean = false;
+	public clockInit: ClockInit = new ClockInit();
 
 	constructor(private elementRef: ElementRef,
 				private renderer: Renderer2) {}
@@ -52,69 +53,71 @@ export class ClockComponent implements OnInit, OnChanges {
 
 		[this.hour, this.minute, this.meridiem] = mt.format('hh,mm,a').split(',');
 
-		this.hours = this.assign(1, 12);
-		this.minutes = this.assign(0, 59);
+		this.hours = this.clockInit.init(1, 12).rearrange(this.hour).setLeadingElement().value();
+		this.minutes = this.clockInit.init(0, 59).rearrange(this.minute).setLeadingElement().value();
 		this.meridiems = (this.meridiem === 'am') ? ['am', 'pm'] : ['pm', 'am'];
 
 		window.requestAnimationFrame(() => {
-			const hours = this.element.querySelector('.hours') as HTMLElement;
-			const hour = this.element.querySelectorAll('.hour.selected')[1] as HTMLElement;
+			if(this.clock) {
+				const hours = this.element.querySelector('.hours') as HTMLElement;
+				const minutes = this.element.querySelector('.minutes') as HTMLElement;
 
-			const minutes = this.element.querySelector('.minutes') as HTMLElement;
-			const minute = this.element.querySelectorAll('.minute.selected')[1] as HTMLElement;
-
-			hours?.scrollTo({
-				top: hour.offsetTop,
-				left: hour.offsetLeft,
-				behavior: 'auto'
-			});
-
-			minutes?.scrollTo({
-				top: minute.offsetTop,
-				left: minute.offsetLeft,
-				behavior: 'auto'
-			});
+				hours.scrollTop = this.calcItemHeight(hours) * 1;
+				minutes.scrollTop = this.calcItemHeight(minutes) * 1;
+			}
 		});
 	}
 
-	assign(start: number, end: number): string[] {
-		let array: string[] = [];
-
-		for(let i = start; i <= end; i++) {
-			array.push(('0' + i).slice(-2));
-		}
-
-		return [...array, ...array, ...array];
+	calcItemHeight(element: HTMLElement): number {
+		return parseFloat(getComputedStyle(element.firstElementChild).getPropertyValue('height'));
 	}
 
-	scrollLoop(event): void {
-		const parent = event.target;
+	scrollLoop(event, list): void {
+		const element = event.target;
+		const breakpoint = this.calcItemHeight(element) * 1;
 
-		if(parent.scrollTop <= 64) {
-			this.transfer(parent, 'top');
-		}
-		else if((parent.scrollHeight - (parent.scrollTop + parent.clientHeight)) <= 64) {
-			this.transfer(parent, 'bottom');
-		}
-	}
+		if(this.checkTopSpace(element, breakpoint)) {
+			this[list] = this.moveItemsToTop(this[list]);
 
-	transfer(parent: HTMLElement, direction: string): void {
-		window.requestAnimationFrame(() => {
-			this.hours.unshift('a', 'b', 'c');
-
+			// adjust scroll position if it isn't right
 			window.requestAnimationFrame(() => {
-				parent.scrollTop = parent.scrollTop + 96;
+				if(this.checkTopSpace(element, breakpoint)) {
+					element.scrollTop = element.scrollTop + (this.calcItemHeight(element) * 1);
+				}
 			});
-		});
+		}
+		else if(this.checkBottomSpace(element, breakpoint)) {
+			this[list] = this.moveItemsToBottom(this[list]);
 
-		// window.requestAnimationFrame(() => {
-		// 	const count = parent.children.length / 3;
+			// adjust scroll position if it isn't right
+			window.requestAnimationFrame(() => {
+				if(this.checkBottomSpace(element, breakpoint)) {
+					element.scrollTop = element.scrollTop - (this.calcItemHeight(element) * 1);
+				}
+			});
+		}
+	}
 
-		// 	for(let i = 1; i <= count; i++) {
-		// 		if(direction === 'top') this.renderer.insertBefore(parent, parent.lastElementChild, parent.firstElementChild);
-		// 		if(direction === 'bottom') this.renderer.appendChild(parent, parent.firstElementChild);
-		// 	}
-		// });
+	checkTopSpace(element: HTMLElement, breakpoint: number): boolean {
+		return element.scrollTop <= breakpoint;
+	}
+
+	checkBottomSpace(element: HTMLElement, breakpoint: number): boolean {
+		return (element.scrollHeight - (element.scrollTop + element.clientHeight)) <= breakpoint;
+	}
+
+	moveItemsToTop(array: string[]): string[] {
+		const section1: string[] = array.slice(-1);
+		const section2: string[] = array.slice(0, -1);
+
+		return [...section1, ...section2];
+	}
+
+	moveItemsToBottom(array: string[]): string[] {
+		const section1: string[] = array.slice(1);
+		const section2: string[] = array.slice(0, 1);
+
+		return [...section1, ...section2];
 	}
 
 	isHour(hour: string): boolean { return this.hour === hour; }
@@ -135,4 +138,40 @@ export class ClockComponent implements OnInit, OnChanges {
 		this.meridiem = meridiem;
 		this.clockChange.emit(`${this.hour},${this.minute},${this.meridiem}`);
 	}
+}
+
+class ClockInit {
+	private array: string[];
+
+	init(start: number, end: number): this {
+		this.array = [];
+
+		for(let i = start; i <= end; i++) {
+			this.array.push(('0' + i).slice(-2));
+		}
+
+		return this;
+	}
+
+	rearrange(first: string): this {
+		const index: number = this.array.indexOf(first);
+
+		const section1: string[] = this.array.slice(index);
+		const section2: string[] = this.array.slice(0, index);
+
+		this.array = [...section1, ...section2];
+
+		return this;
+	}
+
+	setLeadingElement(): this {
+		const section1: string[] = this.array.slice(-1);
+		const section2: string[] = this.array.slice(0, -1);
+
+		this.array = [...section1, ...section2];
+
+		return this;
+	}
+
+	value(): string[] { return this.array; }
 }

@@ -1,10 +1,10 @@
 <div tabindex="-1" class="clock">
 	<!-- *ngIf to rebuild UI -->
-	<div class="hours hide-scrollbar" (scroll)="scrollLoop($event)" *ngIf="clock">
+	<div class="hours hide-scrollbar" (scroll)="scrollLoop($event, 'hours')" *ngIf="clock">
 		<div class="hour" *ngFor="let hour of hours" [class.selected]="isHour(hour)" (click)="selectHour(hour)">{{ hour }}</div>
 	</div>
 	<!-- *ngIf to rebuild UI -->
-	<div class="minutes hide-scrollbar" (scroll)="scrollLoop($event)" *ngIf="clock">
+	<div class="minutes hide-scrollbar" (scroll)="scrollLoop($event, 'minutes')" *ngIf="clock">
 		<div class="minute" *ngFor="let minute of minutes" [class.selected]="isMinute(minute)" (click)="selectMinute(minute)">{{ minute }}</div>
 	</div>
 	<div class="meridiems">

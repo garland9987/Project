@@ -225,12 +225,6 @@ export class CalendarComponent implements OnInit, OnChanges {
 		return this.calcYears(this.center);
 	}
 
-	normalizeCenter(center: number): number {
-		if((center - this.radius) < this.min) return (this.min + this.radius);
-		else if((center + this.radius) > this.max) return (this.max - this.radius);
-		else return center;
-	}
-
 	calcYears(center: number): number[] {
 		let years: number[] = [];
 
@@ -240,6 +234,12 @@ export class CalendarComponent implements OnInit, OnChanges {
 		for(let year = start; year <= end; year++) years.push(year);
 
 		return years;
+	}
+
+	normalizeCenter(center: number): number {
+		if((center - this.radius) < this.min) return (this.min + this.radius);
+		else if((center + this.radius) > this.max) return (this.max - this.radius);
+		else return center;
 	}
 
 	moveCenterUp(center: number): number {
@@ -265,7 +265,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	scroll(event): void {
 		const element = event.target;
-		const breakpoint = this.calcItemHeight(element) * 50;
+		const breakpoint = this.calcItemHeight(element) * 50;	// 50 items
 
 		if(element.scrollTop <= breakpoint) {
 			this.prevCenter = this.center;
