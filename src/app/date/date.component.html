@@ -7,21 +7,21 @@
 		<div class="form-date">
 			<label for="date">Date: </label>
 			<input type="date" id="date" formControlName="date" [ngClass]="validation(date)">
-			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+			<span class="form-invalid-prompt column-2" *ngIf="date.errors?.required">Please enter a valid date</span>
 		</div>
 
 		<!-- time -->
 		<div class="form-time">
 			<label for="time">Time: </label>
 			<input type="time" id="time" formControlName="time" [ngClass]="validation(time)">
-			<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Please enter a valid time</span>
+			<span class="form-invalid-prompt column-2" *ngIf="time.errors?.required">Please enter a valid time</span>
 		</div>
 
 		<!-- datetime-local -->
 		<div class="form-datetime">
 			<label for="datetime">Datetime: </label>
 			<input type="datetime-local" id="datetime" formControlName="datetime" [ngClass]="validation(datetime)">
-			<span class="form-invalid-prompt placeholder" *ngIf="datetime.errors?.required">Please enter a valid date and time</span>
+			<span class="form-invalid-prompt column-2" *ngIf="datetime.errors?.required">Please enter a valid date and time</span>
 		</div>
 	</div>
 
@@ -32,26 +32,26 @@
 		<div class="form-date" *ngIf="isMobileDevice()">
 			<label for="date">Date: </label>
 			<input type="date" id="date" formControlName="date" [ngClass]="validation(date)">
-			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+			<span class="form-invalid-prompt column-2" *ngIf="date.errors?.required">Please enter a valid date</span>
 		</div>
 
 		<div class="form-date" *ngIf="!isMobileDevice()">
 			<label>Date: </label>
 			<app-input-date formControlName="date" [ngClass]="validation(date)"></app-input-date>
-			<span class="form-invalid-prompt placeholder" *ngIf="date.errors?.required">Please enter a valid date</span>
+			<span class="form-invalid-prompt column-2" *ngIf="date.errors?.required">Please enter a valid date</span>
 		</div>
 
 		<!-- custom time -->
 		<div class="form-time" *ngIf="isMobileDevice()">
 			<label for="time">Time: </label>
 			<input type="time" id="time" formControlName="time" [ngClass]="validation(time)">
-			<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Please enter a valid time</span>
+			<span class="form-invalid-prompt column-2" *ngIf="time.errors?.required">Please enter a valid time</span>
 		</div>
 
 		<div class="form-time" *ngIf="!isMobileDevice()">
 			<label>Time: </label>
 			<app-input-time formControlName="time" [ngClass]="validation(time)"></app-input-time>
-			<span class="form-invalid-prompt placeholder" *ngIf="time.errors?.required">Please enter a valid time</span>
+			<span class="form-invalid-prompt column-2" *ngIf="time.errors?.required">Please enter a valid time</span>
 		</div>
 	</div>
 
