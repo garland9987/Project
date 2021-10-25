@@ -42,6 +42,9 @@ import { MinuteSectionComponent } from './component/input-time/minute-section/mi
 import { MeridiemSectionComponent } from './component/input-time/meridiem-section/meridiem-section.component';
 import { ClockComponent } from './component/input-time/clock/clock.component';
 
+import { SuccessiveContainerDirective } from './directive/successive-selection/successive-container.directive';
+import { SuccessiveItemDirective } from './directive/successive-selection/successive-item.directive';
+
 @NgModule({
 	declarations: [
 		FileUploadComponent,
@@ -74,7 +77,9 @@ import { ClockComponent } from './component/input-time/clock/clock.component';
 		HourSectionComponent,
 		MinuteSectionComponent,
 		MeridiemSectionComponent,
-		ClockComponent
+		ClockComponent,
+		SuccessiveContainerDirective,
+		SuccessiveItemDirective
 	],
 	imports: [
 		CommonModule,
@@ -104,6 +109,8 @@ import { ClockComponent } from './component/input-time/clock/clock.component';
 		SortableContainerDirective,
 		InputDateComponent,
 		InputTimeComponent,
+		SuccessiveContainerDirective,
+		SuccessiveItemDirective,
 		// pipe
 		NamespacePipe
 	]
