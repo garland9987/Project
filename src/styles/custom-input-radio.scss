@@ -36,27 +36,15 @@ $input-radio: (
 
 	#{$selector} {
 		position: relative;
-		display: inline-block;
+
+		display: inline-flex;
+		align-items: center;
+		column-gap: .25em;
 
 		input[type=#{$type}] {
-			position: absolute;
-			z-index: -1;
-			opacity: 0;
-			width: 0;
-			height: 0;
-		}
+			appearance: none;
+			outline: none;
 
-		input[type=#{$type}] + label {
-			display: flex;
-			align-items: center;
-			column-gap: .25em;
-
-			@if $color-label { color: $color-label; }
-		}
-
-		input[type=#{$type}] + label::before {
-			content: '';
-			display: block;
 			width: 1em;
 			height: 1em;
 			border: 1px solid $color-border-normal;
@@ -64,13 +52,17 @@ $input-radio: (
 			background-color: #fff;
 		}
 
-		input[type=#{$type}]:focus + label::before {
+		input[type=#{$type}]:focus {
 			border: 1px solid $color-border-focus;
 			box-shadow: 0 0 0 3px $color-boxshadow;
 		}
 
-		input[type=#{$type}]:checked + label::before {
+		input[type=#{$type}]:checked {
 			border: .35em solid $color-border-checked;
+		}
+
+		input[type=#{$type}] + label {
+			@if $color-label { color: $color-label; }
 		}
 	}
 }
