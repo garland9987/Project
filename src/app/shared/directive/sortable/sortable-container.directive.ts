@@ -47,7 +47,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 	}
 
 	@HostListener('sortableend', ['$event'])
-	sortableend(event): void {
+	sortableend(event) {
 		if(this.closest === null) return;
 
 		let item = event.detail.item;
@@ -74,7 +74,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 	}
 
 	@HostListener('sortabledragging', ['$event'])
-	sortabledragging(event): void {
+	sortabledragging(event) {
 		if(this.isCursorInLimits(this.element, [event.detail.clientX, event.detail.clientY])) {
 			this.closest = this.findPosition(this.sortableItemDirectives, event.detail.clientY);
 

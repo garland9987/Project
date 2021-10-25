@@ -42,8 +42,8 @@ import { MinuteSectionComponent } from './component/input-time/minute-section/mi
 import { MeridiemSectionComponent } from './component/input-time/meridiem-section/meridiem-section.component';
 import { ClockComponent } from './component/input-time/clock/clock.component';
 
-import { SuccessiveContainerDirective } from './directive/successive-selection/successive-container.directive';
-import { SuccessiveItemDirective } from './directive/successive-selection/successive-item.directive';
+import { ShiftSelectionContainerDirective } from './directive/shift-selection/shift-selection-container.directive';
+import { ShiftSelectionItemDirective } from './directive/shift-selection/shift-selection-item.directive';
 
 @NgModule({
 	declarations: [
@@ -78,8 +78,8 @@ import { SuccessiveItemDirective } from './directive/successive-selection/succes
 		MinuteSectionComponent,
 		MeridiemSectionComponent,
 		ClockComponent,
-		SuccessiveContainerDirective,
-		SuccessiveItemDirective
+		ShiftSelectionContainerDirective,
+		ShiftSelectionItemDirective
 	],
 	imports: [
 		CommonModule,
@@ -109,8 +109,8 @@ import { SuccessiveItemDirective } from './directive/successive-selection/succes
 		SortableContainerDirective,
 		InputDateComponent,
 		InputTimeComponent,
-		SuccessiveContainerDirective,
-		SuccessiveItemDirective,
+		ShiftSelectionContainerDirective,
+		ShiftSelectionItemDirective,
 		// pipe
 		NamespacePipe
 	]

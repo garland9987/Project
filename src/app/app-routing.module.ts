@@ -11,7 +11,7 @@ const routes: Routes = [
 	{ path: 'sortable', loadChildren: () => import('./sortable/sortable.module').then(m => m.SortableModule) },
 	{ path: 'date', loadChildren: () => import('./date/date.module').then(m => m.DateModule) },
 	{ path: 'wizard', loadChildren: () => import('./wizard/wizard.module').then(m => m.WizardModule) },
-	{ path: 'successive-selection', loadChildren: () => import('./successive-selection/successive-selection.module').then(m => m.SuccessiveSelectionModule) },
+	{ path: 'shift-selection', loadChildren: () => import('./shift-selection/shift-selection.module').then(m => m.ShiftSelectionModule) },
 	{ path: '**', component: NotFoundComponent }
 ];
 
