@@ -1,0 +1,18 @@
+<h1>{{ title }}</h1>
+<hr>
+
+<div>{{ tasks | json }}</div>
+<hr>
+
+<div class="task-container mb-5" appShiftSelectionContainer>
+	<div class="task" *ngFor="let task of tasks">
+		<div class="two-columns">
+			<div class="first-column">
+				<div class="input-checkbox">
+					<input type="checkbox" [(ngModel)]="task.selected" [(appShiftSelectionItem)]="task.selected">
+				</div>
+			</div>
+			<div class="second-column">{{ task.name }}</div>
+		</div>
+	</div>
+</div>

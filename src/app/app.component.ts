@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
 			new Navigation('Translation', '/translation'),
 			new Navigation('Sortable & Draggable', '/sortable'),
 			new Navigation('Date & Time', '/date'),
-			new Navigation('Wizard', '/wizard')
+			new Navigation('Wizard', '/wizard'),
+			new Navigation('Shift Selection', '/shift-selection')
 		];
 
 		this.scrollService.setContainer(this.document.documentElement);
