@@ -11,16 +11,16 @@ export class ShiftSelectionComponent implements OnInit {
 
 	ngOnInit() {
 		this.tasks = [
-			{ id: 'task-1', name: 'task 1', selected: false },
-			{ id: 'task-2', name: 'task 2', selected: false },
-			{ id: 'task-3', name: 'task 3', selected: false },
-			{ id: 'task-4', name: 'task 4', selected: false },
-			{ id: 'task-5', name: 'task 5', selected: false },
-			{ id: 'task-6', name: 'task 6', selected: false },
-			{ id: 'task-7', name: 'task 7', selected: false },
-			{ id: 'task-8', name: 'task 8', selected: false },
-			{ id: 'task-9', name: 'task 9', selected: false },
-			{ id: 'task-10', name: 'task 10', selected: false }
+			{ id: 1, name: 'task 1', selected: false },
+			{ id: 2, name: 'task 2', selected: false },
+			{ id: 3, name: 'task 3', selected: false },
+			{ id: 4, name: 'task 4', selected: false },
+			{ id: 5, name: 'task 5', selected: false },
+			{ id: 6, name: 'task 6', selected: false },
+			{ id: 7, name: 'task 7', selected: false },
+			{ id: 8, name: 'task 8', selected: false },
+			{ id: 9, name: 'task 9', selected: false },
+			{ id: 10, name: 'task 10', selected: false }
 		];
 	}
 }

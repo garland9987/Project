@@ -15,7 +15,7 @@ export class SortableContainerDirective extends BaseDirective implements OnInit,
 	@Input() appSortableContainer: any[];
 	@Output() appSortableContainerChange = new EventEmitter<any[]>();
 
-	@ContentChildren(SortableItemDirective)
+	@ContentChildren(SortableItemDirective, { descendants: true })
 	sortableItemDirectives: QueryList<SortableItemDirective>;
 
 	constructor(private elementRef: ElementRef,

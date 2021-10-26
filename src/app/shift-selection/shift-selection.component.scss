@@ -2,35 +2,38 @@
 @import '_mixins';
 @import '_utilities';
 
-.task {
-	padding: .5em 0;
-	border: 1px solid #ced4da;
+.task-container {
 
-	.two-columns {
-		display: grid;
-		grid-template-columns: 50px 1fr;
+	.task {
+		padding: .5em 0;
+		border: 1px solid #ced4da;
 
-		.first-column {
-			@include flexbox-center;
-		}
+		.two-columns {
+			display: grid;
+			grid-template-columns: 50px 1fr;
 
-		.second-column {
-			padding-left: 1em;
-			border-left: 1px solid #ced4da;
+			.first-column {
+				@include flexbox-center;
+			}
+
+			.second-column {
+				padding-left: 1em;
+				border-left: 1px solid #ced4da;
+			}
 		}
 	}
-}
 
-.task:first-of-type {
-	border-top-left-radius: .25em;
-	border-top-right-radius: .25em;
-}
+	.task:first-of-type {
+		border-top-left-radius: .25em;
+		border-top-right-radius: .25em;
+	}
 
-.task:last-of-type {
-	border-bottom-left-radius: .25em;
-	border-bottom-right-radius: .25em;
-}
+	.task:last-of-type {
+		border-bottom-left-radius: .25em;
+		border-bottom-right-radius: .25em;
+	}
 
-.task:not(:first-of-type) {
-	border-top: none;
+	.task:not(:first-of-type) {
+		border-top: none;
+	}
 }
